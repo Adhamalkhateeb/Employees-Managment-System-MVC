@@ -59,17 +59,59 @@ public sealed class CreateEmployeeCommandHandler
             return EmployeeErrors.PhoneNumberAlreadyExists;
         }
 
+        var countryExists = await _context.Countries.AnyAsync(
+            x => x.Id == command.CountryId,
+            cancellationToken
+        );
+
+        if (!countryExists)
+        {
+            _logger.LogWarning(
+                "Attempt to create employee with unknown country: {CountryId}",
+                command.CountryId
+            );
+            return EmployeeErrors.CountryNotFound;
+        }
+
+        var departmentExists = await _context.Departments.AnyAsync(
+            x => x.Id == command.DepartmentId,
+            cancellationToken
+        );
+
+        if (!departmentExists)
+        {
+            _logger.LogWarning(
+                "Attempt to create employee with unknown department: {DepartmentId}",
+                command.DepartmentId
+            );
+            return EmployeeErrors.DepartmentNotFound;
+        }
+
+        var designationExists = await _context.Designations.AnyAsync(
+            x => x.Id == command.DesignationId,
+            cancellationToken
+        );
+
+        if (!designationExists)
+        {
+            _logger.LogWarning(
+                "Attempt to create employee with unknown designation: {DesignationId}",
+                command.DesignationId
+            );
+            return EmployeeErrors.DesignationNotFound;
+        }
+
         var createResult = Employee.Create(
             command.FirstName,
             command.MiddleName,
             command.LastName,
             command.PhoneNumber,
             command.EmailAddress,
-            command.Country,
             command.DateOfBirth,
             command.Address,
-            command.Department,
-            command.Designation
+            command.CountryId,
+            command.DepartmentId,
+            command.DesignationId
         );
 
         if (createResult.IsError)

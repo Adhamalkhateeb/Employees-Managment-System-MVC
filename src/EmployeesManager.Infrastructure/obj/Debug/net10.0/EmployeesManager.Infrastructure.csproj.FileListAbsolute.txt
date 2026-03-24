@@ -17,3 +17,12 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\ob
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\obj\Debug\net10.0\EmployeesManager.Infrastructure.pdb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\obj\Debug\net10.0\EmployeesManager.Infrastructure.genruntimeconfig.cache
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\obj\Debug\net10.0\ref\EmployeesManager.Infrastructure.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\obj\Debug\net10.0\EmployeesManager.Infrastructure.sourcelink.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Infrastructure.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Infrastructure.runtimeconfig.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Infrastructure.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Infrastructure.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Application.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Application.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Domain.pdb

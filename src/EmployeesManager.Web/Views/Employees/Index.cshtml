@@ -1,48 +1,12 @@
 @model List<EmployeeResponse>
 @{ ViewBag.Title = "Employee List"; }
 
-<style>
-    /* Custom Modern Enhancements */
-    .employee-card {
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        border: none;
-        overflow: hidden;
-    }
-    .employee-card .card-header {
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
-        color: white;
-        border-bottom: none;
-        padding: 1.5rem;
-    }
-    .action-btn {
-        transition: transform 0.2s, box-shadow 0.2s;
-        border-radius: 8px;
-    }
-    .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    .table-modern tbody tr {
-        transition: background-color 0.2s, transform 0.2s;
-    }
-    .table-modern tbody tr:hover {
-        background-color: #f8f9fa;
-        transform: scale(1.002);
-    }
-    .badge-modern {
-        font-weight: 500;
-        padding: 0.5em 0.7em;
-        border-radius: 6px;
-    }
-</style>
-
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
     <div>
         <h2 class="fw-bold mb-0 text-dark">Employee Directory</h2>
         <p class="text-muted mb-0">Manage and view all employee profiles</p>
     </div>
-    <a asp-action="Create" class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2" style="border-radius: 8px; font-weight: 500; box-shadow: 0 4px 12px rgba(13,110,253,0.25);">
+    <a asp-action="Create" class="btn btn-primary btn-primary-elevated d-flex align-items-center gap-2 px-4 py-2">
         <i class="fa-solid fa-plus"></i> Add Employee
     </a>
 </div>
@@ -50,7 +14,7 @@
 @if (!Model.Any())
 {
     <div class="alert alert-light text-center p-5 shadow-sm rounded-4 border-0" role="alert">
-        <i class="fa-solid fa-users text-muted mb-3" style="font-size: 3rem;"></i>
+        <i class="fa-solid fa-users text-muted mb-3 empty-state-icon"></i>
         <h4 class="text-dark fw-bold">No Employees Found</h4>
         <p class="text-muted mb-4">There are currently no employees in the system. Get started by adding a new one.</p>
         <a asp-action="Create" class="btn btn-primary px-4 py-2 rounded-3"><i class="fa-solid fa-plus me-2"></i>Add Your First Employee</a>
@@ -58,19 +22,19 @@
 }
 else
 {
-    <div class="card employee-card mb-5">
+    <div class="card employee-card list-card mb-5">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title fw-bold m-0"><i class="fa-solid fa-list me-2"></i> Active Employees</h3>
+            <h3 class="card-title fw-bold m-0"><i class="fa-solid fa-list me-2"></i> Employee List</h3>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table id="example1" class="table table-hover table-modern mb-0 align-middle">
+                <table id="example1" class="table table-hover table-modern mb-0 align-middle js-data-table">
                     <thead class="table-light text-muted">
                         <tr>
-                            <th class="ps-4 text-uppercase border-0" style="font-size: 0.85rem; font-weight: 600;">Emp No.</th>
-                            <th class="text-uppercase border-0" style="font-size: 0.85rem; font-weight: 600;">Employee details</th>
-                            <th class="text-center text-uppercase border-0" style="font-size: 0.85rem; font-weight: 600;">Contact</th>
-                            <th class="text-center text-uppercase border-0" style="font-size: 0.85rem; font-weight: 600;">Actions</th>
+                            <th class="ps-4 text-uppercase border-0 table-head-label">Emp No.</th>
+                            <th class="text-uppercase border-0 table-head-label">Employee details</th>
+                            <th class="text-center text-uppercase border-0 table-head-label">Contact</th>
+                            <th class="text-center text-uppercase border-0 table-head-label">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="border-top-0">
@@ -82,21 +46,21 @@ else
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 45px; height: 45px; font-size: 1.2rem; font-weight: bold;">
+                                    <div class="initial-avatar initial-avatar-lg">
                                         @(string.IsNullOrWhiteSpace(item.FullName) ? "?" : item.FullName[0].ToString().ToUpper())
                                     </div>
                                     <div>
                                         <h6 class="mb-1 text-dark fw-bold">@item.FullName</h6>
-                                        <small class="text-muted"><i class="fa-solid fa-briefcase me-1"></i> @(string.IsNullOrEmpty(item.Designation) ? "Employee" : item.Designation)</small>
+                                        <small class="text-muted"><i class="fa-solid fa-briefcase me-1"></i> @(string.IsNullOrEmpty(item.DesignationName) ? "Employee" : item.DesignationName)</small>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="d-flex flex-column align-items-center">
-                                    <a href="mailto:@item.EmailAddress" class="text-decoration-none text-body d-block mb-1 mx-auto" style="font-size: 0.9rem;">
+                                    <a href="mailto:@item.EmailAddress" class="text-decoration-none text-body d-block mb-1 mx-auto contact-link-sm">
                                         <i class="fa-solid fa-envelope text-primary me-2"></i>@item.EmailAddress
                                     </a>
-                                    <a href="tel:@item.PhoneNumber" class="text-decoration-none text-body d-block mx-auto" style="font-size: 0.9rem;">
+                                    <a href="tel:@item.PhoneNumber" class="text-decoration-none text-body d-block mx-auto contact-link-sm">
                                         <i class="fa-solid fa-phone text-success me-2"></i>@item.PhoneNumber
                                     </a>
                                 </div>

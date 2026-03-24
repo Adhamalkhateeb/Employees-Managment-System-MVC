@@ -13,3 +13,9 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\obj\D
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\obj\Debug\net10.0\refint\EmployeesManager.Application.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\obj\Debug\net10.0\EmployeesManager.Application.pdb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\obj\Debug\net10.0\ref\EmployeesManager.Application.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\obj\Debug\net10.0\EmployeesManager.Application.sourcelink.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\artifacts\verify-build\EmployeesManager.Application.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\artifacts\verify-build\EmployeesManager.Application.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\artifacts\verify-build\EmployeesManager.Application.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\artifacts\verify-build\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Application\artifacts\verify-build\EmployeesManager.Domain.pdb

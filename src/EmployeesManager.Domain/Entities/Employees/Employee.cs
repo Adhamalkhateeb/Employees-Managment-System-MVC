@@ -1,7 +1,9 @@
-using System.Net.Mail;
 using System.Text.RegularExpressions;
 using EmployeesManager.Domain.Common;
 using EmployeesManager.Domain.Common.Results;
+using EmployeesManager.Domain.Entities.Countries;
+using EmployeesManager.Domain.Entities.Departments;
+using EmployeesManager.Domain.Entities.Designations;
 
 namespace EmployeesManager.Domain.Entities.Employees;
 
@@ -12,11 +14,14 @@ public sealed class Employee : AuditableEntity
     public string LastName { get; private set; } = string.Empty;
     public string PhoneNumber { get; private set; } = string.Empty;
     public string EmailAddress { get; private set; } = string.Empty;
-    public string Country { get; private set; } = string.Empty;
     public DateTime DateOfBirth { get; private set; }
     public string Address { get; private set; } = string.Empty;
-    public string Department { get; private set; } = string.Empty;
-    public string Designation { get; private set; } = string.Empty;
+    public Guid CountryId { get; private set; }
+    public Country Country { get; private set; } = null!;
+    public Guid DepartmentId { get; private set; }
+    public Department Department { get; private set; } = null!;
+    public Guid DesignationId { get; private set; }
+    public Designation Designation { get; private set; } = null!;
 
     private Employee() { }
 
@@ -27,11 +32,11 @@ public sealed class Employee : AuditableEntity
         string lastName,
         string phoneNumber,
         string emailAddress,
-        string country,
         DateTime dateOfBirth,
         string address,
-        string department,
-        string designation
+        Guid countryId,
+        Guid departmentId,
+        Guid designationId
     )
         : base(id)
     {
@@ -40,11 +45,11 @@ public sealed class Employee : AuditableEntity
         LastName = lastName;
         PhoneNumber = phoneNumber;
         EmailAddress = emailAddress;
-        Country = country;
         DateOfBirth = dateOfBirth;
         Address = address;
-        Department = department;
-        Designation = designation;
+        CountryId = countryId;
+        DepartmentId = departmentId;
+        DesignationId = designationId;
     }
 
     public static Result<Employee> Create(
@@ -53,11 +58,11 @@ public sealed class Employee : AuditableEntity
         string lastName,
         string phoneNumber,
         string emailAddress,
-        string country,
         DateTime dateOfBirth,
         string address,
-        string department,
-        string designation
+        Guid countryId,
+        Guid departmentId,
+        Guid designationId
     )
     {
         var validationError = Validate(
@@ -66,11 +71,11 @@ public sealed class Employee : AuditableEntity
             lastName,
             phoneNumber,
             emailAddress,
-            country,
             dateOfBirth,
             address,
-            department,
-            designation
+            countryId,
+            departmentId,
+            designationId
         );
 
         if (validationError != null)
@@ -83,11 +88,11 @@ public sealed class Employee : AuditableEntity
             lastName,
             phoneNumber,
             emailAddress,
-            country,
             dateOfBirth,
             address,
-            department,
-            designation
+            countryId,
+            departmentId,
+            designationId
         );
     }
 
@@ -97,11 +102,11 @@ public sealed class Employee : AuditableEntity
         string lastName,
         string phoneNumber,
         string emailAddress,
-        string country,
         DateTime dateOfBirth,
         string address,
-        string department,
-        string designation
+        Guid countryId,
+        Guid departmentId,
+        Guid designationId
     )
     {
         var validationError = Validate(
@@ -110,11 +115,11 @@ public sealed class Employee : AuditableEntity
             lastName,
             phoneNumber,
             emailAddress,
-            country,
             dateOfBirth,
             address,
-            department,
-            designation
+            countryId,
+            departmentId,
+            designationId
         );
 
         if (validationError != null)
@@ -125,11 +130,11 @@ public sealed class Employee : AuditableEntity
         LastName = lastName.Trim();
         PhoneNumber = phoneNumber.Trim();
         EmailAddress = emailAddress.Trim();
-        Country = country.Trim();
         DateOfBirth = dateOfBirth.Date;
         Address = address.Trim();
-        Department = department.Trim();
-        Designation = designation.Trim();
+        CountryId = countryId;
+        DepartmentId = departmentId;
+        DesignationId = designationId;
 
         return Result.Updated;
     }
@@ -140,11 +145,11 @@ public sealed class Employee : AuditableEntity
         string lastName,
         string phoneNumber,
         string emailAddress,
-        string country,
         DateTime dateOfBirth,
         string address,
-        string department,
-        string designation
+        Guid countryId,
+        Guid departmentId,
+        Guid designationId
     )
     {
         if (string.IsNullOrWhiteSpace(firstName))
@@ -175,10 +180,8 @@ public sealed class Employee : AuditableEntity
         else if (!IsValidEmail(emailAddress.Trim()))
             return EmployeeErrors.EmailAddressInvalid;
 
-        if (string.IsNullOrWhiteSpace(country))
-            return EmployeeErrors.CountryRequired;
-        else if (country.Trim().Length > EmployeeConstants.CountryMaxLength)
-            return EmployeeErrors.CountryTooLong;
+        if (countryId == Guid.Empty)
+            return EmployeeErrors.CountryIdRequired;
 
         if (
             dateOfBirth == default
@@ -191,15 +194,11 @@ public sealed class Employee : AuditableEntity
         else if (address.Trim().Length > EmployeeConstants.AddressMaxLength)
             return EmployeeErrors.AddressTooLong;
 
-        if (string.IsNullOrWhiteSpace(department))
-            return EmployeeErrors.DepartmentRequired;
-        else if (department.Trim().Length > EmployeeConstants.DepartmentMaxLength)
-            return EmployeeErrors.DepartmentTooLong;
+        if (departmentId == Guid.Empty)
+            return EmployeeErrors.DepartmentIdRequired;
 
-        if (string.IsNullOrWhiteSpace(designation))
-            return EmployeeErrors.DesignationRequired;
-        else if (designation.Trim().Length > EmployeeConstants.DesignationMaxLength)
-            return EmployeeErrors.DesignationTooLong;
+        if (designationId == Guid.Empty)
+            return EmployeeErrors.DesignationIdRequired;
 
         return null;
     }

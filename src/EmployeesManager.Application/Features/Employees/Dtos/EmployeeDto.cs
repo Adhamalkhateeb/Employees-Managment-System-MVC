@@ -7,9 +7,12 @@ public sealed record EmployeeDto(
     string LastName,
     string PhoneNumber,
     string EmailAddress,
-    string Country,
     DateTime DateOfBirth,
     string Address,
-    string Department,
-    string Designation
+    Guid CountryId,
+    string CountryName,
+    Guid DepartmentId,
+    string DepartmentName,
+    Guid DesignationId,
+    string DesignationName
 );

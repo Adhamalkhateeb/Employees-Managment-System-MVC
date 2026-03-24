@@ -1,10 +1,11 @@
 using EmployeesManager.Domain.Entities.Employees;
+using EmployeesManager.Infrastructure.Data.Configurations.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EmployeeConstantssManager.Infrastructure.Data.Configurations;
+namespace EmployeesManager.Infrastructure.Data.Configurations;
 
-public sealed class EmployeeConstantsConfiguration : IEntityTypeConfiguration<Employee>
+public sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
@@ -12,8 +13,7 @@ public sealed class EmployeeConstantsConfiguration : IEntityTypeConfiguration<Em
 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).ValueGeneratedNever();
-        builder.Property(x => x.CreatedAtUtc).IsRequired();
-        builder.Property(x => x.CreatedBy).HasMaxLength(100).IsRequired();
+        builder.ConfigureAuditableEntity();
         builder
             .Property(x => x.FirstName)
             .IsRequired()
@@ -40,11 +40,6 @@ public sealed class EmployeeConstantsConfiguration : IEntityTypeConfiguration<Em
 
         builder.HasIndex(x => x.EmailAddress).IsUnique();
 
-        builder
-            .Property(x => x.Country)
-            .IsRequired()
-            .HasMaxLength(EmployeeConstants.CountryMaxLength);
-
         builder.Property(x => x.DateOfBirth).HasColumnType("date").IsRequired();
 
         builder.ToTable(t =>
@@ -56,14 +51,26 @@ public sealed class EmployeeConstantsConfiguration : IEntityTypeConfiguration<Em
 
         builder.Property(x => x.Address).HasMaxLength(EmployeeConstants.AddressMaxLength);
 
-        builder
-            .Property(x => x.Department)
-            .IsRequired()
-            .HasMaxLength(EmployeeConstants.DepartmentMaxLength);
+        builder.HasIndex(x => x.CountryId);
+        builder.HasIndex(x => x.DepartmentId);
+        builder.HasIndex(x => x.DesignationId);
 
         builder
-            .Property(x => x.Designation)
-            .IsRequired()
-            .HasMaxLength(EmployeeConstants.DesignationMaxLength);
+            .HasOne(x => x.Country)
+            .WithMany()
+            .HasForeignKey(x => x.CountryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(x => x.Department)
+            .WithMany()
+            .HasForeignKey(x => x.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasOne(x => x.Designation)
+            .WithMany()
+            .HasForeignKey(x => x.DesignationId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

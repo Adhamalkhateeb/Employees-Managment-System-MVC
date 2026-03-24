@@ -27,8 +27,7 @@ public sealed class CreateEmployeeRequest
     public string EmailAddress { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Country is required")]
-    [StringLength(100)]
-    public string Country { get; set; } = string.Empty;
+    public Guid CountryId { get; set; }
 
     [Required(ErrorMessage = "Date of birth is required")]
     [DataType(DataType.Date)]
@@ -39,10 +38,8 @@ public sealed class CreateEmployeeRequest
     public string Address { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Department is required")]
-    [StringLength(100)]
-    public string Department { get; set; } = string.Empty;
+    public Guid DepartmentId { get; set; }
 
     [Required(ErrorMessage = "Designation is required")]
-    [StringLength(100)]
-    public string Designation { get; set; } = string.Empty;
+    public Guid DesignationId { get; set; }
 }

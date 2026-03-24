@@ -67,14 +67,14 @@ public static class EmployeeErrors
         "Email address already exists."
     );
 
-    public static readonly Error CountryRequired = Error.Validation(
-        "Employee.Country.Required",
+    public static readonly Error CountryIdRequired = Error.Validation(
+        "Employee.CountryId.Required",
         "Country is required."
     );
 
-    public static readonly Error CountryTooLong = Error.Validation(
-        "Employee.Country.TooLong",
-        "Country is too long."
+    public static readonly Error CountryNotFound = Error.NotFound(
+        "Employee.Country.NotFound",
+        "Selected country was not found."
     );
 
     public static readonly Error DateOfBirthInvalid = Error.Validation(
@@ -92,23 +92,23 @@ public static class EmployeeErrors
         "Address is too long."
     );
 
-    public static readonly Error DepartmentRequired = Error.Validation(
-        "Employee.Department.Required",
+    public static readonly Error DepartmentIdRequired = Error.Validation(
+        "Employee.DepartmentId.Required",
         "Department is required."
     );
 
-    public static readonly Error DepartmentTooLong = Error.Validation(
-        "Employee.Department.TooLong",
-        "Department is too long."
+    public static readonly Error DepartmentNotFound = Error.NotFound(
+        "Employee.Department.NotFound",
+        "Selected department was not found."
     );
 
-    public static readonly Error DesignationRequired = Error.Validation(
-        "Employee.Designation.Required",
+    public static readonly Error DesignationIdRequired = Error.Validation(
+        "Employee.DesignationId.Required",
         "Designation is required."
     );
 
-    public static readonly Error DesignationTooLong = Error.Validation(
-        "Employee.Designation.TooLong",
-        "Designation is too long."
+    public static readonly Error DesignationNotFound = Error.NotFound(
+        "Employee.Designation.NotFound",
+        "Selected designation was not found."
     );
 }

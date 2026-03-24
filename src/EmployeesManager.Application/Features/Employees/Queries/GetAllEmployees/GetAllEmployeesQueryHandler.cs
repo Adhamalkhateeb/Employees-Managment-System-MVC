@@ -19,8 +19,26 @@ public sealed class GetAllEmployeesQueryHandler
         CancellationToken cancellationToken
     )
     {
-        var entities = await _context.Employees.AsNoTracking().ToListAsync(cancellationToken);
+        var entities = await _context
+            .Employees.AsNoTracking()
+            .Select(e => new EmployeeDto(
+                e.Id,
+                e.FirstName,
+                e.MiddleName,
+                e.LastName,
+                e.PhoneNumber,
+                e.EmailAddress,
+                e.DateOfBirth,
+                e.Address,
+                e.CountryId,
+                e.Country.Name,
+                e.DepartmentId,
+                e.Department.Name,
+                e.DesignationId,
+                e.Designation.Name
+            ))
+            .ToListAsync(cancellationToken);
 
-        return entities.ToDtos();
+        return entities;
     }
 }

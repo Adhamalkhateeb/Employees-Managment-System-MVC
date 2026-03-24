@@ -11,9 +11,9 @@ public sealed record CreateEmployeeCommand(
     string LastName,
     string PhoneNumber,
     string EmailAddress,
-    string Country,
     DateTime DateOfBirth,
     string Address,
-    string Department,
-    string Designation
+    Guid CountryId,
+    Guid DepartmentId,
+    Guid DesignationId
 ) : IRequest<Result<EmployeeDto>>, IEmployeeCommand;

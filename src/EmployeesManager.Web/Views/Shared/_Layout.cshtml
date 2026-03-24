@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
 <html lang="en">
 <!--begin::Head-->
 
@@ -62,6 +63,11 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.6/css/buttons.bootstrap5.css">
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/crud-common.css" asp-append-version="true" />
+  @{
+    await RenderSectionAsync("Styles", required: false);
+  }
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -315,7 +321,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                    <a href="tables/jsgrid.html" class="nav-link">
+                    <a asp-action="@nameof(LeaveTypesController.Index)" asp-controller="LeaveTypes" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Leave Types</p>
                     </a>
@@ -344,25 +350,43 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                    <a href="tables/jsgrid.html" class="nav-link">
+                    <a asp-controller="Designations" asp-action="@nameof(DesignationsController.Index)" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Designations</p>
+                    </a>
+                  </li>
+                    <li class="nav-item">
+                    <a asp-controller="Departments" asp-action="@nameof(DepartmentsController.Index)" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Departments</p>
+                    </a>
+                  </li>
+                          <li class="nav-item">
+                    <a asp-controller="Banks" asp-action="@nameof(BanksController.Index)" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Banks</p>
+                    </a>
+                  </li>
+                    <li class="nav-item">
+                    <a asp-controller="Countries" asp-action="@nameof(CountriesController.Index)" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Countries</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="tables/simple.html" class="nav-link">
+                    <a asp-controller="Cities" asp-action="@nameof(CitiesController.Index)" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Towns/Cities</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="tables/data.html" class="nav-link">
+                    <a asp-controller="SystemCodes" asp-action="@nameof(SystemCodesController.Index)" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>System Code</p>
                     </a>
                   </li>
                    <li class="nav-item">
-                    <a href="tables/data.html" class="nav-link">
+                    <a asp-controller="SystemCodeDetails" asp-action="@nameof(SystemCodeDetailsController.Index)" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>System Code Details</p>
                     </a>
@@ -465,13 +489,19 @@
   <script src="https://cdn.datatables.net/buttons/3.2.6/js/buttons.print.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.2.6/js/buttons.colVis.min.js"></script>
   <script>
-    new DataTable('#example1', {
-    layout: {
-    topStart: {
-    }
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      const dataTables = document.querySelectorAll('.js-data-table');
+
+      dataTables.forEach(function (table) {
+        if (!table.classList.contains('dataTable')) {
+          new DataTable(table, {
+            layout: {
+              topStart: {}
+            }
+          });
+        }
+      });
     });
-   
   </script>
   @{
     await RenderSectionAsync("Scripts", required: false);

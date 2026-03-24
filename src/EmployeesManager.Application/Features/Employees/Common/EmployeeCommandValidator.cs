@@ -34,10 +34,11 @@ public abstract class EmployeeCommandValidatorBase<TCommand> : AbstractValidator
             .WithMessage("Email address format is invalid")
             .MaximumLength(EmployeeConstants.EmailAddressMaxLength);
 
-        RuleFor(x => x.Country)
+        RuleFor(x => x.CountryId)
             .NotEmpty()
             .WithMessage("Country is required")
-            .MaximumLength(EmployeeConstants.CountryMaxLength);
+            .NotEqual(Guid.Empty)
+            .WithMessage("Country is required");
 
         RuleFor(x => x.DateOfBirth)
             .NotEmpty()
@@ -50,14 +51,16 @@ public abstract class EmployeeCommandValidatorBase<TCommand> : AbstractValidator
             .WithMessage("Address is required")
             .MaximumLength(EmployeeConstants.AddressMaxLength);
 
-        RuleFor(x => x.Department)
+        RuleFor(x => x.DepartmentId)
             .NotEmpty()
             .WithMessage("Department is required")
-            .MaximumLength(EmployeeConstants.DepartmentMaxLength);
+            .NotEqual(Guid.Empty)
+            .WithMessage("Department is required");
 
-        RuleFor(x => x.Designation)
+        RuleFor(x => x.DesignationId)
             .NotEmpty()
             .WithMessage("Designation is required")
-            .MaximumLength(EmployeeConstants.DesignationMaxLength);
+            .NotEqual(Guid.Empty)
+            .WithMessage("Designation is required");
     }
 }

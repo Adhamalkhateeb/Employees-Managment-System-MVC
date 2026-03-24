@@ -1,7 +1,11 @@
 using EmployeesManager.Application.Features.Employees.Commands.CreateEmployee;
+using EmployeesManager.Domain.Entities.Countries;
+using EmployeesManager.Domain.Entities.Departments;
+using EmployeesManager.Domain.Entities.Designations;
 using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Employees.Commands;
@@ -12,7 +16,11 @@ public sealed class CreateEmployeeTests
     public async Task Handle_ValidCommand_ReturnsSuccess()
     {
         await using var context = CreateContext();
-        var handler = new CreateEmployeeCommandHandler(context);
+        var references = await SeedReferencesAsync(context);
+        var handler = new CreateEmployeeCommandHandler(
+            context,
+            NullLogger<CreateEmployeeCommandHandler>.Instance
+        );
 
         var command = new CreateEmployeeCommand(
             FirstName: "Adham",
@@ -20,11 +28,11 @@ public sealed class CreateEmployeeTests
             LastName: "Yasser",
             PhoneNumber: "01000000000",
             EmailAddress: "adham@example.com",
-            Country: "Egypt",
             DateOfBirth: new DateTime(1995, 5, 10),
             Address: "Cairo",
-            Department: "Engineering",
-            Designation: "Developer"
+            CountryId: references.CountryId,
+            DepartmentId: references.DepartmentId,
+            DesignationId: references.DesignationId
         );
 
         var result = await handler.Handle(command, CancellationToken.None);
@@ -44,11 +52,11 @@ public sealed class CreateEmployeeTests
             LastName: string.Empty,
             PhoneNumber: string.Empty,
             EmailAddress: "invalid-email",
-            Country: string.Empty,
             DateOfBirth: DateTime.UtcNow.AddDays(1),
             Address: string.Empty,
-            Department: string.Empty,
-            Designation: string.Empty
+            CountryId: Guid.Empty,
+            DepartmentId: Guid.Empty,
+            DesignationId: Guid.Empty
         );
 
         var validation = await validator.ValidateAsync(command);
@@ -64,5 +72,23 @@ public sealed class CreateEmployeeTests
             .Options;
 
         return new AppDbContext(options);
+    }
+
+    private static async Task<(
+        Guid CountryId,
+        Guid DepartmentId,
+        Guid DesignationId
+    )> SeedReferencesAsync(AppDbContext context)
+    {
+        var country = Country.Create("EG", "Egypt").Value;
+        var department = Department.Create("Engineering", "ENG").Value;
+        var designation = Designation.Create("Developer").Value;
+
+        context.Countries.Add(country);
+        context.Departments.Add(department);
+        context.Designations.Add(designation);
+        await context.SaveChangesAsync();
+
+        return (country.Id, department.Id, designation.Id);
     }
 }

@@ -16,11 +16,14 @@ public static class EmployeeMappings
             LastName: entity.LastName,
             PhoneNumber: entity.PhoneNumber,
             EmailAddress: entity.EmailAddress,
-            Country: entity.Country,
             DateOfBirth: entity.DateOfBirth,
             Address: entity.Address,
-            Department: entity.Department,
-            Designation: entity.Designation
+            CountryId: entity.CountryId,
+            CountryName: entity.Country?.Name ?? string.Empty,
+            DepartmentId: entity.DepartmentId,
+            DepartmentName: entity.Department?.Name ?? string.Empty,
+            DesignationId: entity.DesignationId,
+            DesignationName: entity.Designation?.Name ?? string.Empty
         );
     }
 

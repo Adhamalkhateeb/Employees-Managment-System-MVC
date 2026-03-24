@@ -4,7 +4,7 @@
     Layout = "_Layout";
 }
 <main>
-    <div style="max-width:480px;margin:4rem auto;text-align:center">
+    <div class="error-center-container">
         <h1>@Model.StatusCode</h1>
         <p>@Model.Message</p>
         @if (!string.IsNullOrEmpty(Model.Details))

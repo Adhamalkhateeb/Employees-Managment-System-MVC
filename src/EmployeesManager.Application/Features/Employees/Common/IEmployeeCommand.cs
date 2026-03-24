@@ -7,9 +7,9 @@ public interface IEmployeeCommand
     string LastName { get; }
     string PhoneNumber { get; }
     string EmailAddress { get; }
-    string Country { get; }
     DateTime DateOfBirth { get; }
     string Address { get; }
-    string Department { get; }
-    string Designation { get; }
+    Guid CountryId { get; }
+    Guid DepartmentId { get; }
+    Guid DesignationId { get; }
 }

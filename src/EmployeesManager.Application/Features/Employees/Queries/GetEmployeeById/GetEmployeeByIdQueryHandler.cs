@@ -31,7 +31,24 @@ public sealed class GetEmployeeByIdQueryHandler
     {
         var entity = await _context
             .Employees.AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
+            .Where(e => e.Id == query.Id)
+            .Select(e => new EmployeeDto(
+                e.Id,
+                e.FirstName,
+                e.MiddleName,
+                e.LastName,
+                e.PhoneNumber,
+                e.EmailAddress,
+                e.DateOfBirth,
+                e.Address,
+                e.CountryId,
+                e.Country.Name,
+                e.DepartmentId,
+                e.Department.Name,
+                e.DesignationId,
+                e.Designation.Name
+            ))
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (entity is null)
         {
@@ -39,6 +56,6 @@ public sealed class GetEmployeeByIdQueryHandler
             return EmployeeErrors.NotFound(query.Id);
         }
 
-        return entity.ToDto();
+        return entity;
     }
 }

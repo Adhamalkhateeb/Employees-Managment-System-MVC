@@ -14,8 +14,14 @@ namespace EmployeesManager.Web.Mappers
                     $"{dto.FirstName} {(string.IsNullOrEmpty(dto.MiddleName) ? "" : dto.MiddleName + " ")}{dto.LastName}".Trim(),
                 PhoneNumber = dto.PhoneNumber,
                 EmailAddress = dto.EmailAddress,
-                Country = dto.Country,
+                CountryId = dto.CountryId,
+                CountryName = dto.CountryName,
                 DateOfBirth = dto.DateOfBirth,
+                Address = dto.Address,
+                DepartmentId = dto.DepartmentId,
+                DepartmentName = dto.DepartmentName,
+                DesignationId = dto.DesignationId,
+                DesignationName = dto.DesignationName,
             };
 
         public static List<EmployeeResponse> ToResponses(this IEnumerable<EmployeeDto> dtos) =>
