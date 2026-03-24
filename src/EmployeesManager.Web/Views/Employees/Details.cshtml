@@ -1,0 +1,155 @@
+@model EmployeeResponse
+@{ ViewBag.Title = "Employee Details"; }
+
+<style>
+    .details-card {
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        border: none;
+        overflow: hidden;
+    }
+    .details-card .card-header {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: white;
+        border-bottom: none;
+        padding: 2rem 1.5rem;
+        position: relative;
+    }
+    .avatar-wrapper {
+        position: absolute;
+        bottom: -40px;
+        left: 2rem;
+    }
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+        color: #0d6efd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border: 4px solid white;
+    }
+    .header-content {
+        margin-left: 120px;
+    }
+    .info-section {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 1.5rem;
+        height: 100%;
+    }
+    .info-label {
+        color: #6c757d;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+    .info-value {
+        font-size: 1.05rem;
+        color: #212529;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    .btn-edit {
+        background-color: #fd7e14;
+        color: white;
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-edit:hover {
+        background-color: #e86e04;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(253,126,20,0.3);
+    }
+</style>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-10 col-xl-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a asp-action="Index" class="btn btn-light btn-sm rounded-circle shadow-sm" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-edit btn-sm px-3 rounded-pill shadow-sm">
+                    <i class="fa-solid fa-pen me-2"></i>Edit
+                </a>
+            </div>
+        </div>
+
+        <div class="card details-card mb-5">
+            <div class="card-header">
+                <div class="avatar-wrapper">
+                    <div class="avatar-circle">
+                        @(string.IsNullOrWhiteSpace(Model.FullName) ? "?" : Model.FullName[0].ToString().ToUpper())
+                    </div>
+                </div>
+                <div class="header-content">
+                    <h2 class="mb-1 fw-bold">@Model.FullName</h2>
+                    <p class="mb-0 opacity-75"><i class="fa-solid fa-briefcase me-2"></i>@(string.IsNullOrEmpty(Model.Designation) ? "Employee" : Model.Designation)</p>
+                </div>
+            </div>
+            <div class="card-body pt-5 px-4 pb-4 px-md-5">
+                
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <div class="info-section">
+                            <h5 class="mb-4 text-primary fw-bold border-bottom pb-2"><i class="fa-regular fa-address-card me-2"></i>Personal Info</h5>
+                            
+                            <span class="info-label">Employee Number</span>
+                            <div class="info-value"><span class="badge bg-secondary">@Model.EmployeeNumber</span></div>
+                            
+                            <span class="info-label">Full Name</span>
+                            <div class="info-value">@Model.FullName</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="info-section">
+                            <h5 class="mb-4 text-primary fw-bold border-bottom pb-2"><i class="fa-solid fa-address-book me-2"></i>Contact Details</h5>
+                            
+                            <span class="info-label">Email Address</span>
+                            <div class="info-value">
+                                <a href="mailto:@Model.EmailAddress" class="text-decoration-none text-body">
+                                    <i class="fa-solid fa-envelope text-primary me-2"></i>@Model.EmailAddress
+                                </a>
+                            </div>
+                            
+                            <span class="info-label">Phone Number</span>
+                            <div class="info-value">
+                                <a href="tel:@Model.PhoneNumber" class="text-decoration-none text-body">
+                                    <i class="fa-solid fa-phone text-success me-2"></i>@Model.PhoneNumber
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <div class="info-section">
+                            <h5 class="mb-4 text-primary fw-bold border-bottom pb-2"><i class="fa-solid fa-building me-2"></i>Company Details</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="info-label">Department</span>
+                                    <div class="info-value">@(string.IsNullOrEmpty(Model.Department) ? "N/A" : Model.Department)</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="info-label">Designation</span>
+                                    <div class="info-value">@(string.IsNullOrEmpty(Model.Designation) ? "N/A" : Model.Designation)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

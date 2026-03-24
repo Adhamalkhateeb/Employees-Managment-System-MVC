@@ -1,0 +1,11 @@
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\bin\Debug\net10.0\EmployeesManager.Domain.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\bin\Debug\net10.0\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\bin\Debug\net10.0\EmployeesManager.Domain.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.AssemblyInfoInputs.cache
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.AssemblyInfo.cs
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.csproj.CoreCompileInputs.cache
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\refint\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\ref\EmployeesManager.Domain.dll

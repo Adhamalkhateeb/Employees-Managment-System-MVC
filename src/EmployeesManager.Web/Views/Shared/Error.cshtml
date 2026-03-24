@@ -1,0 +1,20 @@
+﻿@model ErrorViewModel
+@{
+    ViewBag.Title = $"Error {Model.StatusCode}";
+    Layout = "_Layout";
+}
+<main>
+    <div style="max-width:480px;margin:4rem auto;text-align:center">
+        <h1>@Model.StatusCode</h1>
+        <p>@Model.Message</p>
+        @if (!string.IsNullOrEmpty(Model.Details))
+        {
+            <p><small>@Model.Details</small></p>
+        }
+        @if (!string.IsNullOrEmpty(Model.TraceId))
+        {
+            <p><small>Trace: <code>@Model.TraceId</code></small></p>
+        }
+        <a asp-controller="Home" asp-action="Index">Go Home</a>
+    </div>
+</main>

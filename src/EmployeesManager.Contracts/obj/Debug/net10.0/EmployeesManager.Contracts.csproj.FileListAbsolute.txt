@@ -1,0 +1,11 @@
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\bin\Debug\net10.0\EmployeesManager.Contracts.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\bin\Debug\net10.0\EmployeesManager.Contracts.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\bin\Debug\net10.0\EmployeesManager.Contracts.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.AssemblyInfoInputs.cache
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.AssemblyInfo.cs
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.csproj.CoreCompileInputs.cache
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\refint\EmployeesManager.Contracts.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\EmployeesManager.Contracts.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Debug\net10.0\ref\EmployeesManager.Contracts.dll

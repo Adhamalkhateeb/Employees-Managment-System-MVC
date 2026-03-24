@@ -1,0 +1,188 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        // ── Scaffold ──────────────────────────────────────────────────────────
+        {
+            "label": "CA: Scaffold — Full Stack (interactive)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/scripts/New-Feature.ps1",
+                "-All", "-WithAll"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: Scaffold — Full Stack (inline)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/scripts/New-Feature.ps1",
+                "-Namespace",          "${input:namespace}",
+                "-Feature",            "${input:featureName}",
+                "-AppProjectPath",     "${input:appPath}",
+                "-DomainProjectPath",  "${input:domainPath}",
+                "-InfraProjectPath",   "${input:infraPath}",
+                "-WebProjectPath",     "${input:webPath}",
+                "-ApiProjectPath",     "${input:apiPath}",
+                "-TestProjectPath",    "${input:testPath}",
+                "-All", "-WithAll"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: Scaffold — Application + Tests only",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-ExecutionPolicy", "Bypass",
+                "-File", "${workspaceFolder}/scripts/New-Feature.ps1",
+                "-Namespace",          "${input:namespace}",
+                "-Feature",            "${input:featureName}",
+                "-AppProjectPath",     "${input:appPath}",
+                "-DomainProjectPath",  "${input:domainPath}",
+                "-InfraProjectPath",   "${input:infraPath}",
+                "-TestProjectPath",    "${input:testPath}",
+                "-All", "-WithEntity", "-WithMappings", "-WithTests"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+
+        // ── EF Core ───────────────────────────────────────────────────────────
+        {
+            "label": "CA: EF — Add Migration",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "ef", "migrations", "add", "${input:migrationName}",
+                "--project",         "${input:infraPath}",
+                "--startup-project", "${input:webPath}"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: EF — Update Database",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "ef", "database", "update",
+                "--project",         "${input:infraPath}",
+                "--startup-project", "${input:webPath}"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: EF — Remove Last Migration",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "ef", "migrations", "remove",
+                "--project",         "${input:infraPath}",
+                "--startup-project", "${input:webPath}"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: EF — Drop Database",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "ef", "database", "drop", "--force",
+                "--project",         "${input:infraPath}",
+                "--startup-project", "${input:webPath}"
+            ],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+
+        // ── Build & Run ───────────────────────────────────────────────────────
+        {
+            "label": "CA: Build Solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["build"],
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "CA: Watch (Hot Reload)",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["watch", "--project", "${input:webPath}"],
+            "group": "build",
+            "isBackground": true,
+            "presentation": { "reveal": "always", "panel": "dedicated" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: Clean Solution",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["clean"],
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+
+        // ── Tests ─────────────────────────────────────────────────────────────
+        {
+            "label": "CA: Run All Tests",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["test", "--logger", "console;verbosity=detailed"],
+            "group": { "kind": "test", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: Run Tests (No Build)",
+            "type": "shell",
+            "command": "dotnet",
+            "args": ["test", "--no-build", "--logger", "console;verbosity=detailed"],
+            "group": "test",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        },
+        {
+            "label": "CA: Run Tests (Coverage)",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "--collect", "XPlat Code Coverage",
+                "--results-directory", "coverage"
+            ],
+            "group": "test",
+            "presentation": { "reveal": "always", "panel": "shared" },
+            "problemMatcher": []
+        }
+    ],
+
+    "inputs": [
+        { "id": "namespace",     "type": "promptString", "description": "Root namespace (e.g. MyApp)" },
+        { "id": "featureName",   "type": "promptString", "description": "Feature name in PascalCase (e.g. Invoice)" },
+        { "id": "appPath",       "type": "promptString", "description": "Application project path" },
+        { "id": "domainPath",    "type": "promptString", "description": "Domain project path" },
+        { "id": "infraPath",     "type": "promptString", "description": "Infrastructure project path" },
+        { "id": "webPath",       "type": "promptString", "description": "Web/MVC project path" },
+        { "id": "apiPath",       "type": "promptString", "description": "API project path" },
+        { "id": "testPath",      "type": "promptString", "description": "Test project path" },
+        { "id": "migrationName", "type": "promptString", "description": "Migration name (e.g. AddInvoiceTable)" }
+    ]
+}
