@@ -4,10 +4,8 @@ using EmployeesManager.Application.Features.SystemCodes.Commands.UpdateSystemCod
 using EmployeesManager.Application.Features.SystemCodes.Queries.GetAllSystemCodes;
 using EmployeesManager.Application.Features.SystemCodes.Queries.GetSystemCodeById;
 using EmployeesManager.Contracts.Requests.SystemCodes;
-using EmployeesManager.Contracts.Responses.SystemCodes;
 using EmployeesManager.Web.Mappers;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesManager.Web.Controllers;
@@ -41,7 +39,7 @@ public sealed class SystemCodesController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new CreateSystemCodeCommand(request.Name, request.Code);
+        var command = new CreateSystemCodeCommand(request.Code, request.Description);
 
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match(
@@ -58,7 +56,11 @@ public sealed class SystemCodesController : MvcController
             item =>
             {
                 ViewBag.Id = item.Id;
-                var request = new UpdateSystemCodeRequest { Name = item.Name, Code = item.Code };
+                var request = new UpdateSystemCodeRequest
+                {
+                    Description = item.Description,
+                    Code = item.Code,
+                };
                 return View(request);
             },
             errors => HandleError(errors)
@@ -83,7 +85,11 @@ public sealed class SystemCodesController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new UpdateSystemCodeCommand(Id: id, Name: request.Name, Code: request.Code);
+        var command = new UpdateSystemCodeCommand(
+            Id: id,
+            Description: request.Description,
+            Code: request.Code
+        );
 
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match(

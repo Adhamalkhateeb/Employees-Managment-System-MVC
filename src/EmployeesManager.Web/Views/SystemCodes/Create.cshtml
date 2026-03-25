@@ -29,15 +29,15 @@
                     @Html.AntiForgeryToken()
 
                     <div class="row g-4">
-                        <div class="col-md-6">
-                            <label asp-for="Name" class="form-label fw-semibold">Name</label>
-                            <input asp-for="Name" class="form-control" placeholder="Enter system code name" />
-                            <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label asp-for="Code" class="form-label fw-semibold">Code</label>
                             <input asp-for="Code" class="form-control" placeholder="Enter code" />
                             <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-8">
+                            <label asp-for="Description" class="form-label fw-semibold">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Enter system code description" />
+                            <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
                         </div>
                     </div>
 

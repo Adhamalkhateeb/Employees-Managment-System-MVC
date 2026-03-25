@@ -5,6 +5,6 @@ using MediatR;
 
 namespace EmployeesManager.Application.Features.SystemCodes.Commands.CreateSystemCode;
 
-public sealed record CreateSystemCodeCommand(string Name, string Code)
-    : IRequest<Result<SystemCodeDto>>,
+public sealed record CreateSystemCodeCommand(string Code, string? Description)
+    : IRequest<Result<Created>>,
         ISystemCodeCommand;

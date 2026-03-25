@@ -8,12 +8,11 @@ public sealed class UpdateSystemCodeDetailRequest
     public Guid SystemCodeId { get; set; }
 
     [Required(ErrorMessage = "Code is required")]
-    [StringLength(50)]
+    [StringLength(100)]
     public string Code { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Description is required")]
     [StringLength(500)]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; } = string.Empty;
 
     [Range(0, int.MaxValue, ErrorMessage = "Order number must be greater than or equal to zero")]
     public int? OrderNo { get; set; }

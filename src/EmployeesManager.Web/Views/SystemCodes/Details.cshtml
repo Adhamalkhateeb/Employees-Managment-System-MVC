@@ -16,12 +16,11 @@
             <div class="card-header">
                 <div class="avatar-wrapper">
                     <div class="avatar-circle">
-                        @(string.IsNullOrWhiteSpace(Model.Name) ? "?" : Model.Name[0].ToString().ToUpper())
+                        @(string.IsNullOrWhiteSpace(Model.Code) ? "</>" : Model.Code[0].ToString().ToUpper())
                     </div>
                 </div>
                 <div class="header-content">
-                    <h2 class="mb-1 fw-bold">@Model.Name</h2>
-                    <p class="mb-0 opacity-75"><i class="fa-solid fa-code me-2"></i>System Code Record</p>
+                    <h5 class="mb-0 opacity-75"><i class="fa-solid fa-code me-2"></i>System Code Record</h5>
                 </div>
             </div>
 
@@ -34,8 +33,8 @@
                     <span class="info-label">Code</span>
                     <div class="info-value"><span class="badge bg-secondary">@Model.Code</span></div>
 
-                    <span class="info-label">Name</span>
-                    <div class="info-value">@Model.Name</div>
+                    <span class="info-label">Description</span>
+                    <div class="info-value">@(Model.Description ?? "N/A")</div>
                 </div>
             </div>
         </div>

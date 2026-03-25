@@ -9,7 +9,7 @@ public static class SystemCodeDetailMappers
         new(
             Id: dto.Id,
             SystemCodeId: dto.SystemCodeId,
-            SystemCodeName: dto.SystemCodeName,
+            SystemCode: dto.SystemCode,
             Code: dto.Code,
             Description: dto.Description,
             OrderNo: dto.OrderNo

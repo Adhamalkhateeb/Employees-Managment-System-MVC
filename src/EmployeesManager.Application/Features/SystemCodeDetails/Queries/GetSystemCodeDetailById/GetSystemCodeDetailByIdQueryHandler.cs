@@ -22,12 +22,20 @@ public sealed class GetSystemCodeDetailByIdQueryHandler
     {
         var entity = await _context
             .SystemCodeDetails.AsNoTracking()
-            .Include(x => x.SystemCode)
-            .FirstOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
+            .Where(x => x.Id == query.Id)
+            .Select(x => new SystemCodeDetailDto(
+                x.Id,
+                x.SystemCodeId,
+                x.SystemCode.Code,
+                x.Code,
+                x.Description,
+                x.OrderNo
+            ))
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (entity is null)
             return SystemCodeDetailErrors.NotFound(query.Id);
 
-        return entity.ToDto();
+        return entity;
     }
 }

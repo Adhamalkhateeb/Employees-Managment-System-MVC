@@ -6,5 +6,5 @@ using MediatR;
 namespace EmployeesManager.Application.Features.Cities.Commands.CreateCity;
 
 public sealed record CreateCityCommand(string Code, string Name, Guid CountryId)
-    : IRequest<Result<CityDto>>,
+    : IRequest<Result<Created>>,
         ICityCommand;

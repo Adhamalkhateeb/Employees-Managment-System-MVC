@@ -16,4 +16,4 @@ public sealed record CreateEmployeeCommand(
     Guid CountryId,
     Guid DepartmentId,
     Guid DesignationId
-) : IRequest<Result<EmployeeDto>>, IEmployeeCommand;
+) : IRequest<Result<Created>>, IEmployeeCommand;

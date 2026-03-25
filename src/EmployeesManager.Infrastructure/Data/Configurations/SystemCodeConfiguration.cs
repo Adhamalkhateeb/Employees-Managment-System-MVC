@@ -16,10 +16,10 @@ public sealed class SystemCodeConfiguration : IEntityTypeConfiguration<SystemCod
         builder.Property(x => x.Id).ValueGeneratedNever();
         builder.ConfigureAuditableEntity();
 
-        builder.Property(x => x.Name).IsRequired().HasMaxLength(SystemCodeConstants.NameMaxLength);
         builder.Property(x => x.Code).IsRequired().HasMaxLength(SystemCodeConstants.CodeMaxLength);
 
-        builder.HasIndex(x => x.Name).IsUnique();
+        builder.Property(x => x.Description).HasMaxLength(SystemCodeConstants.DescriptionMaxLength);
+
         builder.HasIndex(x => x.Code).IsUnique();
     }
 }

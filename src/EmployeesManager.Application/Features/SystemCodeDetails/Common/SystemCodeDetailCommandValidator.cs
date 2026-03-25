@@ -13,12 +13,16 @@ public abstract class SystemCodeDetailCommandValidatorBase<TCommand> : AbstractV
         RuleFor(x => x.Code)
             .NotEmpty()
             .WithMessage("Code is required")
-            .MaximumLength(SystemCodeDetailConstants.CodeMaxLength);
+            .MaximumLength(SystemCodeDetailConstants.CodeMaxLength)
+            .WithMessage(
+                $"Code must not exceed {SystemCodeDetailConstants.CodeMaxLength} characters."
+            );
 
         RuleFor(x => x.Description)
-            .NotEmpty()
-            .WithMessage("Description is required")
-            .MaximumLength(SystemCodeDetailConstants.DescriptionMaxLength);
+            .MaximumLength(SystemCodeDetailConstants.DescriptionMaxLength)
+            .WithMessage(
+                $"Description must not exceed {SystemCodeDetailConstants.DescriptionMaxLength} characters."
+            );
 
         RuleFor(x => x.OrderNo)
             .GreaterThanOrEqualTo(0)

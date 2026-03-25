@@ -34,7 +34,7 @@ else
                         <th class="ps-4 text-uppercase border-0 table-head-label">System Code</th>
                         <th class="text-uppercase border-0 table-head-label">Code</th>
                         <th class="text-uppercase border-0 table-head-label">Description</th>
-                        <th class="text-uppercase border-0 table-head-label">Order</th>
+                        <th class="text-center text-uppercase border-0 table-head-label">Order No.</th>
                         <th class="text-center text-uppercase border-0 table-head-label">Actions</th>
                     </tr>
                     </thead>
@@ -42,10 +42,10 @@ else
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="ps-4">@item.SystemCodeName</td>
+                        <td class="ps-4 fw-semibold">@(item.SystemCode ?? "Unknown System Code")</td>
                         <td><span class="badge bg-secondary">@item.Code</span></td>
-                        <td>@item.Description</td>
-                        <td>@(item.OrderNo?.ToString() ?? "-")</td>
+                        <td>@(item.Description ?? "No description available")</td>
+                        <td class="text-center">@(item.OrderNo?.ToString() ?? "-")</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info action-btn" data-bs-toggle="tooltip" title="View Details">

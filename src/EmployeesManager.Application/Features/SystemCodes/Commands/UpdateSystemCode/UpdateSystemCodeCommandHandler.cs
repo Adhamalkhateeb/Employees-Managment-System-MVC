@@ -26,14 +26,6 @@ public sealed class UpdateSystemCodeCommandHandler
         if (entity is null)
             return SystemCodeErrors.NotFound(command.Id);
 
-        var nameExists = await _context.SystemCodes.AnyAsync(
-            x => x.Name == command.Name && x.Id != command.Id,
-            cancellationToken
-        );
-
-        if (nameExists)
-            return SystemCodeErrors.NameAlreadyExists;
-
         var codeExists = await _context.SystemCodes.AnyAsync(
             x => x.Code == command.Code && x.Id != command.Id,
             cancellationToken
@@ -42,7 +34,7 @@ public sealed class UpdateSystemCodeCommandHandler
         if (codeExists)
             return SystemCodeErrors.CodeAlreadyExists;
 
-        var updateResult = entity.Update(command.Name, command.Code);
+        var updateResult = entity.Update(command.Code, command.Description);
 
         if (updateResult.IsError)
             return updateResult.Errors;

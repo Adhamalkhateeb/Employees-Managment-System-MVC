@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesManager.Application.Features.Cities.Commands.CreateCity;
 
-public sealed class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, Result<CityDto>>
+public sealed class CreateCityCommandHandler : IRequestHandler<CreateCityCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateCityCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<CityDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateCityCommand command,
         CancellationToken cancellationToken
     )
@@ -44,6 +44,6 @@ public sealed class CreateCityCommandHandler : IRequestHandler<CreateCityCommand
         _context.Cities.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

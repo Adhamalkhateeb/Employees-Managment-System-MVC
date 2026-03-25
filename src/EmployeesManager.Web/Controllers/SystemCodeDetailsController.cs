@@ -5,10 +5,8 @@ using EmployeesManager.Application.Features.SystemCodeDetails.Queries.GetAllSyst
 using EmployeesManager.Application.Features.SystemCodeDetails.Queries.GetSystemCodeDetailById;
 using EmployeesManager.Application.Features.SystemCodes.Queries.GetAllSystemCodes;
 using EmployeesManager.Contracts.Requests.SystemCodeDetails;
-using EmployeesManager.Contracts.Responses.SystemCodeDetails;
 using EmployeesManager.Web.Mappers;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -149,7 +147,7 @@ public sealed class SystemCodeDetailsController : MvcController
 
         ViewBag.SystemCodes = systemCodes.IsSuccess
             ? systemCodes
-                .Value.Select(x => new SelectListItem($"{x.Name} ({x.Code})", x.Id.ToString()))
+                .Value.Select(x => new SelectListItem($"{x.Code}", x.Id.ToString()))
                 .ToList()
             : [];
     }

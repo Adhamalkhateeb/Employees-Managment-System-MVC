@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesManager.Application.Features.Banks.Commands.CreateBank;
 
-public sealed class CreateBankCommandHandler : IRequestHandler<CreateBankCommand, Result<BankDto>>
+public sealed class CreateBankCommandHandler : IRequestHandler<CreateBankCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateBankCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<BankDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateBankCommand command,
         CancellationToken cancellationToken
     )
@@ -52,6 +52,6 @@ public sealed class CreateBankCommandHandler : IRequestHandler<CreateBankCommand
         _context.Banks.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

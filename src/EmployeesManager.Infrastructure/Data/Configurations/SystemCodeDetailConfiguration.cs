@@ -20,9 +20,9 @@ public sealed class SystemCodeDetailConfiguration : IEntityTypeConfiguration<Sys
             .Property(x => x.Code)
             .IsRequired()
             .HasMaxLength(SystemCodeDetailConstants.CodeMaxLength);
+
         builder
             .Property(x => x.Description)
-            .IsRequired()
             .HasMaxLength(SystemCodeDetailConstants.DescriptionMaxLength);
 
         builder.HasIndex(x => new { x.SystemCodeId, x.Code }).IsUnique();

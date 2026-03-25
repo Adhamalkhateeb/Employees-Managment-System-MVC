@@ -21,9 +21,16 @@ public sealed class GetAllSystemCodeDetailsQueryHandler
     {
         var entities = await _context
             .SystemCodeDetails.AsNoTracking()
-            .Include(x => x.SystemCode)
+            .Select(x => new SystemCodeDetailDto(
+                x.Id,
+                x.SystemCodeId,
+                x.SystemCode.Code,
+                x.Code,
+                x.Description,
+                x.OrderNo
+            ))
             .ToListAsync(cancellationToken);
 
-        return (Result<List<SystemCodeDetailDto>>)entities.ToDtos();
+        return entities;
     }
 }

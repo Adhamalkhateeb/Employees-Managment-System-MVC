@@ -9,25 +9,17 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeesManager.Application.Features.SystemCodes.Commands.CreateSystemCode;
 
 public sealed class CreateSystemCodeCommandHandler
-    : IRequestHandler<CreateSystemCodeCommand, Result<SystemCodeDto>>
+    : IRequestHandler<CreateSystemCodeCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateSystemCodeCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<SystemCodeDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateSystemCodeCommand command,
         CancellationToken cancellationToken
     )
     {
-        var nameExists = await _context.SystemCodes.AnyAsync(
-            x => x.Name == command.Name,
-            cancellationToken
-        );
-
-        if (nameExists)
-            return SystemCodeErrors.NameAlreadyExists;
-
         var codeExists = await _context.SystemCodes.AnyAsync(
             x => x.Code == command.Code,
             cancellationToken
@@ -36,7 +28,7 @@ public sealed class CreateSystemCodeCommandHandler
         if (codeExists)
             return SystemCodeErrors.CodeAlreadyExists;
 
-        var createResult = SystemCode.Create(command.Name, command.Code);
+        var createResult = SystemCode.Create(command.Code, command.Description);
 
         if (createResult.IsError)
             return createResult.Errors;
@@ -45,6 +37,6 @@ public sealed class CreateSystemCodeCommandHandler
         _context.SystemCodes.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

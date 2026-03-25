@@ -8,14 +8,16 @@ public abstract class SystemCodeCommandValidatorBase<TCommand> : AbstractValidat
 {
     protected void CommonRules()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage("Name is required")
-            .MaximumLength(SystemCodeConstants.NameMaxLength);
+        RuleFor(x => x.Description)
+            .MaximumLength(SystemCodeConstants.DescriptionMaxLength)
+            .WithMessage(
+                $"Description must not exceed {SystemCodeConstants.DescriptionMaxLength} characters."
+            );
 
         RuleFor(x => x.Code)
             .NotEmpty()
             .WithMessage("Code is required")
-            .MaximumLength(SystemCodeConstants.CodeMaxLength);
+            .MaximumLength(SystemCodeConstants.CodeMaxLength)
+            .WithMessage($"Code must not exceed {SystemCodeConstants.CodeMaxLength} characters.");
     }
 }

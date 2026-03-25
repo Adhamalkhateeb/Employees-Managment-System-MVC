@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeesManager.Application.Features.SystemCodeDetails.Commands.CreateSystemCodeDetail;
 
 public sealed class CreateSystemCodeDetailCommandHandler
-    : IRequestHandler<CreateSystemCodeDetailCommand, Result<SystemCodeDetailDto>>
+    : IRequestHandler<CreateSystemCodeDetailCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateSystemCodeDetailCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<SystemCodeDetailDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateSystemCodeDetailCommand command,
         CancellationToken cancellationToken
     )
@@ -42,6 +42,6 @@ public sealed class CreateSystemCodeDetailCommandHandler
         _context.SystemCodeDetails.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

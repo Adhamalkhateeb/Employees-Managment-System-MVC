@@ -6,5 +6,5 @@ using MediatR;
 namespace EmployeesManager.Application.Features.Banks.Commands.CreateBank;
 
 public sealed record CreateBankCommand(string Code, string Name, string AccountNo)
-    : IRequest<Result<BankDto>>,
+    : IRequest<Result<Created>>,
         IBankCommand;

@@ -8,6 +8,6 @@ namespace EmployeesManager.Application.Features.SystemCodeDetails.Commands.Creat
 public sealed record CreateSystemCodeDetailCommand(
     Guid SystemCodeId,
     string Code,
-    string Description,
+    string? Description,
     int? OrderNo
-) : IRequest<Result<SystemCodeDetailDto>>, ISystemCodeDetailCommand;
+) : IRequest<Result<Created>>, ISystemCodeDetailCommand;

@@ -4,6 +4,6 @@ public interface ISystemCodeDetailCommand
 {
     Guid SystemCodeId { get; }
     string Code { get; }
-    string Description { get; }
+    string? Description { get; }
     int? OrderNo { get; }
 }

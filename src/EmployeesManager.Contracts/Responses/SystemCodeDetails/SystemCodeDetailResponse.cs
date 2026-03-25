@@ -3,8 +3,8 @@ namespace EmployeesManager.Contracts.Responses.SystemCodeDetails;
 public sealed record SystemCodeDetailResponse(
     Guid Id,
     Guid SystemCodeId,
-    string SystemCodeName,
+    string SystemCode,
     string Code,
-    string Description,
+    string? Description,
     int? OrderNo
 );

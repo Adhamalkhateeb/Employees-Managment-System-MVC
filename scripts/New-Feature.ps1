@@ -314,6 +314,44 @@ public static class ${Feature}Mappings
 }
 
 # ══════════════════════════════════════════════════════════════════════════
+#  Common
+# ══════════════════════════════════════════════════════════════════════════
+
+if ($HasCreate && $HasUpdate) {
+
+     Write-Section "Common Contracts"
+    $dir = "$appBase/Common/I${Feature}Command"
+    Write-File "$dir/I${Feature}Command.cs" @"
+    
+
+namespace $appNs.Features.$featurePlural.Common;
+
+public interface I${Feature}Command
+{
+    // TODO: add common command properties
+}
+"@
+
+    Write-File "$dir/${Feature}CommandValidator.cs" @"
+
+using FluentValidation;
+
+namespace $appNs.Features.$featurePlural.Common;
+
+public abstract class ${Feature}CommandValidatorBase<TCommand> : AbstractValidator<TCommand>
+where TCommand : I${Feature}Command
+{
+    protected void CommonRules()
+    {
+        //TODO: add common validation rules for Create and Update commands
+    }
+}
+
+
+"@
+}
+
+# ══════════════════════════════════════════════════════════════════════════
 #  CREATE
 # ══════════════════════════════════════════════════════════════════════════
 if ($HasCreate) {

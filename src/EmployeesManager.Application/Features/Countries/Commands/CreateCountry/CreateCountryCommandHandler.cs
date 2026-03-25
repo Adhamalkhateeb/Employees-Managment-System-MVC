@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeesManager.Application.Features.Countries.Commands.CreateCountry;
 
 public sealed class CreateCountryCommandHandler
-    : IRequestHandler<CreateCountryCommand, Result<CountryDto>>
+    : IRequestHandler<CreateCountryCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateCountryCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<CountryDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateCountryCommand command,
         CancellationToken cancellationToken
     )
@@ -45,6 +45,6 @@ public sealed class CreateCountryCommandHandler
         _context.Countries.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

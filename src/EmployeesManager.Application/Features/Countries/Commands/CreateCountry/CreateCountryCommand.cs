@@ -6,5 +6,5 @@ using MediatR;
 namespace EmployeesManager.Application.Features.Countries.Commands.CreateCountry;
 
 public sealed record CreateCountryCommand(string Code, string Name)
-    : IRequest<Result<CountryDto>>,
+    : IRequest<Result<Created>>,
         ICountryCommand;

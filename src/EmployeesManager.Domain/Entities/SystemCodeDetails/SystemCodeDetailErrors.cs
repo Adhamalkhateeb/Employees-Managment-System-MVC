@@ -22,11 +22,6 @@ public static class SystemCodeDetailErrors
         "Code is too long."
     );
 
-    public static readonly Error DescriptionRequired = Error.Validation(
-        "SystemCodeDetail.Description.Required",
-        "Description is required."
-    );
-
     public static readonly Error DescriptionTooLong = Error.Validation(
         "SystemCodeDetail.Description.TooLong",
         "Description is too long."

@@ -5,48 +5,54 @@ namespace EmployeesManager.Domain.Entities.SystemCodes;
 
 public sealed class SystemCode : AuditableEntity
 {
-    public string Name { get; private set; } = default!;
     public string Code { get; private set; } = default!;
+    public string? Description { get; set; } = string.Empty;
 
     private SystemCode() { }
 
-    private SystemCode(Guid id)
-        : base(id) { }
-
-    public static Result<SystemCode> Create(string name, string code)
+    private SystemCode(Guid id, string code, string? description)
+        : base(id)
     {
-        var validationError = Validate(name, code);
-
-        if (validationError is not null)
-            return validationError;
-
-        return new SystemCode(Guid.NewGuid()) { Name = name.Trim(), Code = code.Trim() };
+        Code = code;
+        Description = description;
     }
 
-    public Result<Updated> Update(string name, string code)
+    public static Result<SystemCode> Create(string code, string? description)
     {
-        var validationError = Validate(name, code);
+        var validationError = Validate(code, description);
 
         if (validationError is not null)
             return validationError;
 
-        Name = name.Trim();
+        return new SystemCode(Guid.NewGuid(), code, description);
+    }
+
+    public Result<Updated> Update(string code, string? description)
+    {
+        var validationError = Validate(code, description);
+
+        if (validationError is not null)
+            return validationError;
+
         Code = code.Trim();
+        Description = description?.Trim();
 
         return Result.Updated;
     }
 
-    private static Error? Validate(string name, string code)
+    private static Error? Validate(string code, string? description)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            return SystemCodeErrors.NameRequired;
-        if (name.Trim().Length > SystemCodeConstants.NameMaxLength)
-            return SystemCodeErrors.NameTooLong;
-
         if (string.IsNullOrWhiteSpace(code))
             return SystemCodeErrors.CodeRequired;
+
         if (code.Trim().Length > SystemCodeConstants.CodeMaxLength)
             return SystemCodeErrors.CodeTooLong;
+
+        if (
+            !string.IsNullOrEmpty(description)
+            && description.Trim().Length > SystemCodeConstants.DescriptionMaxLength
+        )
+            return SystemCodeErrors.DescriptionTooLong;
 
         return null;
     }

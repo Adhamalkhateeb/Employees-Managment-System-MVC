@@ -2,7 +2,8 @@ using FluentValidation;
 
 namespace EmployeesManager.Application.Features.SystemCodeDetails.Queries.GetSystemCodeDetailById;
 
-public sealed class GetSystemCodeDetailByIdQueryValidator : AbstractValidator<GetSystemCodeDetailByIdQuery>
+public sealed class GetSystemCodeDetailByIdQueryValidator
+    : AbstractValidator<GetSystemCodeDetailByIdQuery>
 {
     public GetSystemCodeDetailByIdQueryValidator()
     {

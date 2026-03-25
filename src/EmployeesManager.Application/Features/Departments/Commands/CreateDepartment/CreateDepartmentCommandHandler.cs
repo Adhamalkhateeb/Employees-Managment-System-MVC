@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeesManager.Application.Features.Departments.Commands.CreateDepartment;
 
 public sealed class CreateDepartmentCommandHandler
-    : IRequestHandler<CreateDepartmentCommand, Result<DepartmentDto>>
+    : IRequestHandler<CreateDepartmentCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateDepartmentCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<DepartmentDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateDepartmentCommand command,
         CancellationToken cancellationToken
     )
@@ -45,6 +45,6 @@ public sealed class CreateDepartmentCommandHandler
         _context.Departments.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

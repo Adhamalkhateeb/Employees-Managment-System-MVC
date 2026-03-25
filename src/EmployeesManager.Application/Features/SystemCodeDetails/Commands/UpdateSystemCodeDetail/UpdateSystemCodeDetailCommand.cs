@@ -8,6 +8,6 @@ public sealed record UpdateSystemCodeDetailCommand(
     Guid Id,
     Guid SystemCodeId,
     string Code,
-    string Description,
+    string? Description,
     int? OrderNo
 ) : IRequest<Result<Updated>>, ISystemCodeDetailCommand;

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace EmployeesManager.Application.Features.Employees.Commands.CreateEmployee;
 
 public sealed class CreateEmployeeCommandHandler
-    : IRequestHandler<CreateEmployeeCommand, Result<EmployeeDto>>
+    : IRequestHandler<CreateEmployeeCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
     private readonly ILogger<CreateEmployeeCommandHandler> _logger;
@@ -24,7 +24,7 @@ public sealed class CreateEmployeeCommandHandler
         _logger = logger;
     }
 
-    public async Task<Result<EmployeeDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateEmployeeCommand command,
         CancellationToken cancellationToken
     )
@@ -127,6 +127,6 @@ public sealed class CreateEmployeeCommandHandler
         _context.Employees.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

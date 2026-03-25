@@ -3,8 +3,8 @@ namespace EmployeesManager.Application.Features.SystemCodeDetails.Dtos;
 public sealed record SystemCodeDetailDto(
     Guid Id,
     Guid SystemCodeId,
-    string SystemCodeName,
+    string SystemCode,
     string Code,
-    string Description,
+    string? Description,
     int? OrderNo
 );
