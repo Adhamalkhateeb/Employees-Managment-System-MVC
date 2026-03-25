@@ -1,14 +1,23 @@
 # ============================================================
-#  Remove-Feature.ps1  —  Clean Architecture Feature Remover
+#  Remove-Feature.ps1  v2  —  Clean Architecture Feature Remover
 #  Undoes everything New-Feature.ps1 created:
 #    - Deletes Domain/Entities/FEATURE/ folder
 #    - Deletes EF Configuration file
-#    - Deletes DbContext snippet file
 #    - Removes DbSet injection from IAppDbContext + AppDbContext
 #    - Deletes Application/Features/FEATURE/ folder
-#    - Deletes Web/Controllers/FEATUREController.cs
-#    - Deletes Web/Views/FEATURE/ folder
+#    - Deletes Web/Controllers/FEATURESController.cs
+#    - Deletes Web/Views/FEATURES/ folder  (plural, matches New-Feature)
 #    - Deletes Tests/Features/FEATURE/ folder
+#    - Deletes Contracts/Requests+Responses/FEATURE/ folders
+#    - Deletes Web/Mappers/FEATUREMappers.cs
+#
+#  Fixes (v2):
+#    - $featurePlural defined (was missing, caused silent wrong paths)
+#    - Views path corrected to plural (Views/${Feature}s) to match New-Feature
+#    - Controller filename corrected to ${Feature}sController.cs
+#    - Phantom snippet file removal removed (file was never created)
+#    - Remove-DbSet guarded against missing AppProjectPath
+#    - DryRun mode: preview all deletions without touching anything
 # ============================================================
 param(
     [string]$Namespace,
@@ -21,6 +30,7 @@ param(
     [string]$ContractsProjectPath,
 
     [switch]$Force,
+    [switch]$DryRun,
     [switch]$Help
 )
 
@@ -49,6 +59,7 @@ if ($Help) {
   -WebProjectPath     Web project path
   -TestProjectPath    Test project path
   -Force              Skip confirmation prompt
+  -DryRun             Preview what would be deleted without touching anything
   -Help               Show this message
 
   EXAMPLE
@@ -74,6 +85,11 @@ Write-Host "  ╔═════════════════════
 Write-Host "  ║   Clean Architecture Feature Remover             ║" -ForegroundColor Red
 Write-Host "  ╚══════════════════════════════════════════════════╝" -ForegroundColor DarkGray
 
+if ($DryRun) {
+    Write-Host "  *** DRY-RUN MODE — no files will be deleted ***" -ForegroundColor DarkCyan
+    Write-Host ""
+}
+
 # ── Interactive prompts ────────────────────────────────────────────────────
 if (-not $Namespace)       { $Namespace       = Read-Host "  Root namespace (e.g. EmployeesManager)" }
 if (-not $Feature)         { $Feature         = Read-Host "  Feature name to remove (e.g. Employee)" }
@@ -95,7 +111,7 @@ if (-not $ContractsProjectPath) {
 }
 
 # ── Confirm ────────────────────────────────────────────────────────────────
-if (-not $Force) {
+if (-not $Force -and -not $DryRun) {
     Write-Host ""
     Write-Host "  ⚠  This will permanently delete all files for '$Feature'." -ForegroundColor DarkYellow
     Write-Host "     Have you removed the EF migration? (dotnet ef migrations remove)" -ForegroundColor DarkYellow
@@ -108,10 +124,19 @@ if (-not $Force) {
 }
 
 # ── Namespace shortcuts ────────────────────────────────────────────────────
-$domNs = "$Namespace.Domain"
+$domNs         = "$Namespace.Domain"
+$featurePlural = "${Feature}s"
 
 # ── Safe delete helpers ────────────────────────────────────────────────────
 function Remove-Dir($path, $label) {
+    if ($DryRun) {
+        if (Test-Path $path) {
+            Write-Host "  [DRY-RUN] would delete folder  $label" -ForegroundColor DarkCyan
+        } else {
+            Write-Skipped "not found       $label"
+        }
+        return
+    }
     if (Test-Path $path) {
         Remove-Item -Recurse -Force $path
         Write-Removed "deleted folder  $label"
@@ -121,6 +146,14 @@ function Remove-Dir($path, $label) {
 }
 
 function Remove-File($path, $label) {
+    if ($DryRun) {
+        if (Test-Path $path) {
+            Write-Host "  [DRY-RUN] would delete file    $label" -ForegroundColor DarkCyan
+        } else {
+            Write-Skipped "not found       $label"
+        }
+        return
+    }
     if (Test-Path $path) {
         Remove-Item -Force $path
         Write-Removed "deleted file    $label"
@@ -132,6 +165,11 @@ function Remove-File($path, $label) {
 # ── DbSet remover ──────────────────────────────────────────────────────────
 function Remove-DbSet($feature, $appProjectPath, $infraProjectPath, $domNs) {
 
+    if (-not $appProjectPath -or -not (Test-Path $appProjectPath)) {
+        Write-Skipped "AppProjectPath not provided or not found — skipping DbSet removal"
+        return
+    }
+
     # ── IAppDbContext ──────────────────────────────────────────────────────
     $iface = Get-ChildItem -Path $appProjectPath -Recurse -Filter "IAppDbContext.cs" |
              Select-Object -First 1
@@ -140,12 +178,14 @@ function Remove-DbSet($feature, $appProjectPath, $infraProjectPath, $domNs) {
         $content = Get-Content $iface.FullName -Raw
 
         if ($content -match "DbSet<$feature>") {
-            # Remove the DbSet line
-            $updated = $content -replace "    DbSet<$feature> ${feature}s \{ get; \}\r?\n", ""
-            # Remove the using for this entity namespace if present
-            $updated = $updated -replace "using $domNs\.Entities\.${feature}s;\r?\n", ""
-            Set-Content $iface.FullName $updated -Encoding UTF8
-            Write-Fixed  "IAppDbContext.cs  (DbSet<$feature> removed)"
+            if ($DryRun) {
+                Write-Host "  [DRY-RUN] would remove DbSet<$feature> from IAppDbContext.cs" -ForegroundColor DarkCyan
+            } else {
+                $updated = $content -replace "    DbSet<$feature> ${feature}s \{ get; \}\r?\n", ""
+                $updated = $updated -replace "using $domNs\.Entities\.${feature}s;\r?\n", ""
+                Set-Content $iface.FullName $updated -Encoding UTF8
+                Write-Fixed  "IAppDbContext.cs  (DbSet<$feature> removed)"
+            }
         } else {
             Write-Skipped "IAppDbContext.cs  (DbSet<$feature> not found)"
         }
@@ -161,12 +201,14 @@ function Remove-DbSet($feature, $appProjectPath, $infraProjectPath, $domNs) {
         $content = Get-Content $ctx.FullName -Raw
 
         if ($content -match "DbSet<$feature>") {
-            # Remove the DbSet property line
-            $updated = $content -replace "    public DbSet<$feature> ${feature}s => Set<$feature>\(\);\r?\n(\r?\n)?", ""
-            # Remove the using for this entity namespace if present
-            $updated = $updated -replace "using $domNs\.Entities\.${feature}s;\r?\n", ""
-            Set-Content $ctx.FullName $updated -Encoding UTF8
-            Write-Fixed  "AppDbContext.cs   (DbSet<$feature> removed)"
+            if ($DryRun) {
+                Write-Host "  [DRY-RUN] would remove DbSet<$feature> from AppDbContext.cs" -ForegroundColor DarkCyan
+            } else {
+                $updated = $content -replace "    public DbSet<$feature> ${feature}s => Set<$feature>\(\);\r?\n(\r?\n)?", ""
+                $updated = $updated -replace "using $domNs\.Entities\.${feature}s;\r?\n", ""
+                Set-Content $ctx.FullName $updated -Encoding UTF8
+                Write-Fixed  "AppDbContext.cs   (DbSet<$feature> removed)"
+            }
         } else {
             Write-Skipped "AppDbContext.cs   (DbSet<$feature> not found)"
         }
@@ -189,10 +231,13 @@ if ($DomainProjectPath -and (Test-Path $DomainProjectPath)) {
 if ($InfraProjectPath -and (Test-Path $InfraProjectPath)) {
     Write-Section "Infrastructure"
     Remove-File "$InfraProjectPath/Data/Configurations/${Feature}Configuration.cs"  "${Feature}Configuration.cs"
-    Remove-File "$InfraProjectPath/Data/Configurations/${Feature}_DbContext_Snippet.txt" "${Feature}_DbContext_Snippet.txt"
 
     Write-Section "DbSet Removal"
-    Remove-DbSet $Feature $AppProjectPath $InfraProjectPath $domNs
+    if ($AppProjectPath) {
+        Remove-DbSet $Feature $AppProjectPath $InfraProjectPath $domNs
+    } else {
+        Write-Skipped "DbSet removal skipped — AppProjectPath not provided"
+    }
 }
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -208,8 +253,8 @@ if ($AppProjectPath -and (Test-Path $AppProjectPath)) {
 # ══════════════════════════════════════════════════════════════════════════
 if ($WebProjectPath -and (Test-Path $WebProjectPath)) {
     Write-Section "Web"
-    Remove-File "$WebProjectPath/Controllers/${Feature}Controller.cs" "${Feature}Controller.cs"
-    Remove-Dir  "$WebProjectPath/Views/$Feature" "Views/$Feature/"
+    Remove-File "$WebProjectPath/Controllers/${Feature}sController.cs" "${Feature}sController.cs"
+    Remove-Dir  "$WebProjectPath/Views/${Feature}s" "Views/${Feature}s/"
 }
 
 # ══════════════════════════════════════════════════════════════════════════

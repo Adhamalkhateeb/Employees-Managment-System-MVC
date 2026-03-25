@@ -1,3 +1,4 @@
+using EmployeesManager.Domain.Entities.LeaveApplications;
 using EmployeesManager.Domain.Entities.Banks;
 using EmployeesManager.Domain.Entities.Cities;
 using EmployeesManager.Domain.Entities.Countries;
@@ -23,4 +24,5 @@ public interface IAppDbContext
     DbSet<LeaveType> LeaveTypes { get; }
     DbSet<Country> Countries { get; }
     DbSet<City> Cities { get; }
+    DbSet<LeaveApplication> LeaveApplications { get; }
 }

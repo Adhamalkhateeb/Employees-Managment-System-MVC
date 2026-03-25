@@ -1,3 +1,4 @@
+using EmployeesManager.Domain.Entities.LeaveApplications;
 using System.Reflection;
 using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Domain.Entities.Banks;
@@ -37,9 +38,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
     public DbSet<City> Cities => Set<City>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<LeaveApplication> LeaveApplications => Set<LeaveApplication>();
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
 }
+

@@ -1,10 +1,16 @@
 # ============================================================
-#  New-Feature.ps1  v9  —  Full-Stack Clean Architecture Scaffold
+#  New-Feature.ps1  v10  —  Full-Stack Clean Architecture Scaffold
 #  All folders and namespaces use plural for features and entities
 #  to avoid class/namespace name conflicts.
 #    Domain:      Entities/${Feature}s/
 #    Application: Features/${Feature}s/
 #    Tests:       Features/${Feature}s/
+#
+#  Fixes (v10):
+#    - && → -and for HasCreate/HasUpdate common block (PS 5.1 compat)
+#    - Removed unnecessary cast in GetAll handler
+#    - Added ⚠ warning comments to null-check guards in Update/Delete/GetById
+#    - DryRun mode: preview all files that would be created without writing
 # ============================================================
 param(
     [string]$Namespace,
@@ -30,6 +36,7 @@ param(
     [switch]$WithViews,
     [switch]$WithAll,
 
+    [switch]$DryRun,
     [switch]$Help
 )
 
@@ -45,7 +52,7 @@ function Write-Section ($msg) {
 if ($Help) {
     Write-Host @"
 
-  Clean Architecture Feature Scaffold  v9
+  Clean Architecture Feature Scaffold  v10
   ─────────────────────────────────────────────────────
 
   -Namespace          Root namespace        (e.g. EmployeesManager)
@@ -59,6 +66,7 @@ if ($Help) {
 
   SLICES:   -HasCreate -HasUpdate -HasDelete -HasGetById -HasGetAll -All
   LAYERS:   -WithEntity -WithMappings -WithTests -WithMvcController -WithViews -WithAll
+  OTHER:    -DryRun  (preview what would be created without writing any files)
 
   EXAMPLE
     .\New-Feature.ps1 -Namespace EmployeesManager -Feature Employee ``
@@ -78,8 +86,13 @@ if ($WithAll) { $WithEntity = $WithMappings = $WithTests = $WithMvcController = 
 
 Write-Host ""
 Write-Host "  ╔══════════════════════════════════════════════════╗" -ForegroundColor DarkGray
-Write-Host "  ║   Clean Architecture Feature Scaffold  v9        ║" -ForegroundColor Cyan
+Write-Host "  ║   Clean Architecture Feature Scaffold  v10       ║" -ForegroundColor Cyan
 Write-Host "  ╚══════════════════════════════════════════════════╝" -ForegroundColor DarkGray
+
+if ($DryRun) {
+    Write-Host "  *** DRY-RUN MODE — no files will be written ***" -ForegroundColor DarkCyan
+    Write-Host ""
+}
 
 if (-not $Namespace) { $Namespace = Read-Host "  Root namespace (e.g. EmployeesManager)" }
 if (-not $Feature)   { $Feature   = Read-Host "  Feature name in PascalCase (e.g. Employee)" }
@@ -132,6 +145,10 @@ $contractsNs  = "$Namespace.Contracts"
 $featurePlural = "${Feature}s"
 
 function Write-File($path, $content) {
+    if ($DryRun) {
+        Write-Host "  [DRY-RUN] would create  $(Split-Path $path -Leaf)  →  $path" -ForegroundColor DarkCyan
+        return
+    }
     if (Test-Path $path) {
         Write-Skipped "exists   $(Split-Path $path -Leaf)"
     } else {
@@ -146,15 +163,19 @@ function Inject-DbSet($feature, $featurePlural, $appProjectPath, $infraProjectPa
     if ($iface) {
         $content = Get-Content $iface.FullName -Raw
         if ($content -notmatch "DbSet<$feature>") {
-            $updated = $content -replace '(\})\s*$', "    DbSet<$feature> ${feature}s { get; }`n`$1"
-            if ($updated -notmatch "using Microsoft.EntityFrameworkCore") {
-                $updated = "using Microsoft.EntityFrameworkCore;`n" + $updated
+            if ($DryRun) {
+                Write-Host "  [DRY-RUN] would inject DbSet<$feature> into IAppDbContext.cs" -ForegroundColor DarkCyan
+            } else {
+                $updated = $content -replace '(\})\s*$', "    DbSet<$feature> ${feature}s { get; }`n`$1"
+                if ($updated -notmatch "using Microsoft.EntityFrameworkCore") {
+                    $updated = "using Microsoft.EntityFrameworkCore;`n" + $updated
+                }
+                if ($updated -notmatch "using $domNs.Entities.$featurePlural") {
+                    $updated = "using $domNs.Entities.$featurePlural;`n" + $updated
+                }
+                Set-Content $iface.FullName $updated -Encoding UTF8
+                Write-Created "IAppDbContext.cs  (DbSet<$feature> injected)"
             }
-            if ($updated -notmatch "using $domNs.Entities.$featurePlural") {
-                $updated = "using $domNs.Entities.$featurePlural;`n" + $updated
-            }
-            Set-Content $iface.FullName $updated -Encoding UTF8
-            Write-Created "IAppDbContext.cs  (DbSet<$feature> injected)"
         } else {
             Write-Skipped "IAppDbContext.cs  (DbSet<$feature> already exists)"
         }
@@ -166,12 +187,16 @@ function Inject-DbSet($feature, $featurePlural, $appProjectPath, $infraProjectPa
     if ($ctx) {
         $content = Get-Content $ctx.FullName -Raw
         if ($content -notmatch "DbSet<$feature>") {
-            $updated = $content -replace '(protected override void OnModelCreating)', "    public DbSet<$feature> ${feature}s => Set<$feature>();`n`n`$1"
-            if ($updated -notmatch "using $domNs.Entities.$featurePlural") {
-                $updated = "using $domNs.Entities.$featurePlural;`n" + $updated
+            if ($DryRun) {
+                Write-Host "  [DRY-RUN] would inject DbSet<$feature> into AppDbContext.cs" -ForegroundColor DarkCyan
+            } else {
+                $updated = $content -replace '(protected override void OnModelCreating)', "    public DbSet<$feature> ${feature}s => Set<$feature>();`n`n`$1"
+                if ($updated -notmatch "using $domNs.Entities.$featurePlural") {
+                    $updated = "using $domNs.Entities.$featurePlural;`n" + $updated
+                }
+                Set-Content $ctx.FullName $updated -Encoding UTF8
+                Write-Created "AppDbContext.cs   (DbSet<$feature> injected)"
             }
-            Set-Content $ctx.FullName $updated -Encoding UTF8
-            Write-Created "AppDbContext.cs   (DbSet<$feature> injected)"
         } else {
             Write-Skipped "AppDbContext.cs   (DbSet<$feature> already exists)"
         }
@@ -258,8 +283,8 @@ public sealed class ${Feature}Configuration : IEntityTypeConfiguration<$Feature>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).ValueGeneratedNever();
-        builder.Property(x => x.CreatedAtUtc).IsRequired();
-        builder.Property(x => x.LastModifiedUtc).IsRequired();
+        builder.ConfigureAuditableEntity();
+
 
         // TODO: configure properties
         // builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
@@ -317,7 +342,7 @@ public static class ${Feature}Mappings
 #  Common
 # ══════════════════════════════════════════════════════════════════════════
 
-if ($HasCreate && $HasUpdate) {
+if ($HasCreate -and $HasUpdate) {
 
      Write-Section "Common Contracts"
     $dir = "$appBase/Common/I${Feature}Command"
@@ -396,7 +421,7 @@ namespace $appNs.Features.$featurePlural.Commands.Create$Feature;
 
 public sealed record Create${Feature}Command(
     // TODO: add properties
-) : IRequest<Result<${Feature}Dto>>;
+) : IRequest<Result<Created>>;
 "@
 
     Write-File "$dir/Create${Feature}CommandValidator.cs" @"
@@ -424,14 +449,14 @@ using MediatR;
 namespace $appNs.Features.$featurePlural.Commands.Create$Feature;
 
 public sealed class Create${Feature}CommandHandler
-    : IRequestHandler<Create${Feature}Command, Result<${Feature}Dto>>
+    : IRequestHandler<Create${Feature}Command, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public Create${Feature}CommandHandler(IAppDbContext context)
         => _context = context;
 
-    public async Task<Result<${Feature}Dto>> Handle(
+    public async Task<Result<Created>> Handle(
         Create${Feature}Command command,
         CancellationToken cancellationToken)
     {
@@ -446,7 +471,7 @@ public sealed class Create${Feature}CommandHandler
         _context.${Feature}s.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }
 "@
@@ -526,6 +551,7 @@ public sealed class Update${Feature}CommandHandler
         var entity = await _context.${Feature}s
             .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
 
+        // ⚠ Uncomment before using in production — without this, a missing entity will throw NullReferenceException
         // if (entity is null)
         //    return ${Feature}Errors.NotFound(command.Id);
 
@@ -597,6 +623,7 @@ public sealed class Delete${Feature}CommandHandler
         var entity = await _context.${Feature}s
             .FirstOrDefaultAsync(x => x.Id == command.Id, cancellationToken);
 
+        // ⚠ Uncomment before using in production — without this, a missing entity will throw NullReferenceException
         // if (entity is null)
         //    return ${Feature}Errors.NotFound(command.Id);
 
@@ -667,6 +694,7 @@ public sealed class Get${Feature}ByIdQueryHandler
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
 
+        // ⚠ Uncomment before using in production — without this, a missing entity will throw NullReferenceException
         // if (entity is null)
         //    return ${Feature}Errors.NotFound(query.Id);
 
@@ -720,7 +748,7 @@ public sealed class GetAll${Feature}sQueryHandler
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return (Result<List<${Feature}Dto>>)entities.ToDtos();
+        return entities.ToDtos();
     }
 }
 "@

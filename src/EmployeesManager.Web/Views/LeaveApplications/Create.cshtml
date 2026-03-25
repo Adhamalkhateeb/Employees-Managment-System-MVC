@@ -1,0 +1,95 @@
+@using EmployeesManager.Contracts.Requests.LeaveApplications
+@model CreateLeaveApplicationRequest
+@{ ViewBag.Title = "Create Leave Application"; }
+
+<div class="row justify-content-center crud-form-page">
+    <div class="col-lg-10 col-xl-8">
+        <div class="d-flex align-items-center mb-4 mt-2">
+            <a asp-action="Index" class="btn btn-light btn-sm rounded-circle me-3 shadow-sm back-circle-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h2 class="fw-bold mb-0 text-dark">Create Leave Application</h2>
+                <p class="text-muted mb-0">Submit a new leave request for review and approval</p>
+            </div>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger shadow-sm border-0 rounded-4 mb-4">
+                <div asp-validation-summary="All" class="mb-0 text-danger"></div>
+            </div>
+        }
+
+        <div class="card form-card mb-5">
+            <div class="card-header">
+                <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-calendar-plus me-2"></i> Leave Details</h4>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label asp-for="EmployeeId" class="form-label fw-semibold">Employee</label>
+                            <select asp-for="EmployeeId" asp-items="ViewBag.Employees" class="form-select">
+                                <option value="">Select Employee</option>
+                            </select>
+                            <span asp-validation-for="EmployeeId" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="LeaveTypeId" class="form-label fw-semibold">Leave Type</label>
+                            <select asp-for="LeaveTypeId" asp-items="ViewBag.LeaveTypes" class="form-select">
+                                <option value="">Select Leave Type</option>
+                            </select>
+                            <span asp-validation-for="LeaveTypeId" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="DurationId" class="form-label fw-semibold">Duration Type</label>
+                            <select asp-for="DurationId" asp-items="ViewBag.Durations" class="form-select">
+                                <option value="">Select Duration</option>
+                            </select>
+                            <span asp-validation-for="DurationId" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="StatusId" class="form-label fw-semibold">Status</label>
+                            <select asp-for="StatusId" asp-items="ViewBag.Statuses" class="form-select">
+                                <option value="">Select Status</option>
+                            </select>
+                            <span asp-validation-for="StatusId" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="StartDate" class="form-label fw-semibold">Start Date</label>
+                            <input asp-for="StartDate" type="date" class="form-control" />
+                            <span asp-validation-for="StartDate" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="EndDate" class="form-label fw-semibold">End Date</label>
+                            <input asp-for="EndDate" type="date" class="form-control" />
+                            <span asp-validation-for="EndDate" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Description" class="form-label fw-semibold">Description</label>
+                            <textarea asp-for="Description" rows="4" class="form-control" placeholder="Briefly explain the leave reason"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Attachment" class="form-label fw-semibold">Attachment URL (Optional)</label>
+                            <input asp-for="Attachment" class="form-control" placeholder="Add supporting attachment link" />
+                            <span asp-validation-for="Attachment" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4 border-top pt-4">
+                        <a asp-action="Index" class="btn btn-light btn-cancel">Cancel</a>
+                        <button type="submit" class="btn btn-success btn-create"><i class="fa-solid fa-check me-2"></i>Create Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
