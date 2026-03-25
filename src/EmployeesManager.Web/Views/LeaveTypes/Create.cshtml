@@ -9,7 +9,7 @@
             </a>
             <div>
                 <h2 class="fw-bold mb-0 text-dark">Add New Leave Type</h2>
-                <p class="text-muted mb-0">Create a leave type used for policies</p>
+                <p class="text-muted mb-0">Create a leave type and short code used for policies</p>
             </div>
         </div>
 
@@ -29,7 +29,12 @@
                     @Html.AntiForgeryToken()
 
                     <div class="row g-4">
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            <label asp-for="Code" class="form-label fw-semibold">Code</label>
+                            <input asp-for="Code" class="form-control" placeholder="Enter leave type code" />
+                            <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-8">
                             <label asp-for="Name" class="form-label fw-semibold">Name</label>
                             <input asp-for="Name" class="form-control" placeholder="Enter leave type name" />
                             <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>

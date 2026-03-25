@@ -6,40 +6,51 @@ namespace EmployeesManager.Domain.Entities.LeaveTypes;
 public sealed class LeaveType : AuditableEntity
 {
     public string Name { get; private set; } = default!;
+    public string Code { get; private set; } = default!;
 
     private LeaveType() { }
 
-    private LeaveType(Guid id)
-        : base(id) { }
-
-    public static Result<LeaveType> Create(string name)
+    private LeaveType(Guid id, string name, string code)
+        : base(id)
     {
-        var validationError = Validate(name);
+        Name = name;
+        Code = code;
+    }
+
+    public static Result<LeaveType> Create(string name, string code)
+    {
+        var validationError = Validate(name, code);
 
         if (validationError is not null)
             return validationError;
 
-        return new LeaveType(Guid.NewGuid()) { Name = name.Trim() };
+        return new LeaveType(Guid.NewGuid(), name.Trim(), code.Trim());
     }
 
-    public Result<Updated> Update(string name)
+    public Result<Updated> Update(string name, string code)
     {
-        var validationError = Validate(name);
+        var validationError = Validate(name, code);
 
         if (validationError is not null)
             return validationError;
 
         Name = name.Trim();
+        Code = code.Trim();
 
         return Result.Updated;
     }
 
-    private static Error? Validate(string name)
+    private static Error? Validate(string name, string code)
     {
         if (string.IsNullOrWhiteSpace(name))
             return LeaveTypeErrors.NameRequired;
         if (name.Trim().Length > LeaveTypeConstants.NameMaxLength)
             return LeaveTypeErrors.NameTooLong;
+
+        if (string.IsNullOrWhiteSpace(code))
+            return LeaveTypeErrors.CodeRequired;
+        if (code.Trim().Length > LeaveTypeConstants.CodeMaxLength)
+            return LeaveTypeErrors.CodeTooLong;
 
         return null;
     }

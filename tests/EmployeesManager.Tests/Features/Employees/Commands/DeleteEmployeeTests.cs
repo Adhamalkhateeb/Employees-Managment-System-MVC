@@ -85,7 +85,7 @@ public sealed class DeleteEmployeeTests
     {
         var country = Country.Create("EG", "Egypt").Value;
         var department = Department.Create("Engineering", "ENG").Value;
-        var designation = Designation.Create("Developer").Value;
+        var designation = Designation.Create("Developer", "DEV").Value;
 
         context.Countries.Add(country);
         context.Departments.Add(department);

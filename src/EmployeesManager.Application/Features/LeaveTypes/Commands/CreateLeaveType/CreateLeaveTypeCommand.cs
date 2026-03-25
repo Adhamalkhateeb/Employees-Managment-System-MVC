@@ -5,6 +5,6 @@ using MediatR;
 
 namespace EmployeesManager.Application.Features.LeaveTypes.Commands.CreateLeaveType;
 
-public sealed record CreateLeaveTypeCommand(string Name)
-    : IRequest<Result<LeaveTypeDto>>,
+public sealed record CreateLeaveTypeCommand(string Name, string Code)
+    : IRequest<Result<Created>>,
         ILeaveTypeCommand;

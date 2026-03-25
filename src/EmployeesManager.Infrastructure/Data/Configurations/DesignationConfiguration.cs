@@ -18,6 +18,9 @@ public sealed class DesignationConfiguration : IEntityTypeConfiguration<Designat
 
         builder.Property(x => x.Name).IsRequired().HasMaxLength(DesignationConstants.NameMaxLength);
 
+        builder.Property(x => x.Code).IsRequired().HasMaxLength(DesignationConstants.CodeMaxLength);
+
         builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.Code).IsUnique();
     }
 }

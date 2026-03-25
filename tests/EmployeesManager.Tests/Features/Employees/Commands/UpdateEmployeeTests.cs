@@ -43,7 +43,7 @@ public sealed class UpdateEmployeeTests
     {
         await using var context = CreateContext();
         var references = await SeedReferencesAsync(context);
-        var newDesignation = Designation.Create("Senior Developer").Value;
+        var newDesignation = Designation.Create("Senior Developer", "SD").Value;
         context.Designations.Add(newDesignation);
         await context.SaveChangesAsync();
 
@@ -124,7 +124,7 @@ public sealed class UpdateEmployeeTests
     {
         var country = Country.Create("EG", "Egypt").Value;
         var department = Department.Create("Engineering", "ENG").Value;
-        var designation = Designation.Create("Developer").Value;
+        var designation = Designation.Create("Developer", "DEV").Value;
 
         context.Countries.Add(country);
         context.Departments.Add(department);

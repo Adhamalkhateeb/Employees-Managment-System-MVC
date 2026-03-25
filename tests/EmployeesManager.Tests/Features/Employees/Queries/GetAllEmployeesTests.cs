@@ -35,7 +35,7 @@ public sealed class GetAllEmployeesTests
         );
 
         var hrDepartment = Department.Create("HR", "HR").Value;
-        var specialistDesignation = Designation.Create("Specialist").Value;
+        var specialistDesignation = Designation.Create("Specialist", "SPC").Value;
         context.Departments.Add(hrDepartment);
         context.Designations.Add(specialistDesignation);
         await context.SaveChangesAsync();
@@ -94,7 +94,7 @@ public sealed class GetAllEmployeesTests
     {
         var country = Country.Create("EG", "Egypt").Value;
         var department = Department.Create("Engineering", "ENG").Value;
-        var designation = Designation.Create("Developer").Value;
+        var designation = Designation.Create("Developer", "DEV").Value;
 
         context.Countries.Add(country);
         context.Departments.Add(department);

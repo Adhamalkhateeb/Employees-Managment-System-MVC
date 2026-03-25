@@ -12,5 +12,10 @@ public abstract class DesignationCommandValidatorBase<TCommand> : AbstractValida
             .NotEmpty()
             .WithMessage("Name is required")
             .MaximumLength(DesignationConstants.NameMaxLength);
+
+        RuleFor(x => x.Code)
+            .NotEmpty()
+            .WithMessage("Code is required")
+            .MaximumLength(DesignationConstants.CodeMaxLength);
     }
 }

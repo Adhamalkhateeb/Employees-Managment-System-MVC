@@ -34,7 +34,15 @@ public sealed class UpdateLeaveTypeCommandHandler
         if (nameExists)
             return LeaveTypeErrors.NameAlreadyExists;
 
-        var updateResult = entity.Update(command.Name);
+        var codeExists = await _context.LeaveTypes.AnyAsync(
+            x => x.Code == command.Code && x.Id != command.Id,
+            cancellationToken
+        );
+
+        if (codeExists)
+            return LeaveTypeErrors.CodeAlreadyExists;
+
+        var updateResult = entity.Update(command.Name, command.Code);
 
         if (updateResult.IsError)
             return updateResult.Errors;

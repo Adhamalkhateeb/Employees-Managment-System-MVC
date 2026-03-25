@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeesManager.Application.Features.Designations.Commands.CreateDesignation;
 
 public sealed class CreateDesignationCommandHandler
-    : IRequestHandler<CreateDesignationCommand, Result<DesignationDto>>
+    : IRequestHandler<CreateDesignationCommand, Result<Created>>
 {
     private readonly IAppDbContext _context;
 
     public CreateDesignationCommandHandler(IAppDbContext context) => _context = context;
 
-    public async Task<Result<DesignationDto>> Handle(
+    public async Task<Result<Created>> Handle(
         CreateDesignationCommand command,
         CancellationToken cancellationToken
     )
@@ -28,7 +28,15 @@ public sealed class CreateDesignationCommandHandler
         if (nameExists)
             return DesignationErrors.NameAlreadyExists;
 
-        var createResult = Designation.Create(command.Name);
+        var codeExists = await _context.Designations.AnyAsync(
+            x => x.Code == command.Code,
+            cancellationToken
+        );
+
+        if (codeExists)
+            return DesignationErrors.CodeAlreadyExists;
+
+        var createResult = Designation.Create(command.Name, command.Code);
 
         if (createResult.IsError)
             return createResult.Errors;
@@ -37,6 +45,6 @@ public sealed class CreateDesignationCommandHandler
         _context.Designations.Add(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.ToDto();
+        return Result.Created;
     }
 }

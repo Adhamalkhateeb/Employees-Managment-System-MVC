@@ -4,6 +4,6 @@ using MediatR;
 
 namespace EmployeesManager.Application.Features.Designations.Commands.UpdateDesignation;
 
-public sealed record UpdateDesignationCommand(Guid Id, string Name)
+public sealed record UpdateDesignationCommand(Guid Id, string Name, string Code)
     : IRequest<Result<Updated>>,
         IDesignationCommand;

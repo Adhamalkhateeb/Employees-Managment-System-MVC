@@ -6,7 +6,7 @@ namespace EmployeesManager.Web.Mappers;
 public static class LeaveTypeMappers
 {
     public static LeaveTypeResponse ToResponse(this LeaveTypeDto dto) =>
-        new(Id: dto.Id, Name: dto.Name);
+        new(Id: dto.Id, Name: dto.Name, Code: dto.Code);
 
     public static List<LeaveTypeResponse> ToResponses(this IEnumerable<LeaveTypeDto> dtos) =>
         [.. dtos.Select(x => x.ToResponse())];

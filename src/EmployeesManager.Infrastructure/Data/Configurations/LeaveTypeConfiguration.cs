@@ -18,6 +18,9 @@ public sealed class LeaveTypeConfiguration : IEntityTypeConfiguration<LeaveType>
 
         builder.Property(x => x.Name).IsRequired().HasMaxLength(LeaveTypeConstants.NameMaxLength);
 
+        builder.Property(x => x.Code).IsRequired().HasMaxLength(LeaveTypeConstants.CodeMaxLength);
+
         builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.Code).IsUnique();
     }
 }

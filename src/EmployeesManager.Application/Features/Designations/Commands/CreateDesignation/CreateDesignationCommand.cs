@@ -5,6 +5,6 @@ using MediatR;
 
 namespace EmployeesManager.Application.Features.Designations.Commands.CreateDesignation;
 
-public sealed record CreateDesignationCommand(string Name)
-    : IRequest<Result<DesignationDto>>,
+public sealed record CreateDesignationCommand(string Name, string Code)
+    : IRequest<Result<Created>>,
         IDesignationCommand;

@@ -21,4 +21,19 @@ public static class DesignationErrors
         "Designation.Name.AlreadyExists",
         "Name already exists."
     );
+
+    public static readonly Error CodeRequired = Error.Validation(
+        "Designation.Code.Required",
+        "Code is required."
+    );
+
+    public static readonly Error CodeTooLong = Error.Validation(
+        "Designation.Code.TooLong",
+        "Code is too long."
+    );
+
+    public static readonly Error CodeAlreadyExists = Error.Conflict(
+        "Designation.Code.AlreadyExists",
+        "Designation code already exists."
+    );
 }

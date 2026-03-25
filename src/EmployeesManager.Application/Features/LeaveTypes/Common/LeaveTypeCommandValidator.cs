@@ -12,5 +12,10 @@ public abstract class LeaveTypeCommandValidatorBase<TCommand> : AbstractValidato
             .NotEmpty()
             .WithMessage("Name is required")
             .MaximumLength(LeaveTypeConstants.NameMaxLength);
+
+        RuleFor(x => x.Code)
+            .NotEmpty()
+            .WithMessage("Code is required")
+            .MaximumLength(LeaveTypeConstants.CodeMaxLength);
     }
 }

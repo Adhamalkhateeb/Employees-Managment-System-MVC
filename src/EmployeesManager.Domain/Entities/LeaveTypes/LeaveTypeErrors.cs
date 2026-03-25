@@ -21,4 +21,19 @@ public static class LeaveTypeErrors
         "LeaveType.Name.AlreadyExists",
         "Name already exists."
     );
+
+    public static readonly Error CodeRequired = Error.Validation(
+        "LeaveType.Code.Required",
+        "Code is required."
+    );
+
+    public static readonly Error CodeTooLong = Error.Validation(
+        "LeaveType.Code.TooLong",
+        "Code is too long."
+    );
+
+    public static readonly Error CodeAlreadyExists = Error.Conflict(
+        "LeaveType.Code.AlreadyExists",
+        "Leave type code already exists."
+    );
 }

@@ -41,7 +41,7 @@ public sealed class LeaveTypesController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new CreateLeaveTypeCommand(request.Name);
+        var command = new CreateLeaveTypeCommand(request.Name, request.Code);
 
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match(
@@ -58,7 +58,7 @@ public sealed class LeaveTypesController : MvcController
             item =>
             {
                 ViewBag.Id = item.Id;
-                var request = new UpdateLeaveTypeRequest { Name = item.Name };
+                var request = new UpdateLeaveTypeRequest { Name = item.Name, Code = item.Code };
                 return View(request);
             },
             errors => HandleError(errors)
@@ -83,7 +83,7 @@ public sealed class LeaveTypesController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new UpdateLeaveTypeCommand(Id: id, Name: request.Name);
+        var command = new UpdateLeaveTypeCommand(Id: id, Name: request.Name, Code: request.Code);
 
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match(
