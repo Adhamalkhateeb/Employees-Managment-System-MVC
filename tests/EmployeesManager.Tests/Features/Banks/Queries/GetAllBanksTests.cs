@@ -11,8 +11,7 @@ public sealed class GetAllBanksTests
     private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
     private readonly GetAllBanksQueryHandler _handler;
 
-    public GetAllBanksTests()
-        => _handler = new GetAllBanksQueryHandler(_context);
+    public GetAllBanksTests() => _handler = new GetAllBanksQueryHandler(_context);
 
     [Fact]
     public async Task Handle_WhenDataExists_ReturnsAllDtos()
