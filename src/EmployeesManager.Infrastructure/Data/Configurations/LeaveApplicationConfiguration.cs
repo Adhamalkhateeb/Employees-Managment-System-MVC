@@ -15,9 +15,9 @@ public sealed class LeaveApplicationConfiguration : IEntityTypeConfiguration<Lea
 
         builder.Property(x => x.EmployeeId).IsRequired();
         builder.Property(x => x.LeaveTypeId).IsRequired();
-        builder.Property(x => x.Duration).HasConversion<string>().IsRequired();
 
-        builder.Property(x => x.Status).HasConversion<string>().IsRequired();
+        builder.Property(x => x.Duration).HasConversion<string>().IsRequired().HasMaxLength(50);
+        builder.Property(x => x.Status).HasConversion<string>().IsRequired().HasMaxLength(50);
 
         builder.Property(x => x.StartDate).IsRequired();
         builder.Property(x => x.EndDate).IsRequired();
@@ -25,7 +25,7 @@ public sealed class LeaveApplicationConfiguration : IEntityTypeConfiguration<Lea
         builder.ToTable(t =>
             t.HasCheckConstraint(
                 "CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate",
-                "[EndDate] >= [StartDate]"
+                "[CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)]"
             )
         );
 
@@ -40,13 +40,14 @@ public sealed class LeaveApplicationConfiguration : IEntityTypeConfiguration<Lea
             .Property(x => x.RejectionReason)
             .HasMaxLength(LeaveApplicationConstants.RejectionReasonMaxLength);
 
-        builder.Property(x => x.ApprovedBy).HasMaxLength(250);
-        builder.Property(x => x.ApprovedAtUtc);
+        builder.Property(x => x.DecisionById).IsRequired(false);
+        builder.Property(x => x.DecisionAtUtc).IsRequired(false);
 
         builder.HasIndex(x => x.EmployeeId);
         builder.HasIndex(x => x.LeaveTypeId);
         builder.HasIndex(x => x.Duration);
         builder.HasIndex(x => x.Status);
+        builder.HasIndex(x => x.DecisionById);
 
         builder
             .HasOne(x => x.Employee)

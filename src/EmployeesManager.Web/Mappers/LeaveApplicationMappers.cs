@@ -56,8 +56,8 @@ public static class LeaveApplicationMapper
             Description: dto.Description,
             Attachment: dto.Attachment,
             RejectionReason: dto.RejectionReason,
-            ApprovedBy: dto.ApprovedBy,
-            ApprovedAtUtc: dto.ApprovedAtUtc
+            ApprovedBy: dto.DecisionBy,
+            ApprovedAtUtc: dto.DecisionAtUtc
         );
 
     public static List<LeaveApplicationResponse> ToResponses(

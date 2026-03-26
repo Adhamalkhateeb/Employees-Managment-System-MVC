@@ -9,8 +9,13 @@ public sealed class CancelLeaveApplicationCommandHandler
     : IRequestHandler<CancelLeaveApplicationCommand, Result<Success>>
 {
     private readonly IAppDbContext _context;
+    private readonly ICurrentUser _currentUser;
 
-    public CancelLeaveApplicationCommandHandler(IAppDbContext context) => _context = context;
+    public CancelLeaveApplicationCommandHandler(IAppDbContext context, ICurrentUser currentUser)
+    {
+        _context = context;
+        _currentUser = currentUser;
+    }
 
     public async Task<Result<Success>> Handle(
         CancelLeaveApplicationCommand command,
@@ -25,7 +30,7 @@ public sealed class CancelLeaveApplicationCommandHandler
         if (leaveApplication is null)
             return LeaveApplicationErrors.NotFound(command.Id);
 
-        var result = leaveApplication.Cancel();
+        var result = leaveApplication.Cancel(_currentUser.Id);
 
         if (result.IsError)
             return result.Errors;

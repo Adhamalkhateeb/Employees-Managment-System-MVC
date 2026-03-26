@@ -1,26 +1,23 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Countries.Commands.CreateCountry;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Countrys.Commands;
 
 public sealed class CreateCountryTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly CreateCountryCommandHandler _handler;
-
-    public CreateCountryTests() => _handler = new CreateCountryCommandHandler(_context);
-
     [Fact]
     public async Task Handle_ValidCommand_ReturnsSuccess()
     {
+        await using var context = CreateContext();
+        var handler = new CreateCountryCommandHandler(context);
         var command = new CreateCountryCommand("EG", "Egypt");
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
+        context.Countries.Count().Should().Be(1);
     }
 
     [Fact]
@@ -32,5 +29,14 @@ public sealed class CreateCountryTests
 
         validation.IsValid.Should().BeFalse();
         validation.Errors.Should().NotBeEmpty();
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

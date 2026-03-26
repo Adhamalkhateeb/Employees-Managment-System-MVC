@@ -32,7 +32,7 @@ public sealed class AuditableEntityInterceptor(ICurrentUser currentUser) : SaveC
             return;
 
         var utcNow = DateTimeOffset.UtcNow;
-        var actorBy = currentUser.UserName ?? "system";
+        var actorBy = currentUser.Id;
 
         foreach (var entry in context.ChangeTracker.Entries<AuditableEntity>())
         {

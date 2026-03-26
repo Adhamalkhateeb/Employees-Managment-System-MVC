@@ -1,28 +1,23 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Banks.Commands.CreateBank;
-using EmployeesManager.Domain.Common.Results;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Banks.Commands;
 
 public sealed class CreateBankTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly CreateBankCommandHandler _handler;
-
-    public CreateBankTests() => _handler = new CreateBankCommandHandler(_context);
-
     [Fact]
     public async Task Handle_ValidCommand_ReturnsSuccess()
     {
+        await using var context = CreateContext();
+        var handler = new CreateBankCommandHandler(context);
         var command = new CreateBankCommand("B001", "Main Bank", "1234567890");
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Should().NotBeNull();
-        result.Value!.Should().Be(Result.Created);
+        context.Banks.Count().Should().Be(1);
     }
 
     [Fact]
@@ -34,5 +29,14 @@ public sealed class CreateBankTests
 
         validation.IsValid.Should().BeFalse();
         validation.Errors.Should().NotBeEmpty();
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

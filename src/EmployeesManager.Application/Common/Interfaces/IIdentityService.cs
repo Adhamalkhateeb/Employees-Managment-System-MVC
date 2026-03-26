@@ -23,6 +23,11 @@ public interface IIdentityService
 
     Task LogoutAsync();
 
+    Task<Result<string?>> GetUserNameByIdAsync(
+        Guid userId,
+        CancellationToken cancellationToken = default
+    );
+
     Task<Result<Updated>> AssignRoleAsync(Guid userId, Role role);
     Task<Result<Updated>> RemoveRoleAsync(Guid userId, Role role);
 

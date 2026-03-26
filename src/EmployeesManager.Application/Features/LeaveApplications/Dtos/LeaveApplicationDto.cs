@@ -16,6 +16,7 @@ public sealed record LeaveApplicationDto(
     string Description,
     string? Attachment,
     string? RejectionReason,
-    string? ApprovedBy,
-    DateTimeOffset? ApprovedAtUtc
+    Guid? DecisionById,
+    string? DecisionBy,
+    DateTimeOffset? DecisionAtUtc
 );

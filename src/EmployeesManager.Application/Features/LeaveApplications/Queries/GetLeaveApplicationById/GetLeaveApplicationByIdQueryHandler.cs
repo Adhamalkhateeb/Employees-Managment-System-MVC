@@ -11,8 +11,16 @@ public sealed class GetLeaveApplicationByIdQueryHandler
     : IRequestHandler<GetLeaveApplicationByIdQuery, Result<LeaveApplicationDto>>
 {
     private readonly IAppDbContext _context;
+    private readonly IIdentityService _identityService;
 
-    public GetLeaveApplicationByIdQueryHandler(IAppDbContext context) => _context = context;
+    public GetLeaveApplicationByIdQueryHandler(
+        IAppDbContext context,
+        IIdentityService identityService
+    )
+    {
+        _context = context;
+        _identityService = identityService;
+    }
 
     public async Task<Result<LeaveApplicationDto>> Handle(
         GetLeaveApplicationByIdQuery query,
@@ -36,13 +44,27 @@ public sealed class GetLeaveApplicationByIdQueryHandler
                 x.Description,
                 x.Attachment,
                 x.RejectionReason,
-                x.ApprovedBy,
-                x.ApprovedAtUtc
+                x.DecisionById,
+                null,
+                x.DecisionAtUtc
             ))
             .FirstOrDefaultAsync(cancellationToken);
 
         if (dto is null)
             return LeaveApplicationErrors.NotFound(query.Id);
+
+        if (dto.DecisionById.HasValue)
+        {
+            var userNameResult = await _identityService.GetUserNameByIdAsync(
+                dto.DecisionById.Value,
+                cancellationToken
+            );
+
+            if (userNameResult.IsError)
+                return userNameResult.Errors;
+
+            dto = dto with { DecisionBy = userNameResult.Value };
+        }
 
         return dto;
     }

@@ -406,3 +406,6 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\artifacts
 C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\artifacts\verify-build\EmployeesManager.Application.pdb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\artifacts\verify-build\EmployeesManager.Domain.pdb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\artifacts\verify-build\EmployeesManager.Infrastructure.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\bin\Debug\net10.0\AutoFixture.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\bin\Debug\net10.0\AutoFixture.AutoNSubstitute.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\tests\EmployeesManager.Tests\bin\Debug\net10.0\Fare.dll

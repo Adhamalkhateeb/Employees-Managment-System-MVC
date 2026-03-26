@@ -1,24 +1,22 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Banks.Commands.DeleteBank;
 using EmployeesManager.Domain.Common.Results;
+using EmployeesManager.Domain.Entities.Banks;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Banks.Commands;
 
 public sealed class DeleteBankTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly DeleteBankCommandHandler _handler;
-
-    public DeleteBankTests() => _handler = new DeleteBankCommandHandler(_context);
-
     [Fact]
     public async Task Handle_NonExistentId_ReturnsNotFound()
     {
-        // TODO: setup _context.Banks to return null
-        var result = await _handler.Handle(
+        await using var context = CreateContext();
+        var handler = new DeleteBankCommandHandler(context);
+
+        var result = await handler.Handle(
             new DeleteBankCommand(Guid.NewGuid()),
             CancellationToken.None
         );
@@ -30,13 +28,24 @@ public sealed class DeleteBankTests
     [Fact]
     public async Task Handle_ExistingId_CallsRemoveAndSave()
     {
-        // TODO: setup _context.Banks to return a valid entity
-        var result = await _handler.Handle(
-            new DeleteBankCommand(Guid.NewGuid()),
-            CancellationToken.None
-        );
+        await using var context = CreateContext();
+        var handler = new DeleteBankCommandHandler(context);
+        var bank = Bank.Create("B001", "Main Bank", "1234567890").Value;
+        context.Banks.Add(bank);
+        await context.SaveChangesAsync();
+
+        var result = await handler.Handle(new DeleteBankCommand(bank.Id), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        await _context.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
+        context.Banks.Count().Should().Be(0);
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

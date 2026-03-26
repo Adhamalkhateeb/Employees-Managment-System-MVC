@@ -1,26 +1,23 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Cities.Commands.CreateCity;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Citys.Commands;
 
 public sealed class CreateCityTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly CreateCityCommandHandler _handler;
-
-    public CreateCityTests() => _handler = new CreateCityCommandHandler(_context);
-
     [Fact]
     public async Task Handle_ValidCommand_ReturnsSuccess()
     {
+        await using var context = CreateContext();
+        var handler = new CreateCityCommandHandler(context);
         var command = new CreateCityCommand("C001", "Cairo", Guid.NewGuid());
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
+        context.Cities.Count().Should().Be(1);
     }
 
     [Fact]
@@ -32,5 +29,14 @@ public sealed class CreateCityTests
 
         validation.IsValid.Should().BeFalse();
         validation.Errors.Should().NotBeEmpty();
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

@@ -1,23 +1,24 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Banks.Queries.GetAllBanks;
+using EmployeesManager.Domain.Entities.Banks;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.Banks.Queries;
 
 public sealed class GetAllBanksTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly GetAllBanksQueryHandler _handler;
-
-    public GetAllBanksTests() => _handler = new GetAllBanksQueryHandler(_context);
-
     [Fact]
     public async Task Handle_WhenDataExists_ReturnsAllDtos()
     {
-        // TODO: setup _context.Banks to return 2 entities
-        var result = await _handler.Handle(new GetAllBanksQuery(), CancellationToken.None);
+        await using var context = CreateContext();
+        var handler = new GetAllBanksQueryHandler(context);
+        context.Banks.Add(Bank.Create("B001", "Main Bank", "1234567890").Value);
+        context.Banks.Add(Bank.Create("B002", "Second Bank", "1234567891").Value);
+        await context.SaveChangesAsync();
+
+        var result = await handler.Handle(new GetAllBanksQuery(), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().HaveCount(2);
@@ -26,10 +27,21 @@ public sealed class GetAllBanksTests
     [Fact]
     public async Task Handle_WhenNoData_ReturnsEmptyList()
     {
-        // TODO: setup _context.Banks to return empty list
-        var result = await _handler.Handle(new GetAllBanksQuery(), CancellationToken.None);
+        await using var context = CreateContext();
+        var handler = new GetAllBanksQueryHandler(context);
+
+        var result = await handler.Handle(new GetAllBanksQuery(), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Should().BeEmpty();
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

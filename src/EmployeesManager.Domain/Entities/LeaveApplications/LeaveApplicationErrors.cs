@@ -66,4 +66,10 @@ public static class LeaveApplicationErrors
         "LeaveApplication.NotCancellable",
         "Only pending leave applications can be cancelled."
     );
+
+    public static Error DecisionerRequired(string decisioner) =>
+        Error.Validation(
+            $"LeaveApplication.{decisioner}.Required",
+            $"{decisioner} is required when making a decision on a leave application."
+        );
 }

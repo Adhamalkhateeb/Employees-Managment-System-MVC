@@ -1,19 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EmployeesManager.Domain.Common;
 
 namespace EmployeesManager.Domain.Entities.LeaveApplications
 {
-    public class ApprovalActivity : AuditableEntity
+    public class DecisionActivity : AuditableEntity
     {
-        public string? ApprovedBy { get; set; }
-        public DateTimeOffset? ApprovedAtUtc { get; set; }
+        public Guid? DecisionById { get; protected set; }
+        public DateTimeOffset? DecisionAtUtc { get; protected set; }
 
-        protected ApprovalActivity() { }
+        protected DecisionActivity()
+        {
+            // Required by EF Core
+        }
 
-        protected ApprovalActivity(Guid id)
+        protected DecisionActivity(Guid id)
             : base(id) { }
+
+        protected void SetDecision(Guid user)
+        {
+            DecisionById = user;
+            DecisionAtUtc = DateTimeOffset.UtcNow;
+        }
     }
 }

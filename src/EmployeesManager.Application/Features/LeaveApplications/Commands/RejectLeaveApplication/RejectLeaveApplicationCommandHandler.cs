@@ -9,8 +9,13 @@ public sealed class RejectLeaveApplicationCommandHandler
     : IRequestHandler<RejectLeaveApplicationCommand, Result<Success>>
 {
     private readonly IAppDbContext _context;
+    private readonly ICurrentUser _currentUser;
 
-    public RejectLeaveApplicationCommandHandler(IAppDbContext context) => _context = context;
+    public RejectLeaveApplicationCommandHandler(IAppDbContext context, ICurrentUser currentUser)
+    {
+        _context = context;
+        _currentUser = currentUser;
+    }
 
     public async Task<Result<Success>> Handle(
         RejectLeaveApplicationCommand command,
@@ -25,7 +30,7 @@ public sealed class RejectLeaveApplicationCommandHandler
         if (leaveApplication is null)
             return LeaveApplicationErrors.NotFound(command.Id);
 
-        var result = leaveApplication.Reject(command.RejectionReason);
+        var result = leaveApplication.Reject(_currentUser.Id, command.RejectionReason);
 
         if (result.IsError)
             return result.Errors;

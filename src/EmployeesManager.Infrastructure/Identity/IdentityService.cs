@@ -3,6 +3,7 @@ using EmployeesManager.Application.Features.Identity.Dtos;
 using EmployeesManager.Domain.Common.Results;
 using EmployeesManager.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesManager.Infrastructure.Identity;
 
@@ -148,6 +149,15 @@ public sealed class IdentityService(
 
     public async Task<bool> IsUserNameAvailableAsync(string userName) =>
         await _userManager.FindByNameAsync(userName) is null;
+
+    public async Task<Result<string?>> GetUserNameByIdAsync(
+        Guid userId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        return user?.UserName ?? string.Empty;
+    }
 
     private static List<Error> MapIdentityErrors(IEnumerable<IdentityError> errors) =>
         [.. errors.Select(e => Error.Conflict(e.Code, e.Description))];

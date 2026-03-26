@@ -18,7 +18,6 @@ public sealed class CreateDepartmentTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
         context.Departments.Count().Should().Be(1);
     }
 

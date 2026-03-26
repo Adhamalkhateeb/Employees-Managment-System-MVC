@@ -1,26 +1,23 @@
-using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.SystemCodes.Commands.CreateSystemCode;
+using EmployeesManager.Infrastructure.Data;
 using FluentAssertions;
-using NSubstitute;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace EmployeesManager.Tests.Features.SystemCodes.Commands;
 
 public sealed class CreateSystemCodeTests
 {
-    private readonly IAppDbContext _context = Substitute.For<IAppDbContext>();
-    private readonly CreateSystemCodeCommandHandler _handler;
-
-    public CreateSystemCodeTests() => _handler = new CreateSystemCodeCommandHandler(_context);
-
     [Fact]
     public async Task Handle_ValidCommand_ReturnsSuccess()
     {
+        await using var context = CreateContext();
+        var handler = new CreateSystemCodeCommandHandler(context);
         var command = new CreateSystemCodeCommand("GENDER", "GEN");
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
+        context.SystemCodes.Count().Should().Be(1);
     }
 
     [Fact]
@@ -32,5 +29,14 @@ public sealed class CreateSystemCodeTests
 
         validation.IsValid.Should().BeFalse();
         validation.Errors.Should().NotBeEmpty();
+    }
+
+    private static AppDbContext CreateContext()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
     }
 }

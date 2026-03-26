@@ -8,8 +8,8 @@ public abstract class AuditableEntity : BaseEntity
         : base(id) { }
 
     public DateTimeOffset CreatedAtUtc { get; set; }
-    public string? CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
 
     public DateTimeOffset LastModifiedUtc { get; set; }
-    public string? LastModifiedBy { get; set; }
+    public Guid? LastModifiedBy { get; set; }
 }

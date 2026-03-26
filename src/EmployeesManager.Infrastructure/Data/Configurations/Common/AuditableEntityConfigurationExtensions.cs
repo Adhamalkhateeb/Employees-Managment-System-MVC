@@ -9,8 +9,8 @@ internal static class AuditableEntityConfigurationExtensions
         where TEntity : AuditableEntity
     {
         builder.Property(x => x.CreatedAtUtc).IsRequired();
-        builder.Property(x => x.CreatedBy).HasMaxLength(100);
-        builder.Property(x => x.LastModifiedUtc).IsRequired();
-        builder.Property(x => x.LastModifiedBy).HasMaxLength(100);
+        builder.Property(x => x.CreatedBy).IsRequired();
+        builder.Property(x => x.LastModifiedUtc).IsRequired(false);
+        builder.Property(x => x.LastModifiedBy).IsRequired(false);
     }
 }

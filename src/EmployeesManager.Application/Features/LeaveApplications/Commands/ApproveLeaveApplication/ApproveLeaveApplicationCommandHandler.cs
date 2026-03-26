@@ -9,8 +9,13 @@ public sealed class ApproveLeaveApplicationCommandHandler
     : IRequestHandler<ApproveLeaveApplicationCommand, Result<Success>>
 {
     private readonly IAppDbContext _context;
+    private readonly ICurrentUser _currentUser;
 
-    public ApproveLeaveApplicationCommandHandler(IAppDbContext context) => _context = context;
+    public ApproveLeaveApplicationCommandHandler(IAppDbContext context, ICurrentUser currentUser)
+    {
+        _context = context;
+        _currentUser = currentUser;
+    }
 
     public async Task<Result<Success>> Handle(
         ApproveLeaveApplicationCommand command,
@@ -25,7 +30,7 @@ public sealed class ApproveLeaveApplicationCommandHandler
         if (leaveApplication is null)
             return LeaveApplicationErrors.NotFound(command.Id);
 
-        var result = leaveApplication.Approve();
+        var result = leaveApplication.Approve(_currentUser.Id);
 
         if (result.IsError)
             return result.Errors;

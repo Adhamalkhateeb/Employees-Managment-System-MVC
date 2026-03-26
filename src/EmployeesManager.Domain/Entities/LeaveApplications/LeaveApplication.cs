@@ -4,7 +4,7 @@ using EmployeesManager.Domain.Entities.LeaveApplications;
 using EmployeesManager.Domain.Entities.LeaveApplications.Enums;
 using EmployeesManager.Domain.Entities.LeaveTypes;
 
-public sealed class LeaveApplication : ApprovalActivity
+public sealed class LeaveApplication : DecisionActivity
 {
     public Guid EmployeeId { get; private set; }
     public Guid LeaveTypeId { get; private set; }
@@ -116,16 +116,20 @@ public sealed class LeaveApplication : ApprovalActivity
         return Result.Updated;
     }
 
-    public Result<Success> Approve()
+    public Result<Success> Approve(Guid approvedBy)
     {
         if (!IsPending())
             return LeaveApplicationErrors.NotApprovable;
 
+        if (approvedBy == Guid.Empty)
+            return LeaveApplicationErrors.DecisionerRequired("Approver");
+
         Status = LeaveApplicationStatus.Approved;
+        SetDecision(approvedBy);
         return Result.Success;
     }
 
-    public Result<Success> Reject(string reason)
+    public Result<Success> Reject(Guid rejectedBy, string reason)
     {
         if (!IsPending())
             return LeaveApplicationErrors.NotRejectable;
@@ -133,17 +137,25 @@ public sealed class LeaveApplication : ApprovalActivity
         if (string.IsNullOrWhiteSpace(reason))
             return LeaveApplicationErrors.RejectionReasonRequired;
 
+        if (rejectedBy == Guid.Empty)
+            return LeaveApplicationErrors.DecisionerRequired("Rejecter");
+
         Status = LeaveApplicationStatus.Rejected;
         RejectionReason = reason.Trim();
+        SetDecision(rejectedBy);
         return Result.Success;
     }
 
-    public Result<Success> Cancel()
+    public Result<Success> Cancel(Guid cancelledBy)
     {
         if (!IsPending())
             return LeaveApplicationErrors.NotCancellable;
 
+        if (cancelledBy == Guid.Empty)
+            return LeaveApplicationErrors.DecisionerRequired("Canceler");
+
         Status = LeaveApplicationStatus.Cancelled;
+        SetDecision(cancelledBy);
         return Result.Success;
     }
 

@@ -10,15 +10,23 @@ public sealed class GetAllLeaveApplicationsQueryHandler
     : IRequestHandler<GetAllLeaveApplicationsQuery, Result<List<LeaveApplicationDto>>>
 {
     private readonly IAppDbContext _context;
+    private readonly IIdentityService _identityService;
 
-    public GetAllLeaveApplicationsQueryHandler(IAppDbContext context) => _context = context;
+    public GetAllLeaveApplicationsQueryHandler(
+        IAppDbContext context,
+        IIdentityService identityService
+    )
+    {
+        _context = context;
+        _identityService = identityService;
+    }
 
     public async Task<Result<List<LeaveApplicationDto>>> Handle(
         GetAllLeaveApplicationsQuery query,
         CancellationToken cancellationToken
     )
     {
-        var entities = await _context
+        var leaves = await _context
             .LeaveApplications.AsNoTracking()
             .Select(x => new LeaveApplicationDto(
                 x.Id,
@@ -34,11 +42,12 @@ public sealed class GetAllLeaveApplicationsQueryHandler
                 x.Description,
                 x.Attachment,
                 x.RejectionReason,
-                x.ApprovedBy,
-                x.ApprovedAtUtc
+                x.DecisionById,
+                null, // Will be filled later
+                x.DecisionAtUtc
             ))
             .ToListAsync(cancellationToken);
 
-        return entities;
+        return leaves;
     }
 }

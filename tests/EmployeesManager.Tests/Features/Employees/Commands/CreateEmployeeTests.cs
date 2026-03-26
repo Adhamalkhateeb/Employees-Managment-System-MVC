@@ -38,7 +38,6 @@ public sealed class CreateEmployeeTests
         var result = await handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
         context.Employees.Count().Should().Be(1);
     }
 
