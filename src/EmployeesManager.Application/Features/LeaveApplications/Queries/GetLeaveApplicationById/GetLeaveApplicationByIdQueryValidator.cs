@@ -2,7 +2,8 @@ using FluentValidation;
 
 namespace EmployeesManager.Application.Features.LeaveApplications.Queries.GetLeaveApplicationById;
 
-public sealed class GetLeaveApplicationByIdQueryValidator : AbstractValidator<GetLeaveApplicationByIdQuery>
+public sealed class GetLeaveApplicationByIdQueryValidator
+    : AbstractValidator<GetLeaveApplicationByIdQuery>
 {
     public GetLeaveApplicationByIdQueryValidator()
     {

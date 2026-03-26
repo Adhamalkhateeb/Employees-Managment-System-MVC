@@ -178,12 +178,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Adham Web/MVC_Projects/EmpoyeesManager/src/EmployeesManager.Web/Views/LeaveApplications/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Adham Web/MVC_Projects/EmpoyeesManager/src/EmployeesManager.Web/Views/LeaveApplications/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Adham Web/MVC_Projects/EmpoyeesManager/src/EmployeesManager.Web/Views/LeaveApplications/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Adham Web/MVC_Projects/EmpoyeesManager/src/EmployeesManager.Web/Views/LeaveApplications/Reject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVhdmVBcHBsaWNhdGlvbnNcUmVqZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Adham Web/MVC_Projects/EmpoyeesManager/src/EmployeesManager.Web/Views/LeaveTypes/Create.cshtml]

@@ -8,31 +8,33 @@ public abstract class LeaveApplicationCommandValidatorBase<TCommand> : AbstractV
 {
     protected void CommonRules()
     {
-        RuleFor(x => x.EmployeeId).NotEmpty().WithMessage("Employee is required");
+        RuleFor(x => x.EmployeeId).NotEmpty().WithMessage("Employee is required.");
 
-        RuleFor(x => x.LeaveTypeId).NotEmpty().WithMessage("Leave type is required");
+        RuleFor(x => x.LeaveTypeId).NotEmpty().WithMessage("Leave type is required.");
 
-        RuleFor(x => x.DurationId).NotEmpty().WithMessage("Duration is required");
+        RuleFor(x => x.Duration).IsInEnum().WithMessage("Invalid duration.");
 
-        RuleFor(x => x.StatusId).NotEmpty().WithMessage("Status is required");
-
-        RuleFor(x => x.StartDate)
-            .NotEqual(DateTimeOffset.MinValue)
-            .WithMessage("Start date is required");
+        RuleFor(x => x.StartDate).NotEmpty().WithMessage("Start date is required.");
 
         RuleFor(x => x.EndDate)
-            .NotEqual(DateTimeOffset.MinValue)
-            .WithMessage("End date is required")
+            .NotEmpty()
+            .WithMessage("End date is required.")
             .GreaterThanOrEqualTo(x => x.StartDate)
-            .WithMessage("End date must be greater than or equal to start date");
+            .WithMessage("End date must be on or after start date.");
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .WithMessage("Description is required")
-            .MaximumLength(LeaveApplicationConstants.DescriptionMaxLength);
+            .WithMessage("Description is required.")
+            .MaximumLength(LeaveApplicationConstants.DescriptionMaxLength)
+            .WithMessage(
+                $"Description cannot exceed {LeaveApplicationConstants.DescriptionMaxLength} characters."
+            );
 
         RuleFor(x => x.Attachment)
             .MaximumLength(LeaveApplicationConstants.AttachmentMaxLength)
+            .WithMessage(
+                $"Attachment cannot exceed {LeaveApplicationConstants.AttachmentMaxLength} characters."
+            )
             .When(x => !string.IsNullOrWhiteSpace(x.Attachment));
     }
 }

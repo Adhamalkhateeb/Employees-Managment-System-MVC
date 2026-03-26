@@ -11,10 +11,7 @@ public sealed class CreateLeaveApplicationRequest
     public Guid LeaveTypeId { get; set; }
 
     [Required(ErrorMessage = "Duration is required")]
-    public Guid DurationId { get; set; }
-
-    [Required(ErrorMessage = "Status is required")]
-    public Guid StatusId { get; set; }
+    public string Duration { get; set; } = default!;
 
     [Required(ErrorMessage = "Start date is required")]
     public DateTimeOffset StartDate { get; set; }

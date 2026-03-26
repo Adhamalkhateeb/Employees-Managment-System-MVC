@@ -1,5 +1,4 @@
-@using EmployeesManager.Contracts.Responses.LeaveApplications
-@model List<LeaveApplicationResponse>
+@model IEnumerable<LeaveApplicationResponse>
 @{ ViewBag.Title = "Leave Applications"; }
 
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
@@ -11,6 +10,20 @@
         <i class="fa-solid fa-plus me-2"></i>New Application
     </a>
 </div>
+
+@if (TempData["WorkflowSuccess"] is string workflowSuccess && !string.IsNullOrWhiteSpace(workflowSuccess))
+{
+    <div class="alert alert-success shadow-sm border-0 rounded-4 mb-4" role="alert">
+        <i class="fa-solid fa-circle-check me-2"></i>@workflowSuccess
+    </div>
+}
+
+@if (TempData["WorkflowError"] is string workflowError && !string.IsNullOrWhiteSpace(workflowError))
+{
+    <div class="alert alert-danger shadow-sm border-0 rounded-4 mb-4" role="alert">
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>@workflowError
+    </div>
+}
 
 @if (!Model.Any())
 {
@@ -37,7 +50,6 @@ else
                             <th class="text-uppercase border-0 table-head-label">Period</th>
                             <th class="text-uppercase border-0 table-head-label">Days</th>
                             <th class="text-uppercase border-0 table-head-label">Status</th>
-                            <th class="text-uppercase border-0 table-head-label">Approved By</th>
                             <th class="text-center text-uppercase border-0 table-head-label">Actions</th>
                         </tr>
                     </thead>
@@ -50,16 +62,52 @@ else
                                 <td>@item.DurationName</td>
                                 <td>@item.StartDate.ToString("dd MMM yyyy") - @item.EndDate.ToString("dd MMM yyyy")</td>
                                 <td><span class="badge bg-secondary">@item.Days day(s)</span></td>
-                                <td><span class="badge @GetStatusBadge(item.StatusName)">@item.StatusName</span></td>
-                                <td>@(string.IsNullOrWhiteSpace(item.ApprovedBy) ? "-" : item.ApprovedBy)</td>
+                                <td><span class="badge @GetStatusBadge(item.Status)">@item.Status</span></td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning action-btn" data-bs-toggle="tooltip" title="Edit">
-                                            <i class="fa-solid fa-pen"></i>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info action-btn" data-bs-toggle="tooltip" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger action-btn" data-bs-toggle="tooltip" title="Delete">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
+                                        @if (IsPendingStatus(item.Status))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning action-btn" data-bs-toggle="tooltip" title="Edit">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
+                                            <div class="dropdown">
+                                                <button
+                                                    class="btn btn-sm btn-outline-primary action-btn dropdown-toggle"
+                                                    type="button"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false"
+                                                    title="Workflow Actions"
+                                                >
+                                                    <i class="fa-solid fa-bolt"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end shadow-sm">
+                                                    <form asp-action="Approve" asp-route-id="@item.Id" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <button type="submit" class="dropdown-item text-success">
+                                                            <i class="fa-solid fa-check me-2"></i>Approve
+                                                        </button>
+                                                    </form>
+
+                                                    <a asp-action="Reject" asp-route-id="@item.Id" class="dropdown-item text-danger">
+                                                        <i class="fa-solid fa-xmark me-2"></i>Reject
+                                                    </a>
+
+                                                    <form asp-action="Cancel" asp-route-id="@item.Id" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <button type="submit" class="dropdown-item text-secondary">
+                                                            <i class="fa-solid fa-ban me-2"></i>Cancel
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger action-btn" data-bs-toggle="tooltip" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        }
                                     </div>
                                 </td>
                             </tr>
@@ -76,10 +124,15 @@ else
         status.ToLowerInvariant() switch
         {
             var s when s.Contains("approve") => "bg-success",
+            var s when s.Contains("cancel") => "bg-secondary",
             var s when s.Contains("reject") => "bg-danger",
             var s when s.Contains("pending") => "bg-warning text-dark",
             _ => "bg-secondary"
         };
+
+    private static bool IsPendingStatus(string status) =>
+        !string.IsNullOrWhiteSpace(status)
+        && status.Contains("pending", StringComparison.OrdinalIgnoreCase);
 }
 
 @section scripts {

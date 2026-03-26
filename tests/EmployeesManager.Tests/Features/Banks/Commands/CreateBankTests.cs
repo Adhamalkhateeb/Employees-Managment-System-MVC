@@ -1,5 +1,6 @@
 using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Banks.Commands.CreateBank;
+using EmployeesManager.Domain.Common.Results;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
@@ -20,7 +21,8 @@ public sealed class CreateBankTests
         var result = await _handler.Handle(command, CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Id.Should().NotBeEmpty();
+        result.Value.Should().NotBeNull();
+        result.Value!.Should().Be(Result.Created);
     }
 
     [Fact]

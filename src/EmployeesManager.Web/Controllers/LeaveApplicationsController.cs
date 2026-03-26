@@ -1,14 +1,12 @@
-using EmployeesManager.Application.Features.Employees.Queries.GetAllEmployees;
-using EmployeesManager.Application.Features.LeaveApplications.Commands.CreateLeaveApplication;
+using EmployeesManager.Application.Features.LeaveApplications.Commands.ApproveLeaveApplication;
+using EmployeesManager.Application.Features.LeaveApplications.Commands.CancelLeaveApplication;
 using EmployeesManager.Application.Features.LeaveApplications.Commands.DeleteLeaveApplication;
-using EmployeesManager.Application.Features.LeaveApplications.Commands.UpdateLeaveApplication;
-using EmployeesManager.Application.Features.LeaveApplications.Common;
+using EmployeesManager.Application.Features.LeaveApplications.Commands.RejectLeaveApplication;
 using EmployeesManager.Application.Features.LeaveApplications.Queries.GetAllLeaveApplications;
 using EmployeesManager.Application.Features.LeaveApplications.Queries.GetLeaveApplicationById;
-using EmployeesManager.Application.Features.LeaveTypes.Queries.GetAllLeaveTypes;
-using EmployeesManager.Application.Features.SystemCodeDetails.Common;
-using EmployeesManager.Application.Features.SystemCodeDetails.Queries.GetSystemCodeDetailsBySystemCode;
+using EmployeesManager.Application.Features.LeaveApplications.Queries.GetLeaveApplicationLookups;
 using EmployeesManager.Contracts.Requests.LeaveApplications;
+using EmployeesManager.Domain.Common.Results;
 using EmployeesManager.Web.Mappers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -29,13 +27,17 @@ public sealed class LeaveApplicationsController : MvcController
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new GetAllLeaveApplicationsQuery(), cancellationToken);
-        return result.Match(items => View(items.ToResponses()), errors => HandleError(errors));
+
+        return result.Match(
+            leaveApplications => View(leaveApplications.ToResponses()),
+            errors => HandleError(errors)
+        );
     }
 
     [HttpGet]
     public async Task<IActionResult> Create(CancellationToken cancellationToken)
     {
-        await LoadLeaveApplicationLookupsAsync(cancellationToken);
+        await LoadLookupsAsync(cancellationToken);
         return View();
     }
 
@@ -48,54 +50,36 @@ public sealed class LeaveApplicationsController : MvcController
     {
         if (!ModelState.IsValid)
         {
-            await LoadLeaveApplicationLookupsAsync(cancellationToken);
+            await LoadLookupsAsync(cancellationToken);
             return View(request);
         }
 
-        var command = new CreateLeaveApplicationCommand(
-            request.EmployeeId,
-            request.LeaveTypeId,
-            request.DurationId,
-            request.StatusId,
-            request.StartDate,
-            request.EndDate,
-            request.Description,
-            request.Attachment
-        );
+        var result = await _mediator.Send(request.ToCommand(), cancellationToken);
 
-        var result = await _mediator.Send(command, cancellationToken);
         if (result.IsSuccess)
             return RedirectToAction(nameof(Index));
 
-        await LoadLeaveApplicationLookupsAsync(cancellationToken);
+        await LoadLookupsAsync(cancellationToken);
         return HandleError(result.Errors, request);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken)
     {
-        await LoadLeaveApplicationLookupsAsync(cancellationToken);
-
         var result = await _mediator.Send(new GetLeaveApplicationByIdQuery(id), cancellationToken);
-        return result.Match(
-            item =>
-            {
-                ViewBag.Id = item.Id;
-                var request = new UpdateLeaveApplicationRequest
-                {
-                    EmployeeId = item.EmployeeId,
-                    LeaveTypeId = item.LeaveTypeId,
-                    DurationId = item.DurationId,
-                    StatusId = item.StatusId,
-                    StartDate = item.StartDate,
-                    EndDate = item.EndDate,
-                    Description = item.Description,
-                    Attachment = item.Attachment,
-                };
-                return View(request);
-            },
-            errors => HandleError(errors)
-        );
+
+        if (result.IsError)
+            return HandleError(result.Errors);
+
+        if (result.Value.Status != LeaveApplicationStatus.Pending)
+        {
+            TempData["WorkflowError"] = "Only pending leave applications can be edited.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        await LoadLookupsAsync(cancellationToken);
+        ViewBag.Id = result.Value.Id;
+        return View(result.Value.ToUpdateRequest());
     }
 
     [HttpPost("{id:guid}")]
@@ -108,35 +92,61 @@ public sealed class LeaveApplicationsController : MvcController
     {
         if (!ModelState.IsValid)
         {
-            await LoadLeaveApplicationLookupsAsync(cancellationToken);
+            await LoadLookupsAsync(cancellationToken);
             return View(request);
         }
 
-        var command = new UpdateLeaveApplicationCommand(
-            Id: id,
-            EmployeeId: request.EmployeeId,
-            LeaveTypeId: request.LeaveTypeId,
-            DurationId: request.DurationId,
-            StatusId: request.StatusId,
-            StartDate: request.StartDate,
-            EndDate: request.EndDate,
-            Description: request.Description,
-            Attachment: request.Attachment
+        var currentItemResult = await _mediator.Send(
+            new GetLeaveApplicationByIdQuery(id),
+            cancellationToken
         );
 
-        var result = await _mediator.Send(command, cancellationToken);
+        if (currentItemResult.IsError)
+            return HandleError(currentItemResult.Errors);
+
+        if (currentItemResult.Value.Status != LeaveApplicationStatus.Pending)
+        {
+            TempData["WorkflowError"] = "Only pending leave applications can be edited.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        var result = await _mediator.Send(
+            request.ToCommand(id, currentItemResult.Value.Status),
+            cancellationToken
+        );
+
         if (result.IsSuccess)
             return RedirectToAction(nameof(Index));
 
-        await LoadLeaveApplicationLookupsAsync(cancellationToken);
+        await LoadLookupsAsync(cancellationToken);
         return HandleError(result.Errors, request);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new GetLeaveApplicationByIdQuery(id), cancellationToken);
+        return result.Match(
+            leaveApplication => View(leaveApplication.ToResponse()),
+            errors => HandleError(errors)
+        );
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new GetLeaveApplicationByIdQuery(id), cancellationToken);
-        return result.Match(item => View(item.ToResponse()), errors => HandleError(errors));
+
+        if (result.IsError)
+            return HandleError(result.Errors);
+
+        if (result.Value.Status != LeaveApplicationStatus.Pending)
+        {
+            TempData["WorkflowError"] = "Only pending leave applications can be deleted.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(result.Value);
     }
 
     [HttpPost("{id:guid}")]
@@ -148,50 +158,127 @@ public sealed class LeaveApplicationsController : MvcController
         return result.Match(_ => RedirectToAction(nameof(Index)), errors => HandleError(errors));
     }
 
-    private async Task LoadLeaveApplicationLookupsAsync(CancellationToken cancellationToken)
+    [HttpPost("{id:guid}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Approve(Guid id, CancellationToken cancellationToken)
     {
-        var employees = await _mediator.Send(new GetAllEmployeesQuery(), cancellationToken);
-        var leaveTypes = await _mediator.Send(new GetAllLeaveTypesQuery(), cancellationToken);
-        var durationDetails = await _mediator.Send(
-            new GetSystemCodeDetailsBySystemCodeQuery(
-                SystemCodeLookUpConstants.LeaveDurationSystemCode
-            ),
-            cancellationToken
-        );
-        var statusDetails = await _mediator.Send(
-            new GetSystemCodeDetailsBySystemCodeQuery(
-                SystemCodeLookUpConstants.LeaveApplicationStatusSystemCode
-            ),
+        var result = await _mediator.Send(
+            new ApproveLeaveApplicationCommand(id),
             cancellationToken
         );
 
-        ViewBag.Employees = employees.Match(
-            value =>
-                value
-                    .Select(x => new SelectListItem($"{x.FirstName} {x.LastName}", x.Id.ToString()))
-                    .ToList(),
-            _ => []
+        if (result.IsSuccess)
+        {
+            TempData["WorkflowSuccess"] = "Leave application approved successfully.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        return HandleWorkflowErrors(result.Errors);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> Reject(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new GetLeaveApplicationByIdQuery(id), cancellationToken);
+
+        if (result.IsError)
+            return HandleError(result.Errors);
+
+        if (result.Value.Status != LeaveApplicationStatus.Pending)
+        {
+            TempData["WorkflowError"] = "Only pending leave applications can be rejected.";
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        return View(result.Value.ToResponse());
+    }
+
+    [HttpPost("{id:guid}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Reject(
+        Guid id,
+        RejectLeaveApplicationRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!ModelState.IsValid)
+            return await ReturnRejectViewAsync(id, request.RejectionReason, cancellationToken);
+
+        var result = await _mediator.Send(
+            new RejectLeaveApplicationCommand(id, request.RejectionReason),
+            cancellationToken
         );
 
-        ViewBag.LeaveTypes = leaveTypes.Match(
-            value => value.Select(x => new SelectListItem($"{x.Code}", x.Id.ToString())).ToList(),
-            _ => []
-        );
+        if (result.IsSuccess)
+        {
+            TempData["WorkflowSuccess"] = "Leave application rejected.";
+            return RedirectToAction(nameof(Index));
+        }
 
-        ViewBag.Durations = durationDetails.Match(
-            value =>
-                value
-                    .Select(x => new SelectListItem(x.Description ?? x.Code, x.Id.ToString()))
-                    .ToList(),
-            _ => []
-        );
+        return HandleWorkflowErrors(result.Errors);
+    }
 
-        ViewBag.Statuses = statusDetails.Match(
-            value =>
-                value
-                    .Select(x => new SelectListItem(x.Description ?? x.Code, x.Id.ToString()))
-                    .ToList(),
-            _ => []
+    [HttpPost("{id:guid}")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new CancelLeaveApplicationCommand(id), cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            TempData["WorkflowSuccess"] = "Leave application cancelled.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        return HandleWorkflowErrors(result.Errors);
+    }
+
+    private async Task LoadLookupsAsync(CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new GetLeaveApplicationLookupsQuery(), cancellationToken);
+
+        result.Match(
+            values =>
+            {
+                ViewBag.Employees = values
+                    .Employees.Select(e => new SelectListItem(e.FullName, e.Id.ToString()))
+                    .ToList();
+
+                ViewBag.LeaveTypes = values
+                    .LeaveTypes.Select(lt => new SelectListItem(lt.Code, lt.Id.ToString()))
+                    .ToList();
+
+                ViewBag.Durations = values.Durations.Select(d => new SelectListItem(d, d)).ToList();
+
+                return true;
+            },
+            _ => false
         );
+    }
+
+    private async Task<IActionResult> ReturnRejectViewAsync(
+        Guid id,
+        string? rejectionReason,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _mediator.Send(new GetLeaveApplicationByIdQuery(id), cancellationToken);
+
+        if (result.IsError)
+            return HandleError(result.Errors);
+
+        ViewBag.RejectionReason = rejectionReason ?? string.Empty;
+        return View("Reject", result.Value.ToResponse());
+    }
+
+    private IActionResult HandleWorkflowErrors(List<Error> errors)
+    {
+        if (errors.All(e => e.Type is ErrorKind.Validation or ErrorKind.Conflict))
+        {
+            TempData["WorkflowError"] = string.Join(" ", errors.Select(e => e.Description));
+            return RedirectToAction(nameof(Index));
+        }
+
+        return HandleError(errors);
     }
 }

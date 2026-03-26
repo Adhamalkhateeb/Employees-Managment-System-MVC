@@ -1311,7 +1311,6 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\ver
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.runtimeconfig.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.endpoints.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.runtime.json
-C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\obj\Debug\net10.0\compressed\3kbizmgy4m-{0}-699ey9ihwz-699ey9ihwz.gz
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\appsettings.Development.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\appsettings.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.deps.json
@@ -1330,3 +1329,16 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.runtimeconfig.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.endpoints.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.runtime.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\appsettings.Development.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\appsettings.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.runtimeconfig.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.endpoints.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.runtime.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\obj\Debug\net10.0\compressed\3kbizmgy4m-{0}-jz2fslgo5u-jz2fslgo5u.gz
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\appsettings.Development.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\appsettings.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.runtimeconfig.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.endpoints.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\artifacts\verify-build\EmployeesManager.Web.staticwebassets.runtime.json

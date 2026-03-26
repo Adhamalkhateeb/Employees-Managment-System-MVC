@@ -484,14 +484,39 @@
   <script src="https://cdn.datatables.net/buttons/3.2.6/js/buttons.colVis.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      const setMobileDataLabels = function (table) {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(function (header) {
+          return (header.textContent || '').trim();
+        });
+
+        table.querySelectorAll('tbody tr').forEach(function (row) {
+          let cellIndex = 0;
+          Array.from(row.children).forEach(function (cell) {
+            if (cell.tagName !== 'TD') {
+              return;
+            }
+
+            const headerText = headers[cellIndex] || '';
+            cell.setAttribute('data-label', headerText);
+            cellIndex += 1;
+          });
+        });
+      };
+
       const dataTables = document.querySelectorAll('.js-data-table');
 
       dataTables.forEach(function (table) {
+        setMobileDataLabels(table);
+
         if (!table.classList.contains('dataTable')) {
-          new DataTable(table, {
+          const dt = new DataTable(table, {
             layout: {
               topStart: {}
             }
+          });
+
+          dt.on('draw', function () {
+            setMobileDataLabels(table);
           });
         }
       });

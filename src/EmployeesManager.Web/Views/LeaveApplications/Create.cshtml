@@ -45,18 +45,11 @@
                             <span asp-validation-for="LeaveTypeId" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-6">
-                            <label asp-for="DurationId" class="form-label fw-semibold">Duration Type</label>
-                            <select asp-for="DurationId" asp-items="ViewBag.Durations" class="form-select">
+                            <label asp-for="Duration" class="form-label fw-semibold">Duration Type</label>
+                            <select asp-for="Duration" asp-items="ViewBag.Durations" class="form-select">
                                 <option value="">Select Duration</option>
                             </select>
-                            <span asp-validation-for="DurationId" class="text-danger small mt-1 d-block"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <label asp-for="StatusId" class="form-label fw-semibold">Status</label>
-                            <select asp-for="StatusId" asp-items="ViewBag.Statuses" class="form-select">
-                                <option value="">Select Status</option>
-                            </select>
-                            <span asp-validation-for="StatusId" class="text-danger small mt-1 d-block"></span>
+                            <span asp-validation-for="Duration" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="StartDate" class="form-label fw-semibold">Start Date</label>

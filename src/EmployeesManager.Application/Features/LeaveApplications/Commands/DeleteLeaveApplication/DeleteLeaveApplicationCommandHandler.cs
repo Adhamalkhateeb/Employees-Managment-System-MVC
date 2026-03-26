@@ -18,15 +18,19 @@ public sealed class DeleteLeaveApplicationCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var entity = await _context.LeaveApplications.FirstOrDefaultAsync(
+        var leaveApplication = await _context.LeaveApplications.FirstOrDefaultAsync(
             x => x.Id == command.Id,
             cancellationToken
         );
 
-        if (entity is null)
+        if (leaveApplication is null)
             return LeaveApplicationErrors.NotFound(command.Id);
 
-        _context.LeaveApplications.Remove(entity);
+        if (!leaveApplication.IsPending())
+            return LeaveApplicationErrors.NotEditable;
+
+
+        _context.LeaveApplications.Remove(leaveApplication);
         await _context.SaveChangesAsync(cancellationToken);
         return Result.Deleted;
     }

@@ -1,3 +1,5 @@
+using EmployeesManager.Domain.Entities.LeaveApplications.Enums;
+
 namespace EmployeesManager.Application.Features.LeaveApplications.Dtos;
 
 public sealed record LeaveApplicationDto(
@@ -6,15 +8,14 @@ public sealed record LeaveApplicationDto(
     string EmployeeName,
     Guid LeaveTypeId,
     string LeaveTypeName,
-    Guid DurationId,
-    string DurationName,
-    Guid StatusId,
-    string StatusName,
+    LeaveApplicationDurations Duration,
+    LeaveApplicationStatus Status,
     DateTimeOffset StartDate,
     DateTimeOffset EndDate,
     int Days,
     string Description,
     string? Attachment,
+    string? RejectionReason,
     string? ApprovedBy,
     DateTimeOffset? ApprovedAtUtc
 );

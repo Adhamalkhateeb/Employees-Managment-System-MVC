@@ -1,6 +1,8 @@
-@using EmployeesManager.Contracts.Requests.LeaveApplications
 @model UpdateLeaveApplicationRequest
 @{ ViewBag.Title = "Edit Leave Application"; }
+@{
+    var routeId = ViewBag.Id?.ToString() ?? Context.Request.RouteValues["id"]?.ToString();
+}
 
 <div class="row justify-content-center crud-form-page">
     <div class="col-lg-10 col-xl-8">
@@ -26,7 +28,7 @@
                 <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-pen-to-square me-2"></i> Leave Details</h4>
             </div>
             <div class="card-body p-4 p-md-5">
-                <form asp-action="Edit" asp-route-id="@ViewBag.Id" method="post">
+                <form asp-action="Edit" asp-route-id="@routeId" method="post">
                     @Html.AntiForgeryToken()
 
                     <div class="row g-4">
@@ -45,18 +47,11 @@
                             <span asp-validation-for="LeaveTypeId" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-6">
-                            <label asp-for="DurationId" class="form-label fw-semibold">Duration Type</label>
-                            <select asp-for="DurationId" asp-items="ViewBag.Durations" class="form-select">
+                            <label asp-for="Duration" class="form-label fw-semibold">Duration Type</label>
+                            <select asp-for="Duration" asp-items="ViewBag.Durations" class="form-select">
                                 <option value="">Select Duration</option>
                             </select>
-                            <span asp-validation-for="DurationId" class="text-danger small mt-1 d-block"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <label asp-for="StatusId" class="form-label fw-semibold">Status</label>
-                            <select asp-for="StatusId" asp-items="ViewBag.Statuses" class="form-select">
-                                <option value="">Select Status</option>
-                            </select>
-                            <span asp-validation-for="StatusId" class="text-danger small mt-1 d-block"></span>
+                            <span asp-validation-for="Duration" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="StartDate" class="form-label fw-semibold">Start Date</label>

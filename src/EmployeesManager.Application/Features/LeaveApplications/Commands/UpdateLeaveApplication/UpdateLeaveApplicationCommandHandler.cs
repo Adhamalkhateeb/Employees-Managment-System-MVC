@@ -1,8 +1,6 @@
 using EmployeesManager.Application.Common.Interfaces;
-using EmployeesManager.Application.Features.LeaveApplications.Common;
 using EmployeesManager.Application.Features.SystemCodeDetails.Common;
 using EmployeesManager.Domain.Common.Results;
-using EmployeesManager.Domain.Entities.LeaveApplications;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,31 +42,26 @@ public sealed class UpdateLeaveApplicationCommandHandler
         if (!leaveTypeExists)
             return LeaveApplicationErrors.LeaveTypeRequired;
 
-        var durationExists = await _context.SystemCodeDetails.AnyAsync(
+        var hasOverlappingLeave = await _context.LeaveApplications.AnyAsync(
             x =>
-                x.Id == command.DurationId
-                && x.SystemCode.Code == SystemCodeLookUpConstants.LeaveDurationSystemCode,
+                x.Id != command.Id
+                && x.EmployeeId == command.EmployeeId
+                && (
+                    x.Status == LeaveApplicationStatus.Pending
+                    || x.Status == LeaveApplicationStatus.Approved
+                )
+                && x.StartDate.Date <= command.EndDate.Date
+                && command.StartDate.Date <= x.EndDate.Date,
             cancellationToken
         );
 
-        if (!durationExists)
-            return LeaveApplicationErrors.DurationRequired;
-
-        var statusExists = await _context.SystemCodeDetails.AnyAsync(
-            x =>
-                x.Id == command.StatusId
-                && x.SystemCode.Code == SystemCodeLookUpConstants.LeaveApplicationStatusSystemCode,
-            cancellationToken
-        );
-
-        if (!statusExists)
-            return LeaveApplicationErrors.StatusRequired;
+        if (hasOverlappingLeave)
+            return LeaveApplicationErrors.OverlappingLeave;
 
         var updateResult = entity.Update(
             command.EmployeeId,
             command.LeaveTypeId,
-            command.DurationId,
-            command.StatusId,
+            command.Duration,
             command.StartDate,
             command.EndDate,
             command.Description,

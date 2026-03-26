@@ -8,13 +8,13 @@ public sealed record LeaveApplicationResponse(
     string LeaveTypeName,
     Guid DurationId,
     string DurationName,
-    Guid StatusId,
-    string StatusName,
+    string Status,
     DateTimeOffset StartDate,
     DateTimeOffset EndDate,
     int Days,
     string Description,
     string? Attachment,
+    string? RejectionReason,
     string? ApprovedBy,
     DateTimeOffset? ApprovedAtUtc
 );
