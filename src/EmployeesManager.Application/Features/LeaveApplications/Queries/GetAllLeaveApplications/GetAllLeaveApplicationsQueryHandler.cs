@@ -10,15 +10,10 @@ public sealed class GetAllLeaveApplicationsQueryHandler
     : IRequestHandler<GetAllLeaveApplicationsQuery, Result<List<LeaveApplicationDto>>>
 {
     private readonly IAppDbContext _context;
-    private readonly IIdentityService _identityService;
 
-    public GetAllLeaveApplicationsQueryHandler(
-        IAppDbContext context,
-        IIdentityService identityService
-    )
+    public GetAllLeaveApplicationsQueryHandler(IAppDbContext context)
     {
         _context = context;
-        _identityService = identityService;
     }
 
     public async Task<Result<List<LeaveApplicationDto>>> Handle(

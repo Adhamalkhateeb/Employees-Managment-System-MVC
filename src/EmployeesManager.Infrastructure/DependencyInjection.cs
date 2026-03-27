@@ -1,6 +1,8 @@
 using EmployeesManager.Application.Common.Interfaces;
+using EmployeesManager.Application.Common.Interfaces.Identity;
 using EmployeesManager.Infrastructure.Data;
 using EmployeesManager.Infrastructure.Data.Interceptors;
+using EmployeesManager.Infrastructure.Email;
 using EmployeesManager.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +24,9 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         ArgumentNullException.ThrowIfNull(connectionString);
 
-        services.AddScoped<IIdentityService, IdentityService>();
-
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddTransient<IEmailSender<AppUser>, MailKitEmailSender>();
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
 
         if (!environment.IsEnvironment("Test"))
@@ -44,9 +47,15 @@ public static class DependencyInjection
                 options.Password.RequireDigit = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireNonAlphanumeric = true;
+
                 options.User.RequireUniqueEmail = true;
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedEmail = true;
+
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
@@ -60,8 +69,21 @@ public static class DependencyInjection
             options.ExpireTimeSpan = TimeSpan.FromDays(7);
         });
 
+        services
+            .AddOptions<EmailSettings>()
+            .Bind(configuration.GetSection(EmailSettings.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
         services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
 
         return services;
+    }
+
+    public static async Task SeedIdentityAsync(this IServiceProvider services)
+    {
+        using var scope = services.CreateScope();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+        await RoleSeeder.SeedAsync(roleManager);
     }
 }

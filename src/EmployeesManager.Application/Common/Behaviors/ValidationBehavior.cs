@@ -30,7 +30,16 @@ public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TReq
         if (failures.Count == 0)
             return await next(cancellationToken);
 
-        var errors = failures.ConvertAll(f => Error.Validation(f.PropertyName, f.ErrorMessage));
+        var errors = failures.ConvertAll(f =>
+        {
+            var propertyName = string.IsNullOrWhiteSpace(f.PropertyName) ? null : f.PropertyName;
+
+            return Error.Validation(
+                code: $"Validation.{propertyName ?? "Unknown"}",
+                description: f.ErrorMessage,
+                propertyName: propertyName
+            );
+        });
 
         return (dynamic)errors;
     }

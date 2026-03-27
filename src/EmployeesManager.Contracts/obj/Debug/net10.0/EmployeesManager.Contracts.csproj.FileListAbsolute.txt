@@ -13,3 +13,6 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\obj\Deb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\artifacts\verify-build\EmployeesManager.Contracts.deps.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\artifacts\verify-build\EmployeesManager.Contracts.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Contracts\artifacts\verify-build\EmployeesManager.Contracts.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Contracts.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Contracts.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Contracts.pdb

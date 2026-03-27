@@ -23,7 +23,13 @@ public class MvcController : Controller
         if (errors.All(e => e.Type == ErrorKind.Validation || e.Type == ErrorKind.Conflict))
         {
             foreach (var error in errors)
-                ModelState.AddModelError(error.Code, error.Description);
+            {
+                var key = string.IsNullOrWhiteSpace(error.PropertyName)
+                    ? error.Code
+                    : error.PropertyName;
+
+                ModelState.AddModelError(key, error.Description);
+            }
 
             return onValidation();
         }

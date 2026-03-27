@@ -11,15 +11,10 @@ public sealed class GetLeaveApplicationByIdQueryHandler
     : IRequestHandler<GetLeaveApplicationByIdQuery, Result<LeaveApplicationDto>>
 {
     private readonly IAppDbContext _context;
-    private readonly IIdentityService _identityService;
 
-    public GetLeaveApplicationByIdQueryHandler(
-        IAppDbContext context,
-        IIdentityService identityService
-    )
+    public GetLeaveApplicationByIdQueryHandler(IAppDbContext context)
     {
         _context = context;
-        _identityService = identityService;
     }
 
     public async Task<Result<LeaveApplicationDto>> Handle(
@@ -52,19 +47,6 @@ public sealed class GetLeaveApplicationByIdQueryHandler
 
         if (dto is null)
             return LeaveApplicationErrors.NotFound(query.Id);
-
-        if (dto.DecisionById.HasValue)
-        {
-            var userNameResult = await _identityService.GetUserNameByIdAsync(
-                dto.DecisionById.Value,
-                cancellationToken
-            );
-
-            if (userNameResult.IsError)
-                return userNameResult.Errors;
-
-            dto = dto with { DecisionBy = userNameResult.Value };
-        }
 
         return dto;
     }

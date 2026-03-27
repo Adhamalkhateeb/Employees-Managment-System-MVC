@@ -17,7 +17,7 @@ public sealed class CurrentUser(IHttpContextAccessor accessor) : ICurrentUser
             ? Guid.Parse(id)
             : AnonymousActorId;
 
-    public string? UserName => Principal?.FindFirstValue(ClaimTypes.Name);
+    public string UserName => Principal?.FindFirstValue(ClaimTypes.Name) ?? string.Empty;
     public string? Email => Principal?.FindFirstValue(ClaimTypes.Email);
     public bool IsAuthenticated => Principal?.Identity?.IsAuthenticated ?? false;
 

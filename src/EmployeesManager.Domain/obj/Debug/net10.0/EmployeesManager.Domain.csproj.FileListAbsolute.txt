@@ -13,3 +13,7 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\artifacts\verify-build\EmployeesManager.Domain.deps.json
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\artifacts\verify-build\EmployeesManager.Domain.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\artifacts\verify-build\EmployeesManager.Domain.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Domain\obj\Debug\net10.0\EmployeesManager.Domain.csproj.AssemblyReference.cache
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Domain.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Domain.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Domain.pdb

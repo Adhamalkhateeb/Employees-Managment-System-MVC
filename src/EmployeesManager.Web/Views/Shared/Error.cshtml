@@ -1,20 +1,57 @@
 ﻿@model ErrorViewModel
 @{
-    ViewBag.Title = $"Error {Model.StatusCode}";
+    ViewData["Title"] = $"Error {Model.StatusCode}";
     Layout = "_Layout";
+
+    var isAuthError = Model.StatusCode is 401 or 403;
+    var statusLabel = Model.StatusCode switch
+    {
+        400 => "Bad Request",
+        401 => "Unauthorized",
+        403 => "Forbidden",
+        404 => "Page Not Found",
+        409 => "Conflict",
+        _ => "Unexpected Error",
+    };
 }
-<main>
-    <div class="error-center-container">
-        <h1>@Model.StatusCode</h1>
-        <p>@Model.Message</p>
-        @if (!string.IsNullOrEmpty(Model.Details))
-        {
-            <p><small>@Model.Details</small></p>
-        }
-        @if (!string.IsNullOrEmpty(Model.TraceId))
-        {
-            <p><small>Trace: <code>@Model.TraceId</code></small></p>
-        }
-        <a asp-controller="Home" asp-action="Index">Go Home</a>
+<main class="row justify-content-center error-page-wrap">
+    <div class="col-lg-8 col-xl-7">
+        <div class="card error-card mb-5">
+            <div class="card-body p-4 p-md-5">
+                <span class="error-badge">Error @Model.StatusCode</span>
+                <h1 class="error-title mt-3 mb-2">@statusLabel</h1>
+                <p class="error-message mb-4">@Model.Message</p>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorCode))
+                {
+                    <p class="mb-2"><span class="text-muted">Code:</span> <span class="fw-semibold">@Model.ErrorCode</span></p>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.Details))
+                {
+                    <details class="error-details mt-3">
+                        <summary>Technical details</summary>
+                        <pre>@Model.Details</pre>
+                    </details>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.TraceId))
+                {
+                    <p class="text-muted small mt-3 mb-0">Trace: @Model.TraceId</p>
+                }
+
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a class="btn btn-primary btn-primary-elevated" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-house me-2"></i>Go Home
+                    </a>
+                    @if (isAuthError)
+                    {
+                        <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Login">
+                            <i class="fa-solid fa-right-to-bracket me-2"></i>Go to Login
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </main>

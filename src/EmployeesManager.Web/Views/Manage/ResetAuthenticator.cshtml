@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Reset Authenticator Key";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-lg-7">
+            <h3>Reset Authenticator Key</h3>
+            <partial name="_StatusMessage" />
+
+            <div class="card card-body shadow-sm">
+                <div class="alert alert-warning">
+                    This process disables 2FA until you reconfigure your authenticator app.
+                </div>
+
+                <form asp-action="ResetAuthenticator" method="post" class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger">Reset authenticator key</button>
+                    <a asp-action="TwoFactorAuthentication" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

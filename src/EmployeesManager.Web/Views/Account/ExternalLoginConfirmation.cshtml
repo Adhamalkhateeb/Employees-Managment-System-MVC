@@ -1,0 +1,41 @@
+@model ExternalLoginConfirmationRequest
+@{
+    ViewData["Title"] = "Register";
+    var returnUrl = Convert.ToString(ViewData["ReturnUrl"]);
+    var providerDisplayName = Convert.ToString(ViewData["ProviderDisplayName"]);
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header"><h3 class="mb-0">Associate Your @providerDisplayName Account</h3></div>
+                <div class="card-body">
+                    <p class="text-info">
+                        You have authenticated with <strong>@providerDisplayName</strong>. Enter an email to finish account creation.
+                    </p>
+
+                    <form asp-action="ExternalLoginConfirmation" method="post">
+                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" autocomplete="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Login" asp-route-returnUrl="@returnUrl">Back to login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

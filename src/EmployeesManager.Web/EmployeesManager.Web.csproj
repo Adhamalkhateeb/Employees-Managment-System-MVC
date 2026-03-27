@@ -7,6 +7,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\**\*.cs" />
+    <Content Remove="Areas\Identity\**\*.cshtml" />
+    <EmbeddedResource Remove="Areas\Identity\**\*.cshtml" />
+    <None Remove="Areas\Identity\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="14.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">

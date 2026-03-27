@@ -26,3 +26,7 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\ar
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Domain.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Application.pdb
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Infrastructure\artifacts\verify-build\EmployeesManager.Domain.pdb
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Infrastructure.deps.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Infrastructure.runtimeconfig.json
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Infrastructure.dll
+C:\Adham Web\MVC_Projects\EmpoyeesManager\artifacts\verify-build\web\EmployeesManager.Infrastructure.pdb

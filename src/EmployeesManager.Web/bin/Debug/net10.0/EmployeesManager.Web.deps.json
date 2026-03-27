@@ -155,7 +155,7 @@
           "Microsoft.Extensions.Features": "10.0.0.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "10.0.0.0",
           "Microsoft.Extensions.FileProviders.Composite": "10.0.0.0",
-          "Microsoft.Extensions.FileProviders.Embedded": "10.0.0.0",
+          "Microsoft.Extensions.FileProviders.Embedded.Reference": "10.0.0.0",
           "Microsoft.Extensions.FileProviders.Physical": "10.0.0.0",
           "Microsoft.Extensions.FileSystemGlobbing": "10.0.0.0",
           "Microsoft.Extensions.Hosting.Abstractions": "10.0.0.0",
@@ -390,6 +390,17 @@
         },
         "compile": {
           "lib/net8.0/Azure.Identity.dll": {}
+        }
+      },
+      "BouncyCastle.Cryptography/2.6.2": {
+        "runtime": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.6.2.46322"
+          }
+        },
+        "compile": {
+          "lib/net6.0/BouncyCastle.Cryptography.dll": {}
         }
       },
       "FluentValidation/12.1.1": {
@@ -960,6 +971,20 @@
           }
         }
       },
+      "MailKit/4.15.1": {
+        "dependencies": {
+          "MimeKit": "4.15.1"
+        },
+        "runtime": {
+          "lib/net10.0/MailKit.dll": {
+            "assemblyVersion": "4.15.0.0",
+            "fileVersion": "4.15.1.0"
+          }
+        },
+        "compile": {
+          "lib/net10.0/MailKit.dll": {}
+        }
+      },
       "MediatR/14.1.0": {
         "dependencies": {
           "MediatR.Contracts": "2.0.1",
@@ -998,6 +1023,20 @@
         },
         "compile": {
           "lib/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Identity.UI/10.0.5": {
+        "dependencies": {
+          "Microsoft.Extensions.FileProviders.Embedded": "10.0.5"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Identity.UI.dll": {
+            "assemblyVersion": "10.0.5.0",
+            "fileVersion": "10.0.526.15411"
+          }
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Identity.UI.dll": {}
         }
       },
       "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
@@ -1614,7 +1653,7 @@
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.7.1",
           "Microsoft.SqlServer.Server": "1.0.0",
           "System.Configuration.ConfigurationManager": "9.0.4",
-          "System.Security.Cryptography.Pkcs": "9.0.4"
+          "System.Security.Cryptography.Pkcs": "10.0.0"
         },
         "runtime": {
           "lib/net9.0/Microsoft.Data.SqlClient.dll": {
@@ -2189,6 +2228,21 @@
           "lib/net10.0/Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll": {}
         }
       },
+      "MimeKit/4.15.1": {
+        "dependencies": {
+          "BouncyCastle.Cryptography": "2.6.2",
+          "System.Security.Cryptography.Pkcs": "10.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/MimeKit.dll": {
+            "assemblyVersion": "4.15.0.0",
+            "fileVersion": "4.15.1.0"
+          }
+        },
+        "compile": {
+          "lib/net10.0/MimeKit.dll": {}
+        }
+      },
       "Mono.TextTemplating/3.0.0": {
         "dependencies": {
           "System.CodeDom": "6.0.0"
@@ -2290,7 +2344,7 @@
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Configuration": "6.12.1",
           "NuGet.Versioning": "6.12.1",
-          "System.Security.Cryptography.Pkcs": "9.0.4"
+          "System.Security.Cryptography.Pkcs": "10.0.0"
         },
         "runtime": {
           "lib/net5.0/NuGet.Packaging.dll": {
@@ -2546,7 +2600,9 @@
       "EmployeesManager.Infrastructure/1.0.0": {
         "dependencies": {
           "EmployeesManager.Application": "1.0.0",
+          "MailKit": "4.15.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.5",
+          "Microsoft.AspNetCore.Identity.UI": "10.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "10.0.5"
         },
         "runtime": {
@@ -3219,7 +3275,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.Extensions.FileProviders.Embedded/10.0.0.0": {
+      "Microsoft.Extensions.FileProviders.Embedded.Reference/10.0.0.0": {
         "compile": {
           "Microsoft.Extensions.FileProviders.Embedded.dll": {}
         },
@@ -4407,12 +4463,15 @@
       "Microsoft.EntityFrameworkCore.Analyzers/10.0.5": {
         "compileOnly": true
       },
+      "Microsoft.Extensions.FileProviders.Embedded/10.0.5": {
+        "compileOnly": true
+      },
       "System.Data.DataSetExtensions/4.5.0": {
         "compileOnly": true
       },
-      "System.Security.Cryptography.Pkcs/9.0.4": {
+      "System.Security.Cryptography.Pkcs/10.0.0": {
         "compile": {
-          "lib/net9.0/System.Security.Cryptography.Pkcs.dll": {}
+          "lib/net10.0/System.Security.Cryptography.Pkcs.dll": {}
         },
         "compileOnly": true
       }
@@ -4437,6 +4496,13 @@
       "sha512": "sha512-YhNMwOTwT+I2wIcJKSdP0ADyB2aK+JaYWZxO8LSRDm5w77LFr0ykR9xmt2ZV5T1gaI7xU6iNFIh/yW1dAlpddQ==",
       "path": "azure.identity/1.14.2",
       "hashPath": "azure.identity.1.14.2.nupkg.sha512"
+    },
+    "BouncyCastle.Cryptography/2.6.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
+      "path": "bouncycastle.cryptography/2.6.2",
+      "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
     },
     "FluentValidation/12.1.1": {
       "type": "package",
@@ -4802,6 +4868,13 @@
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
     },
+    "MailKit/4.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4mLbqTbH3ctd0NlukHjVQbU3ZnNDuCtB6ttNZDLPZLWMA2Dr31rh/eCSTqOwDojUX8zfDOVaxstMgJTE9PwZNA==",
+      "path": "mailkit/4.15.1",
+      "hashPath": "mailkit.4.15.1.nupkg.sha512"
+    },
     "MediatR/14.1.0": {
       "type": "package",
       "serviceable": true,
@@ -4822,6 +4895,13 @@
       "sha512": "sha512-oo1uauTwgcnhYgituZ2nI3wJ8XN9z76ggu2zkOJu1BCfOOsqr+g08Kr4MOiMuXEhwySkpIV+MVoC25hC1288NA==",
       "path": "microsoft.aspnetcore.identity.entityframeworkcore/10.0.5",
       "hashPath": "microsoft.aspnetcore.identity.entityframeworkcore.10.0.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Identity.UI/10.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qzYhpJ4Uxng18hmuKqwqydZaPzItrv9WOwNULJ2ka952TZKlOQkERTSkVO8G/19WiRtoznZatrcRyOvppYRGFA==",
+      "path": "microsoft.aspnetcore.identity.ui/10.0.5",
+      "hashPath": "microsoft.aspnetcore.identity.ui.10.0.5.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
       "type": "package",
@@ -5137,6 +5217,13 @@
       "sha512": "sha512-JQcdTUracjvpN2zzHLhpGuqWqeZJzV08q0us960GRi4EN+3H8/CvE4D6+PzS+mD2eapf6i4DjPQljg9oi+R0+A==",
       "path": "microsoft.visualstudio.web.codegenerators.mvc/10.0.2",
       "hashPath": "microsoft.visualstudio.web.codegenerators.mvc.10.0.2.nupkg.sha512"
+    },
+    "MimeKit/4.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cxCcQhD0zhboFoG136jJuJtQjNRDJ+BxBm3f2vWn+53bff/CRo+K1mAkWjsW4Wuyy5O22F40MdMG2nRzQu1cJw==",
+      "path": "mimekit/4.15.1",
+      "hashPath": "mimekit.4.15.1.nupkg.sha512"
     },
     "Mono.TextTemplating/3.0.0": {
       "type": "package",
@@ -5876,7 +5963,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.FileProviders.Embedded/10.0.0.0": {
+    "Microsoft.Extensions.FileProviders.Embedded.Reference/10.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -6875,6 +6962,13 @@
       "path": "microsoft.entityframeworkcore.analyzers/10.0.5",
       "hashPath": "microsoft.entityframeworkcore.analyzers.10.0.5.nupkg.sha512"
     },
+    "Microsoft.Extensions.FileProviders.Embedded/10.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DQzkbLFNfwmjxErAnWyZTTyBd4cMo6vmGteM4Ayedhk5Pccm2VuKoeKcOZjJG1T+dYK6lMCNk2L7Ftl7dLhgqg==",
+      "path": "microsoft.extensions.fileproviders.embedded/10.0.5",
+      "hashPath": "microsoft.extensions.fileproviders.embedded.10.0.5.nupkg.sha512"
+    },
     "System.Data.DataSetExtensions/4.5.0": {
       "type": "package",
       "serviceable": true,
@@ -6882,12 +6976,12 @@
       "path": "system.data.datasetextensions/4.5.0",
       "hashPath": "system.data.datasetextensions.4.5.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Pkcs/9.0.4": {
+    "System.Security.Cryptography.Pkcs/10.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cUFTcMlz/Qw9s90b2wnWSCvHdjv51Bau9FQqhsr4TlwSe1OX+7SoXUqphis5G74MLOvMOCghxPPlEqOdCrVVGA==",
-      "path": "system.security.cryptography.pkcs/9.0.4",
-      "hashPath": "system.security.cryptography.pkcs.9.0.4.nupkg.sha512"
+      "sha512": "sha512-UPWqLSygJlFerRi9XNIuM0a1VC8gHUIufyP24xQ0sc+XimqUAEcjpOz9DhKpyDjH+5B/wO3RpC0KpkEeDj/ddg==",
+      "path": "system.security.cryptography.pkcs/10.0.0",
+      "hashPath": "system.security.cryptography.pkcs.10.0.0.nupkg.sha512"
     }
   }
 }

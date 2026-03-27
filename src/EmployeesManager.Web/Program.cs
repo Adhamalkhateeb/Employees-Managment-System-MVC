@@ -1,8 +1,6 @@
 using EmployeesManager.Application;
 using EmployeesManager.Infrastructure;
-using EmployeesManager.Infrastructure.Identity;
 using EmployeesManager.Web;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +13,7 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
-    await RoleSeeder.SeedAsync(roleManager);
+    await scope.ServiceProvider.SeedIdentityAsync();
 }
 
 if (app.Environment.IsDevelopment())

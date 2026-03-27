@@ -1,74 +1,71 @@
 @model RegisterRequest
 @{
-    ViewBag.Title = "Register";
+    ViewData["Title"] = "Register";
+    var returnUrl = Convert.ToString(ViewData["ReturnUrl"]);
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h2 class="mb-4">Create your account</h2>
-
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="alert alert-danger">
-                <asp-validation-summary asp-validation-type="All" />
+<div class="row justify-content-center crud-form-page">
+    <div class="col-lg-7 col-xl-6">
+        <div class="d-flex align-items-center mb-4 mt-2">
+            <div>
+                <h2 class="fw-bold mb-0 text-dark">Create Your Account</h2>
+                <p class="text-muted mb-0">Join Employees Manager and start managing your workspace</p>
             </div>
-        }
+        </div>
 
-        <form asp-action="Register" method="post" novalidate>
-            @Html.AntiForgeryToken()
-
-            <div class="mb-3">
-                <label asp-for="UserName" class="form-label">Username <span class="text-danger">*</span></label>
-                <input asp-for="UserName" class="form-control" placeholder="john_doe" autocomplete="username" />
-                <span asp-validation-for="UserName" class="text-danger small"></span>
+        <div class="card form-card mb-5">
+            <div class="card-header">
+                <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-user-plus me-2"></i> Registration Details</h4>
             </div>
+            <div class="card-body p-4 p-md-5">
+                <form asp-action="Register" method="post">
+                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label">Email address <span class="text-danger">*</span></label>
-                <input asp-for="Email" class="form-control" placeholder="john@example.com" autocomplete="email" />
-                <span asp-validation-for="Email" class="text-danger small"></span>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label asp-for="UserName" class="form-label fw-semibold"></label>
+                            <input asp-for="UserName" class="form-control" autocomplete="username" />
+                            <span asp-validation-for="UserName" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+                            <input asp-for="PhoneNumber" class="form-control" autocomplete="tel" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Email" class="form-label fw-semibold"></label>
+                            <input asp-for="Email" class="form-control" autocomplete="email" />
+                            <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Password" class="form-label fw-semibold"></label>
+                            <input asp-for="Password" class="form-control" autocomplete="new-password" />
+                            <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ConfirmPassword" class="form-label fw-semibold"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-5 border-top pt-4">
+                        <a asp-action="Login" asp-route-returnUrl="@returnUrl" class="btn btn-light btn-cancel">Back to login</a>
+                        <button type="submit" class="btn btn-success btn-create">
+                            <i class="fa-solid fa-check me-2"></i>Create Account
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label">Phone number <span class="text-danger">*</span></label>
-                <input asp-for="PhoneNumber" class="form-control" placeholder="+1 555 000 0000" autocomplete="tel" />
-                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label">Password <span class="text-danger">*</span></label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Min. 8 characters" autocomplete="new-password" />
-                <span asp-validation-for="Password" class="text-danger small"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="ConfirmPassword" class="form-label">Confirm password <span class="text-danger">*</span></label>
-                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Repeat your password" autocomplete="new-password" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
-            </div>
-
-            <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-primary">Create account</button>
-            </div>
-
-            <p class="text-center">
-                Already have an account?
-                <a asp-action="Login">Sign in</a>
-            </p>
-        </form>
+        </div>
     </div>
 </div>
 
-@section scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        // Remote validation fires only on blur, not every keystroke
-        $(function () {
-            var form = $('form');
-            form.validate().settings.onkeyup = false;
-            $('#UserName, #Email').on('blur', function () {
-                form.validate().element(this);
-            });
-        });
-    </script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
