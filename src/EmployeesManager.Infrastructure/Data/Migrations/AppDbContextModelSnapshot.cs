@@ -582,7 +582,7 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
 
                     b.ToTable("LeaveApplications", null, t =>
                         {
-                            t.HasCheckConstraint("CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate", "[CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)]");
+                            t.HasCheckConstraint("CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate", "CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)");
                         });
                 });
 

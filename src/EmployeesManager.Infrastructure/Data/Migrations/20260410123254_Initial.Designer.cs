@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeesManager.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260326121901_Removed_SystemCode_LeaveApplication")]
-    partial class Removed_SystemCode_LeaveApplication
+    [Migration("20260410123254_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,15 +43,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -89,15 +87,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -129,15 +125,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -169,15 +163,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -209,15 +201,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -252,9 +242,8 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("date");
@@ -275,11 +264,10 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastName")
@@ -329,15 +317,13 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -369,19 +355,17 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("OrderNo")
@@ -411,19 +395,17 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
@@ -475,7 +457,7 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedAtUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -484,14 +466,6 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -544,13 +518,6 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset?>("ApprovedAtUtc")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("ApprovedBy")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.Property<string>("Attachment")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -558,9 +525,14 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAtUtc")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("DecisionAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid?>("DecisionById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -569,7 +541,8 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
 
                     b.Property<string>("Duration")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
@@ -577,11 +550,10 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("EndDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                    b.Property<DateTimeOffset?>("LastModifiedUtc")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("LeaveTypeId")
@@ -596,9 +568,12 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DecisionById");
 
                     b.HasIndex("Duration");
 
@@ -610,7 +585,7 @@ namespace EmployeesManager.Infrastructure.Data.Migrations
 
                     b.ToTable("LeaveApplications", null, t =>
                         {
-                            t.HasCheckConstraint("CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate", "[EndDate] >= [StartDate]");
+                            t.HasCheckConstraint("CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate", "CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)");
                         });
                 });
 
