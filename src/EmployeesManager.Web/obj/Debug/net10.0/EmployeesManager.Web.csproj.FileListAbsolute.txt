@@ -1662,3 +1662,4 @@ C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\MailKit.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\bin\Debug\net10.0\MimeKit.dll
 C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\obj\Debug\net10.0\compressed\6j8q6u7ujx-{0}-vju2hf7ctv-vju2hf7ctv.gz
+C:\Adham Web\MVC_Projects\EmpoyeesManager\src\EmployeesManager.Web\obj\Debug\net10.0\compressed\sdqlj2teo9-{0}-i82n660zia-i82n660zia.gz
