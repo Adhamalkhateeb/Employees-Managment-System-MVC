@@ -1,0 +1,64 @@
+@model LeaveApplicationResponse
+@{ ViewBag.Title = "Reject Leave Application"; }
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-9 col-xl-8">
+        <div class="d-flex align-items-center mb-4 mt-2">
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-light btn-sm rounded-circle me-3 shadow-sm back-circle-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h2 class="fw-bold mb-0 text-dark">Reject Leave Application</h2>
+                <p class="text-muted mb-0">Provide a reason before rejecting this request.</p>
+            </div>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger shadow-sm border-0 rounded-4 mb-4">
+                <div asp-validation-summary="All" class="mb-0 text-danger"></div>
+            </div>
+        }
+
+        <div class="card form-card mb-5">
+            <div class="card-header">
+                <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-ban me-2"></i> Reject Request</h4>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <div class="mb-4 p-3 rounded-3 bg-light">
+                    <div><strong>Employee:</strong> @Model.EmployeeName</div>
+                    <div><strong>Leave Type:</strong> @Model.LeaveTypeName</div>
+                    <div><strong>Period:</strong> @Model.StartDate.ToString("dd MMM yyyy") - @Model.EndDate.ToString("dd MMM yyyy")</div>
+                    <div><strong>Status:</strong> @Model.Status</div>
+                </div>
+
+                <form asp-action="Reject" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="RejectionReason" class="form-label fw-semibold">Rejection Reason</label>
+                        <textarea id="RejectionReason"
+                                  name="RejectionReason"
+                                  rows="4"
+                                  required
+                                  maxlength="500"
+                                  class="form-control"
+                                  placeholder="Explain why this leave request is being rejected">@((string?)ViewBag.RejectionReason)</textarea>
+                        @if (ViewData.ModelState.TryGetValue("RejectionReason", out var rejectionReasonState) && rejectionReasonState.Errors.Count > 0)
+                        {
+                            <span class="text-danger small mt-1 d-block">@rejectionReasonState.Errors[0].ErrorMessage</span>
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4 border-top pt-4">
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-light btn-cancel">Cancel</a>
+                        <button type="submit" class="btn btn-danger btn-create"><i class="fa-solid fa-xmark me-2"></i>Reject Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

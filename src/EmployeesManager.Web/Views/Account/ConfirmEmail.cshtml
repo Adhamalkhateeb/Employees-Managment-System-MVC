@@ -1,0 +1,34 @@
+@model EmployeesManager.Web.Models.Account.ConfirmEmailViewModel
+@{
+    ViewData["Title"] = "Confirm Email";
+}
+
+<div class="row justify-content-center crud-form-page">
+    <div class="col-lg-7 col-xl-6">
+        <div class="card form-card mb-5">
+            <div class="card-header">
+                <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-circle-check me-2"></i> Email Confirmation</h4>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                @if (Model.Succeeded)
+                {
+                    <div class="alert alert-success mb-4">
+                        <h5 class="alert-heading fw-bold">Email confirmed</h5>
+                        <p class="mb-0">@Model.Message</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger mb-4">
+                        <h5 class="alert-heading fw-bold">Email confirmation failed</h5>
+                        <p class="mb-0">@Model.Message</p>
+                    </div>
+                }
+
+                <a class="btn btn-primary btn-primary-elevated" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+                    <i class="fa-solid fa-right-to-bracket me-2"></i>Go to login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

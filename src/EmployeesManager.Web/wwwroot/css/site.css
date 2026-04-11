@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&display=swap');
+html {
+  font-size: 14px;
+}
+:root {
+  --bs-body-font-family: 'IBM Plex Sans Arabic','Space Grotesk', sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'IBM Plex Sans Arabic','Space Grotesk', sans-serif !important;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+.login-btn{
+  background-color: #000;
+  border: none;
+  padding: 10px;
+  border-radius: 50px;
+  transition: all .4s ease-in-out;
+}
+.login-btn:hover{
+  color: #000;
+  background-color: #fff;
+}
+html {
+  position: relative;
+  min-height: 100%;
+  
+}
+
+body {
+  font-family: 'IBM Plex Sans Arabic','Space Grotesk', sans-serif !important;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.error-center-container {
+  max-width: 480px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.error-page-wrap {
+  margin-top: 2rem;
+}
+
+.error-card {
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(17, 24, 39, 0.12);
+}
+
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.12);
+}
+
+.error-title {
+  font-size: clamp(1.8rem, 2.7vw, 2.4rem);
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.error-message {
+  font-size: 1.05rem;
+  color: #4b5563;
+}
+
+.error-details {
+  background-color: #f8f9fb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0.75rem 0.95rem;
+}
+
+.error-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #374151;
+}
+
+.error-details pre {
+  margin: 0.75rem 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: #4b5563;
+}

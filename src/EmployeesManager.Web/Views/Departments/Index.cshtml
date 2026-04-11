@@ -1,0 +1,87 @@
+@model List<DepartmentResponse>
+@{ ViewBag.Title = "Department List"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+    <div>
+        <h2 class="fw-bold mb-0 text-dark">Departments</h2>
+        <p class="text-muted mb-0">Manage organizational departments and their codes</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary btn-primary-elevated d-flex align-items-center gap-2 px-4 py-2">
+        <i class="fa-solid fa-plus"></i> Add Department
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-light text-center p-5 shadow-sm rounded-4 border-0" role="alert">
+        <i class="fa-solid fa-building text-muted mb-3 empty-state-icon"></i>
+        <h4 class="text-dark fw-bold">No Departments Found</h4>
+        <p class="text-muted mb-4">There are currently no departments in the system. Add one to get started.</p>
+        <a asp-action="Create" class="btn btn-primary px-4 py-2 rounded-3"><i class="fa-solid fa-plus me-2"></i>Add First Department</a>
+    </div>
+}
+else
+{
+    <div class="card department-card list-card mb-5">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title fw-bold m-0"><i class="fa-solid fa-list me-2"></i> Department List</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-modern mb-0 align-middle js-data-table">
+                    <thead class="table-light text-muted">
+                        <tr>
+                            <th class="ps-4 text-uppercase border-0 table-head-label">Department</th>
+                            <th class="text-uppercase border-0 table-head-label">Code</th>
+                            <th class="text-center text-uppercase border-0 table-head-label">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border-top-0">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="initial-avatar initial-avatar-md">
+                                        @(string.IsNullOrWhiteSpace(item.Name) ? "?" : item.Name[0].ToString().ToUpper())
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-dark fw-bold">@item.Name</h6>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">@item.Code</span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info action-btn" data-bs-toggle="tooltip" title="View Details">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning action-btn" data-bs-toggle="tooltip" title="Edit">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger action-btn" data-bs-toggle="tooltip" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+}

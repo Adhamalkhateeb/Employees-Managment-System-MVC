@@ -1,0 +1,39 @@
+@model EnableAuthenticatorViewModel
+@{
+    ViewData["Title"] = "Enable Authenticator";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-lg-7">
+            <h3>Enable Authenticator</h3>
+            <partial name="_StatusMessage" />
+
+            <div class="card card-body shadow-sm mb-3">
+                <p>Scan this URI with your authenticator app:</p>
+                <code class="small">@Model.AuthenticatorUri</code>
+                <hr />
+                <p>Your shared key: <strong>@Model.SharedKey</strong></p>
+            </div>
+
+            <form asp-action="EnableAuthenticator" method="post" class="card card-body shadow-sm">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Code" class="form-label"></label>
+                    <input asp-for="Input.Code" class="form-control" autocomplete="one-time-code" />
+                    <span asp-validation-for="Input.Code" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Verify</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

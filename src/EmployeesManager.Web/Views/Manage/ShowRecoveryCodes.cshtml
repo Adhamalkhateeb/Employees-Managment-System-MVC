@@ -1,0 +1,31 @@
+@model RecoveryCodesViewModel
+@{
+    ViewData["Title"] = "Recovery Codes";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-lg-7">
+            <h3>Recovery Codes</h3>
+            <partial name="_StatusMessage" />
+
+            <div class="card card-body shadow-sm">
+                <div class="alert alert-warning">
+                    Store these codes somewhere safe. Each code can be used once.
+                </div>
+
+                <ul class="list-group mb-3">
+                    @foreach (var code in Model.RecoveryCodes)
+                    {
+                        <li class="list-group-item font-monospace">@code</li>
+                    }
+                </ul>
+
+                <a asp-action="TwoFactorAuthentication" class="btn btn-primary">Done</a>
+            </div>
+        </div>
+    </div>
+</div>

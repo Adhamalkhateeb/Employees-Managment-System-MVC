@@ -1,0 +1,33 @@
+@model PersonalDataViewModel
+@{
+    ViewData["Title"] = "Personal Data";
+}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-lg-7">
+            <h3>Personal Data</h3>
+            <partial name="_StatusMessage" />
+
+            <div class="card card-body shadow-sm mb-3">
+                <p>Download or delete your account data.</p>
+
+                <form asp-action="DownloadPersonalData" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-primary">Download personal data</button>
+                </form>
+
+                <a asp-action="DeletePersonalData" class="btn btn-outline-danger ms-2">Delete account</a>
+            </div>
+
+            @if (!Model.HasPassword)
+            {
+                <div class="alert alert-info">
+                    Your account does not currently have a local password.
+                </div>
+            }
+        </div>
+    </div>
+</div>

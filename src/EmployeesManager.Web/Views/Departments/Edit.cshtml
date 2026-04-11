@@ -1,0 +1,66 @@
+@model UpdateDepartmentRequest
+@{ ViewBag.Title = "Edit Department"; }
+
+<div class="row justify-content-center crud-form-page crud-edit">
+    <div class="col-lg-10 col-xl-8">
+        <div class="d-flex align-items-center mb-4 mt-2">
+            <a asp-action="Index" class="btn btn-light btn-sm rounded-circle me-3 shadow-sm back-circle-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h2 class="fw-bold mb-0 text-dark">Edit Department</h2>
+                <p class="text-muted mb-0">Update department details and code</p>
+            </div>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger shadow-sm border-0 rounded-4 mb-4">
+                <div class="d-flex">
+                    <i class="fa-solid fa-circle-exclamation fs-4 me-3 text-danger mt-1"></i>
+                    <div>
+                        <h5 class="alert-heading fw-bold mb-1">Validation Errors</h5>
+                        <div asp-validation-summary="All" class="mb-0 text-danger"></div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="card form-card mb-5">
+            <div class="card-header">
+                <h4 class="card-title fw-bold m-0"><i class="fa-solid fa-pen-to-square me-2"></i> Update Department</h4>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <form asp-action="Edit" asp-route-id="@ViewBag.Id" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <h5 class="section-title"><i class="fa-solid fa-building me-2"></i>Basic Information</h5>
+                    <div class="row g-4 mb-4">
+                                     <div class="col-md-4">
+                                        <label asp-for="Code" class="form-label fw-semibold">Department Code</label>
+                                <input asp-for="Code" class="form-control" placeholder="Department Code" />
+                                
+                                <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-8">
+                                   <label asp-for="Name" class="form-label fw-semibold">Department Name</label>
+                                <input asp-for="Name" class="form-control" placeholder="Department Name" />
+                         
+                                <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                        </div>
+           
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-5 border-top pt-4">
+                        <a asp-action="Index" class="btn btn-light btn-cancel">Cancel</a>
+                        <button type="submit" class="btn btn-warning btn-save text-white"><i class="fa-solid fa-floppy-disk me-2"></i>Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

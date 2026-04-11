@@ -1,0 +1,289 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E46B1BFB-F111-CE09-7D56-14436E54810B}|src\\EmployeesManager.Domain\\EmployeesManager.Domain.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.domain\\identity\\events\\applicationuserregistereddomainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E46B1BFB-F111-CE09-7D56-14436E54810B}|src\\EmployeesManager.Domain\\EmployeesManager.Domain.csproj|solutionrelative:src\\employeesmanager.domain\\identity\\events\\applicationuserregistereddomainevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E46B1BFB-F111-CE09-7D56-14436E54810B}|src\\EmployeesManager.Domain\\EmployeesManager.Domain.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.domain\\identity\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E46B1BFB-F111-CE09-7D56-14436E54810B}|src\\EmployeesManager.Domain\\EmployeesManager.Domain.csproj|solutionrelative:src\\employeesmanager.domain\\identity\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F6CDA9D-4925-5DED-71CD-3E0852F2C094}|src\\EmployeesManager.Infrastructure\\EmployeesManager.Infrastructure.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.infrastructure\\identity\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F6CDA9D-4925-5DED-71CD-3E0852F2C094}|src\\EmployeesManager.Infrastructure\\EmployeesManager.Infrastructure.csproj|solutionrelative:src\\employeesmanager.infrastructure\\identity\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6F6CDA9D-4925-5DED-71CD-3E0852F2C094}|src\\EmployeesManager.Infrastructure\\EmployeesManager.Infrastructure.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.infrastructure\\identity\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6F6CDA9D-4925-5DED-71CD-3E0852F2C094}|src\\EmployeesManager.Infrastructure\\EmployeesManager.Infrastructure.csproj|solutionrelative:src\\employeesmanager.infrastructure\\identity\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\dtos\\appuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\dtos\\appuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\sendemailconfirmation\\sendemailconfirmationcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\sendemailconfirmation\\sendemailconfirmationcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\resetpassword\\resetpasswordcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\resetpassword\\resetpasswordcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\register\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\register\\registercommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\register\\registercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\register\\registercommandvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\logout\\logoutcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\logout\\logoutcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\forgotpassword\\forgotpasswordcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\forgotpassword\\forgotpasswordcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\confirmemail\\confirmemailcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\confirmemail\\confirmemailcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\features\\identity\\commands\\confirmemail\\confirmemailcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\features\\identity\\commands\\confirmemail\\confirmemailcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.application\\common\\interfaces\\iappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{118B46B4-0C1F-8E6C-DAD6-511523F8DD07}|src\\EmployeesManager.Application\\EmployeesManager.Application.csproj|solutionrelative:src\\employeesmanager.application\\common\\interfaces\\iappdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A58BE8D7-91FB-7E47-A4C9-70452260B17D}|src\\EmployeesManager.Web\\EmployeesManager.Web.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.web\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A58BE8D7-91FB-7E47-A4C9-70452260B17D}|src\\EmployeesManager.Web\\EmployeesManager.Web.csproj|solutionrelative:src\\employeesmanager.web\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A58BE8D7-91FB-7E47-A4C9-70452260B17D}|src\\EmployeesManager.Web\\EmployeesManager.Web.csproj|c:\\adham web\\mvc_projects\\empoyeesmanager\\src\\employeesmanager.web\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A58BE8D7-91FB-7E47-A4C9-70452260B17D}|src\\EmployeesManager.Web\\EmployeesManager.Web.csproj|solutionrelative:src\\employeesmanager.web\\scaffoldingreadme.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApplicationUserRegisteredDomainEvent.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Domain\\Identity\\Events\\ApplicationUserRegisteredDomainEvent.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Domain\\Identity\\Events\\ApplicationUserRegisteredDomainEvent.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Domain\\Identity\\Events\\ApplicationUserRegisteredDomainEvent.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Domain\\Identity\\Events\\ApplicationUserRegisteredDomainEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:25:09.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Domain\\Identity\\Role.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Domain\\Identity\\Role.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Domain\\Identity\\Role.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Domain\\Identity\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:25:03.075Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppRole.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Infrastructure\\Identity\\AppRole.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Infrastructure\\Identity\\AppRole.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Infrastructure\\Identity\\AppRole.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Infrastructure\\Identity\\AppRole.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:24:45.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppUser.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Infrastructure\\Identity\\AppUser.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Infrastructure\\Identity\\AppUser.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Infrastructure\\Identity\\AppUser.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Infrastructure\\Identity\\AppUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:24:02.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppUserDto.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Dtos\\AppUserDto.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Dtos\\AppUserDto.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Dtos\\AppUserDto.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Dtos\\AppUserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:51.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SendEmailConfirmationCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\SendEmailConfirmation\\SendEmailConfirmationCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\SendEmailConfirmation\\SendEmailConfirmationCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\SendEmailConfirmation\\SendEmailConfirmationCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\SendEmailConfirmation\\SendEmailConfirmationCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:39.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ResetPasswordCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ResetPassword\\ResetPasswordCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ResetPassword\\ResetPasswordCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ResetPassword\\ResetPasswordCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ResetPassword\\ResetPasswordCommandHandler.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:34.786Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandHandler.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:27.513Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegisterCommandValidator.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandValidator.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandValidator.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandValidator.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Register\\RegisterCommandValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:26.342Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LogoutCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Logout\\LogoutCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Logout\\LogoutCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Logout\\LogoutCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\Logout\\LogoutCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:19.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ForgotPasswordCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ForgotPassword\\ForgotPasswordCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ForgotPassword\\ForgotPasswordCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ForgotPassword\\ForgotPasswordCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ForgotPassword\\ForgotPasswordCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:11.936Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ConfirmEmailCommandHandler.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommandHandler.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommandHandler.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommandHandler.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:03.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ConfirmEmailCommand.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommand.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommand.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommand.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Features\\Identity\\Commands\\ConfirmEmail\\ConfirmEmailCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:21:00.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IAppDbContext.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Common\\Interfaces\\IAppDbContext.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Application\\Common\\Interfaces\\IAppDbContext.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Application\\Common\\Interfaces\\IAppDbContext.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Application\\Common\\Interfaces\\IAppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:20:41.591Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Web\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Web\\DependencyInjection.cs",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Web\\DependencyInjection.cs",
+              "RelativeToolTip": "src\\EmployeesManager.Web\\DependencyInjection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T16:17:50.892Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ScaffoldingReadMe.txt",
+              "DocumentMoniker": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Web\\ScaffoldingReadMe.txt",
+              "RelativeDocumentMoniker": "src\\EmployeesManager.Web\\ScaffoldingReadMe.txt",
+              "ToolTip": "C:\\Adham Web\\MVC_Projects\\EmpoyeesManager\\src\\EmployeesManager.Web\\ScaffoldingReadMe.txt",
+              "RelativeToolTip": "src\\EmployeesManager.Web\\ScaffoldingReadMe.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-03-26T15:37:21.351Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
