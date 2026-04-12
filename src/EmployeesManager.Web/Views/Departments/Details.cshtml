@@ -31,11 +31,14 @@
                         <i class="fa-regular fa-address-card me-2"></i>Record Info
                     </h5>
 
-                    <span class="info-label">Department Code</span>
-                    <div class="info-value"><span class="badge bg-secondary">@Model.Code</span></div>
-
                     <span class="info-label">Department Name</span>
                     <div class="info-value">@Model.Name</div>
+
+                    <span class="info-label">Employees Count</span>
+                    <div class="info-value">@Model.EmployeesCount</div>
+
+                    <span class="info-label">Manager</span>
+                    <div class="info-value">@(string.IsNullOrWhiteSpace(Model.ManagerFullName) ? "-" : Model.ManagerFullName)</div>
                 </div>
             </div>
         </div>

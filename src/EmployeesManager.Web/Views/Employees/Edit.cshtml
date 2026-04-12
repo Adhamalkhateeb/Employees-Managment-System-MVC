@@ -43,9 +43,9 @@
                                 <span asp-validation-for="FirstName" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-4">
-                                  <label asp-for="MiddleName" class="form-label fw-semibold">Middle Name</label>
-                                <input asp-for="MiddleName" class="form-control" placeholder="Middle Name" />
-                                <span asp-validation-for="MiddleName" class="text-danger small mt-1 d-block"></span>
+                              <label asp-for="NationalId" class="form-label fw-semibold">National ID</label>
+                            <input asp-for="NationalId" class="form-control" placeholder="National ID" />
+                            <span asp-validation-for="NationalId" class="text-danger small mt-1 d-block"></span>
                         </div>
                         <div class="col-md-4">
                             
@@ -57,9 +57,9 @@
                         </div>
                         <div class="col-md-6">
                             
-                                <input asp-for="DateOfBirth" type="date" class="form-control" placeholder="Date of Birth" />
-                                <label asp-for="DateOfBirth" class="form-label fw-semibold">Date of Birth</label>
-                                <span asp-validation-for="DateOfBirth" class="text-danger small mt-1 d-block"></span>
+                            <input asp-for="HireDate" type="date" class="form-control" placeholder="Hire Date" />
+                            <label asp-for="HireDate" class="form-label fw-semibold">Hire Date</label>
+                            <span asp-validation-for="HireDate" class="text-danger small mt-1 d-block"></span>
                         </div>
                     </div>
 
@@ -80,13 +80,6 @@
                                 <input asp-for="Address" class="form-control" placeholder="Address" />
                                 <span asp-validation-for="Address" class="text-danger small mt-1 d-block"></span>
                         </div>
-                        <div class="col-md-6">
-                            <label asp-for="CountryId" class="form-label fw-semibold">Country</label>
-                            <select asp-for="CountryId" asp-items="ViewBag.Countries" class="form-select">
-                                <option value="">Select Country</option>
-                            </select>
-                            <span asp-validation-for="CountryId" class="text-danger small mt-1 d-block"></span>
-                        </div>
                     </div>
 
                     <h5 class="section-title"><i class="fa-solid fa-building-user me-2"></i>Employment Details</h5>
@@ -97,13 +90,6 @@
                                 <option value="">Select Department</option>
                             </select>
                             <span asp-validation-for="DepartmentId" class="text-danger small mt-1 d-block"></span>
-                        </div>
-                        <div class="col-md-6">
-                            <label asp-for="DesignationId" class="form-label fw-semibold">Designation</label>
-                            <select asp-for="DesignationId" asp-items="ViewBag.Designations" class="form-select">
-                                <option value="">Select Designation</option>
-                            </select>
-                            <span asp-validation-for="DesignationId" class="text-danger small mt-1 d-block"></span>
                         </div>
                     </div>
 

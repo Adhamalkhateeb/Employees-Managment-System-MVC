@@ -9,7 +9,7 @@
             </a>
             <div>
                 <h2 class="fw-bold mb-0 text-dark">Edit Department</h2>
-                <p class="text-muted mb-0">Update department details and code</p>
+                <p class="text-muted mb-0">Update department details and manager</p>
             </div>
         </div>
 
@@ -36,17 +36,16 @@
 
                     <h5 class="section-title"><i class="fa-solid fa-building me-2"></i>Basic Information</h5>
                     <div class="row g-4 mb-4">
-                                     <div class="col-md-4">
-                                        <label asp-for="Code" class="form-label fw-semibold">Department Code</label>
-                                <input asp-for="Code" class="form-control" placeholder="Department Code" />
-                                
-                                <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
-                        </div>
                         <div class="col-md-8">
                                    <label asp-for="Name" class="form-label fw-semibold">Department Name</label>
                                 <input asp-for="Name" class="form-control" placeholder="Department Name" />
                          
                                 <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="ManagerId" class="form-label fw-semibold">Manager Id (optional)</label>
+                            <input asp-for="ManagerId" class="form-control" placeholder="Manager Id" />
+                            <span asp-validation-for="ManagerId" class="text-danger small mt-1 d-block"></span>
                         </div>
            
                     </div>

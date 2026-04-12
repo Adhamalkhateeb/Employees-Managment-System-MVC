@@ -1,6 +1,4 @@
-using EmployeesManager.Application.Features.Countries.Queries.GetAllCountries;
 using EmployeesManager.Application.Features.Departments.Queries.GetAllDepartments;
-using EmployeesManager.Application.Features.Designations.Queries.GetAllDesignations;
 using EmployeesManager.Application.Features.Employees.Commands.CreateEmployee;
 using EmployeesManager.Application.Features.Employees.Commands.DeleteEmployee;
 using EmployeesManager.Application.Features.Employees.Commands.UpdateEmployee;
@@ -56,15 +54,14 @@ public sealed class EmployeesController : MvcController
 
         var command = new CreateEmployeeCommand(
             request.FirstName,
-            request.MiddleName,
             request.LastName,
+            request.NationalId,
             request.PhoneNumber,
             request.EmailAddress,
-            request.DateOfBirth,
+            request.HireDate,
             request.Address,
-            request.CountryId,
             request.DepartmentId,
-            request.DesignationId
+            request.BranchId
         );
 
         var result = await _mediator.Send(command, cancellationToken);
@@ -89,15 +86,14 @@ public sealed class EmployeesController : MvcController
                 var request = new UpdateEmployeeRequest
                 {
                     FirstName = item.FirstName,
-                    MiddleName = item.MiddleName,
                     LastName = item.LastName,
+                    NationalId = item.NationalId,
                     PhoneNumber = item.PhoneNumber,
                     EmailAddress = item.EmailAddress,
-                    DateOfBirth = item.DateOfBirth,
+                    HireDate = item.HireDate,
                     Address = item.Address,
-                    CountryId = item.CountryId,
                     DepartmentId = item.DepartmentId,
-                    DesignationId = item.DesignationId,
+                    BranchId = item.BranchId,
                 };
                 return View(request);
             },
@@ -129,15 +125,14 @@ public sealed class EmployeesController : MvcController
         var command = new UpdateEmployeeCommand(
             Id: id,
             FirstName: request.FirstName,
-            MiddleName: request.MiddleName,
             LastName: request.LastName,
+            NationalId: request.NationalId,
             PhoneNumber: request.PhoneNumber,
             EmailAddress: request.EmailAddress,
-            DateOfBirth: request.DateOfBirth,
+            HireDate: request.HireDate,
             Address: request.Address,
-            CountryId: request.CountryId,
             DepartmentId: request.DepartmentId,
-            DesignationId: request.DesignationId
+            BranchId: request.BranchId
         );
 
         var result = await _mediator.Send(command, cancellationToken);
@@ -167,24 +162,15 @@ public sealed class EmployeesController : MvcController
 
     private async Task LoadEmployeeLookupsAsync(CancellationToken cancellationToken)
     {
-        var countries = await _mediator.Send(new GetAllCountriesQuery(), cancellationToken);
-        var departments = await _mediator.Send(new GetAllDepartmentsQuery(), cancellationToken);
-        var designations = await _mediator.Send(new GetAllDesignationsQuery(), cancellationToken);
-
-        ViewBag.Countries = countries.IsSuccess
-            ? countries
-                .Value.Select(x => new SelectListItem($"{x.Name} ({x.Code})", x.Id.ToString()))
-                .ToList()
-            : [];
+        var departments = await _mediator.Send(
+            new GetDepartmentsQuery(null, 1, 200),
+            cancellationToken
+        );
 
         ViewBag.Departments = departments.IsSuccess
             ? departments
-                .Value.Select(x => new SelectListItem($"{x.Name} ({x.Code})", x.Id.ToString()))
+                .Value.Items.Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList()
-            : [];
-
-        ViewBag.Designations = designations.IsSuccess
-            ? designations.Value.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList()
             : [];
     }
 }

@@ -1,28 +1,30 @@
-using EmployeesManager.Application.Features.SystemCodes.Commands.CreateSystemCode;
-using EmployeesManager.Application.Features.SystemCodes.Commands.DeleteSystemCode;
-using EmployeesManager.Application.Features.SystemCodes.Commands.UpdateSystemCode;
-using EmployeesManager.Application.Features.SystemCodes.Queries.GetAllSystemCodes;
-using EmployeesManager.Application.Features.SystemCodes.Queries.GetSystemCodeById;
-using EmployeesManager.Contracts.Requests.SystemCodes;
+using EmployeesManager.Application.Features.Branches.Commands.CreateBranch;
+using EmployeesManager.Application.Features.Branches.Commands.DeleteBranch;
+using EmployeesManager.Application.Features.Branches.Commands.UpdateBranch;
+using EmployeesManager.Application.Features.Branches.Queries.GetAllBranchs;
+using EmployeesManager.Application.Features.Branches.Queries.GetBranchById;
+using EmployeesManager.Contracts.Requests.Branchs;
+using EmployeesManager.Contracts.Responses.Branchs;
 using EmployeesManager.Web.Mappers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesManager.Web.Controllers;
 
-// [Authorize]
+[Authorize]
 [Route("[controller]/[action]")]
-public sealed class SystemCodesController : MvcController
+public sealed class BranchsController : MvcController
 {
     private readonly IMediator _mediator;
 
-    public SystemCodesController(IMediator mediator) => _mediator = mediator;
+    public BranchsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
     [Route("/[controller]")]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAllSystemCodesQuery(), cancellationToken);
+        var result = await _mediator.Send(new GetBranchesQuery(), cancellationToken);
         return result.Match(items => View(items.ToResponses()), errors => HandleError(errors));
     }
 
@@ -32,14 +34,20 @@ public sealed class SystemCodesController : MvcController
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
-        CreateSystemCodeRequest request,
+        CreateBranchRequest request,
         CancellationToken cancellationToken
     )
     {
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new CreateSystemCodeCommand(request.Code, request.Description);
+        var command = new CreateBranchCommand(
+            request.Name,
+            request.Address,
+            request.PhoneNumber,
+            request.EmailAddress,
+            request.ManagerId
+        );
 
         var result = await _mediator.Send(command, cancellationToken);
         return result.Match(
@@ -51,15 +59,18 @@ public sealed class SystemCodesController : MvcController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetSystemCodeByIdQuery(id), cancellationToken);
+        var result = await _mediator.Send(new GetBranchByIdQuery(id), cancellationToken);
         return result.Match(
             item =>
             {
                 ViewBag.Id = item.Id;
-                var request = new UpdateSystemCodeRequest
+                var request = new UpdateBranchRequest
                 {
-                    Description = item.Description,
-                    Code = item.Code,
+                    Name = item.Name,
+                    Address = item.Address,
+                    PhoneNumber = item.PhoneNumber,
+                    EmailAddress = item.EmailAddress,
+                    ManagerId = item.ManagerId,
                 };
                 return View(request);
             },
@@ -67,28 +78,24 @@ public sealed class SystemCodesController : MvcController
         );
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
-    {
-        var result = await _mediator.Send(new GetSystemCodeByIdQuery(id), cancellationToken);
-        return result.Match(item => View(item.ToResponse()), errors => HandleError(errors));
-    }
-
     [HttpPost("{id:guid}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(
         Guid id,
-        UpdateSystemCodeRequest request,
+        UpdateBranchRequest request,
         CancellationToken cancellationToken
     )
     {
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new UpdateSystemCodeCommand(
+        var command = new UpdateBranchCommand(
             Id: id,
-            Description: request.Description,
-            Code: request.Code
+            Name: request.Name,
+            Address: request.Address,
+            PhoneNumber: request.PhoneNumber,
+            EmailAddress: request.EmailAddress,
+            ManagerId: request.ManagerId
         );
 
         var result = await _mediator.Send(command, cancellationToken);
@@ -101,7 +108,7 @@ public sealed class SystemCodesController : MvcController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetSystemCodeByIdQuery(id), cancellationToken);
+        var result = await _mediator.Send(new GetBranchByIdQuery(id), cancellationToken);
         return result.Match(item => View(item.ToResponse()), errors => HandleError(errors));
     }
 
@@ -110,7 +117,7 @@ public sealed class SystemCodesController : MvcController
     [ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new DeleteSystemCodeCommand(id), cancellationToken);
+        var result = await _mediator.Send(new DeleteBranchCommand(id), cancellationToken);
         return result.Match(_ => RedirectToAction(nameof(Index)), errors => HandleError(errors));
     }
 }

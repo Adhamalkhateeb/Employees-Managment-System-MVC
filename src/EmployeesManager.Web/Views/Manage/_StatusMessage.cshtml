@@ -4,5 +4,8 @@
 
 @if (!string.IsNullOrWhiteSpace(status))
 {
-    <div class="alert alert-info">@status</div>
+    <div class="alert alert-info status-message" role="status" aria-live="polite">
+        <i class="fa-solid fa-circle-info"></i>
+        <div>@status</div>
+    </div>
 }

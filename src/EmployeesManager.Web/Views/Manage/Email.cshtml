@@ -4,7 +4,7 @@
     var returnUrl = Convert.ToString(ViewData["ReturnUrl"]);
 }
 
-<div class="row">
+<div class="row crud-form-page mt-2">
     <div class="col-lg-3">
         <div class="mt-2">
             <partial name="_ManageNav" />
@@ -32,14 +32,20 @@
 
                 @if (Model.IsEmailConfirmed)
                 {
-                    <div class="alert alert-success py-2 mb-4">Your email is confirmed.</div>
+                    <div class="alert alert-success status-message py-2 mb-4" role="status" aria-live="polite">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div>Your email is confirmed.</div>
+                    </div>
                 }
                 else
                 {
-                    <div class="alert alert-warning py-2 mb-3">Your email is not confirmed.</div>
+                    <div class="alert alert-warning status-message py-2 mb-3" role="status" aria-live="polite">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div>Your email is not confirmed.</div>
+                    </div>
                     <form asp-action="SendVerificationEmail" method="post" class="mb-4">
                         <input type="hidden" name="returnUrl" value="@returnUrl" />
-                        <button class="btn btn-outline-secondary" type="submit">
+                        <button class="btn btn-outline-secondary btn-cancel" type="submit">
                             <i class="fa-solid fa-paper-plane me-2"></i>Send verification email
                         </button>
                     </form>

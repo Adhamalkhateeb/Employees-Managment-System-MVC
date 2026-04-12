@@ -15,16 +15,27 @@ namespace EmployeesManager.Web.Controllers;
 [Route("[controller]/[action]")]
 public sealed class DepartmentsController : MvcController
 {
-    private readonly IMediator _mediator;
+    private readonly ISender _sender;
 
-    public DepartmentsController(IMediator mediator) => _mediator = mediator;
+    public DepartmentsController(ISender mediator) => _sender = mediator;
 
     [HttpGet]
     [Route("/[controller]")]
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(
+        string? search,
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken
+    )
     {
-        var result = await _mediator.Send(new GetAllDepartmentsQuery(), cancellationToken);
-        return result.Match(items => View(items.ToResponses()), errors => HandleError(errors));
+        var result = await _sender.Send(
+            new GetDepartmentsQuery(search, pageNumber, pageSize),
+            cancellationToken
+        );
+        return result.Match(
+            departments => View(departments.Items.ToResponses()),
+            errors => HandleError(errors)
+        );
     }
 
     [HttpGet]
@@ -40,9 +51,9 @@ public sealed class DepartmentsController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new CreateDepartmentCommand(request.Name, request.Code);
+        var command = new CreateDepartmentCommand(request.Name, request.ManagerId);
 
-        var result = await _mediator.Send(command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
         return result.Match(
             _ => RedirectToAction(nameof(Index)),
             errors => HandleError(errors, request)
@@ -52,12 +63,16 @@ public sealed class DepartmentsController : MvcController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Edit(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetDepartmentByIdQuery(id), cancellationToken);
+        var result = await _sender.Send(new GetDepartmentByIdQuery(id), cancellationToken);
         return result.Match(
             item =>
             {
                 ViewBag.Id = item.Id;
-                var request = new UpdateDepartmentRequest { Name = item.Name, Code = item.Code };
+                var request = new UpdateDepartmentRequest
+                {
+                    Name = item.Name,
+                    ManagerId = item.ManagerId,
+                };
                 return View(request);
             },
             errors => HandleError(errors)
@@ -67,7 +82,7 @@ public sealed class DepartmentsController : MvcController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Details(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetDepartmentByIdQuery(id), cancellationToken);
+        var result = await _sender.Send(new GetDepartmentByIdQuery(id), cancellationToken);
         return result.Match(item => View(item.ToResponse()), errors => HandleError(errors));
     }
 
@@ -82,9 +97,9 @@ public sealed class DepartmentsController : MvcController
         if (!ModelState.IsValid)
             return View(request);
 
-        var command = new UpdateDepartmentCommand(Id: id, Name: request.Name, Code: request.Code);
+        var command = new UpdateDepartmentCommand(id, request.Name, request.ManagerId);
 
-        var result = await _mediator.Send(command, cancellationToken);
+        var result = await _sender.Send(command, cancellationToken);
         return result.Match(
             _ => RedirectToAction(nameof(Index)),
             errors => HandleError(errors, request)
@@ -94,7 +109,7 @@ public sealed class DepartmentsController : MvcController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetDepartmentByIdQuery(id), cancellationToken);
+        var result = await _sender.Send(new GetDepartmentByIdQuery(id), cancellationToken);
         return result.Match(item => View(item.ToResponse()), errors => HandleError(errors));
     }
 
@@ -103,7 +118,7 @@ public sealed class DepartmentsController : MvcController
     [ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmed(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new DeleteDepartmentCommand(id), cancellationToken);
+        var result = await _sender.Send(new DeleteDepartmentCommand(id), cancellationToken);
         return result.Match(_ => RedirectToAction(nameof(Index)), errors => HandleError(errors));
     }
 }

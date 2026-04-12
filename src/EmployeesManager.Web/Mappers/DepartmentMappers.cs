@@ -9,10 +9,25 @@ public static class DepartmentMappers
     {
         ArgumentNullException.ThrowIfNull(dto, nameof(dto));
 
-        return new(Id: dto.Id, Name: dto.Name, Code: dto.Code);
+        return new(dto.Id, Name: dto.Name, dto.EmployeesCount, dto.ManagerId, dto.ManagerFullName);
+    }
+
+    public static DepartmentResponse ToResponse(this DepartmentWithoutEmployeesDto dto)
+    {
+        ArgumentNullException.ThrowIfNull(dto, nameof(dto));
+
+        return new(dto.Id, Name: dto.Name, dto.EmployeesCount, dto.ManagerId, dto.ManagerFullName);
     }
 
     public static List<DepartmentResponse> ToResponses(this IEnumerable<DepartmentDto> dtos)
+    {
+        ArgumentNullException.ThrowIfNull(dtos, nameof(dtos));
+        return [.. dtos.Select(x => x.ToResponse())];
+    }
+
+    public static List<DepartmentResponse> ToResponses(
+        this IEnumerable<DepartmentWithoutEmployeesDto> dtos
+    )
     {
         ArgumentNullException.ThrowIfNull(dtos, nameof(dtos));
         return [.. dtos.Select(x => x.ToResponse())];

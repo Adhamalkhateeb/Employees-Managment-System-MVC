@@ -10,18 +10,16 @@ namespace EmployeesManager.Web.Mappers
             {
                 Id = dto.Id,
                 EmployeeNumber = $"EMP-{dto.Id.ToString().Substring(0, 8).ToUpper()}",
-                FullName =
-                    $"{dto.FirstName} {(string.IsNullOrEmpty(dto.MiddleName) ? "" : dto.MiddleName + " ")}{dto.LastName}".Trim(),
+                FullName = $"{dto.FirstName} {dto.LastName}".Trim(),
+                NationalId = dto.NationalId,
                 PhoneNumber = dto.PhoneNumber,
                 EmailAddress = dto.EmailAddress,
-                CountryId = dto.CountryId,
-                CountryName = dto.CountryName,
-                DateOfBirth = dto.DateOfBirth,
+                HireDate = dto.HireDate,
                 Address = dto.Address,
                 DepartmentId = dto.DepartmentId,
                 DepartmentName = dto.DepartmentName,
-                DesignationId = dto.DesignationId,
-                DesignationName = dto.DesignationName,
+                BranchId = dto.BranchId,
+                BranchName = dto.BranchName,
             };
 
         public static List<EmployeeResponse> ToResponses(this IEnumerable<EmployeeDto> dtos) =>
