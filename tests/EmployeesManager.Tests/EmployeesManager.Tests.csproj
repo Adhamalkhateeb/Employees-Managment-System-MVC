@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\src\EmployeesManager.Domain\EmployeesManager.Domain.csproj" />
     <ProjectReference Include="..\..\src\EmployeesManager.Infrastructure\EmployeesManager.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Features\**\*.cs" />
+  </ItemGroup>
 </Project>

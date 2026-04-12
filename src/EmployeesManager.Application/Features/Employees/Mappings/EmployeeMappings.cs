@@ -12,18 +12,16 @@ public static class EmployeeMappings
         return new(
             Id: entity.Id,
             FirstName: entity.FirstName,
-            MiddleName: entity.MiddleName,
             LastName: entity.LastName,
+            NationalId: entity.NationalId,
             PhoneNumber: entity.PhoneNumber,
             EmailAddress: entity.EmailAddress,
-            DateOfBirth: entity.DateOfBirth,
+            HireDate: entity.HireDate,
             Address: entity.Address,
-            CountryId: entity.CountryId,
-            CountryName: entity.Country?.Name ?? string.Empty,
             DepartmentId: entity.DepartmentId,
             DepartmentName: entity.Department?.Name ?? string.Empty,
-            DesignationId: entity.DesignationId,
-            DesignationName: entity.Designation?.Name ?? string.Empty
+            BranchId: entity.BranchId,
+            BranchName: entity.Branch?.Name
         );
     }
 

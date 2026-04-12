@@ -38,9 +38,9 @@ public sealed class UpdateEmployeeCommandHandler
             return EmployeeErrors.NotFound(command.Id);
         }
 
-        var normalizedEmail = command.EmailAddress.Trim().ToUpper();
+        var normalizedEmail = command.EmailAddress.Trim().ToUpperInvariant();
         var emailExists = await _context.Employees.AnyAsync(
-            x => x.EmailAddress == normalizedEmail && x.Id != command.Id,
+            x => x.EmailAddress.ToUpper() == normalizedEmail && x.Id != command.Id,
             cancellationToken
         );
 
@@ -67,18 +67,18 @@ public sealed class UpdateEmployeeCommandHandler
             return EmployeeErrors.PhoneNumberAlreadyExists;
         }
 
-        var countryExists = await _context.Countries.AnyAsync(
-            x => x.Id == command.CountryId,
+        var nationalIdExists = await _context.Employees.AnyAsync(
+            x => x.NationalId == command.NationalId && x.Id != command.Id,
             cancellationToken
         );
 
-        if (!countryExists)
+        if (nationalIdExists)
         {
             _logger.LogWarning(
-                "Attempt to update employee with unknown country: {CountryId}",
-                command.CountryId
+                "Attempt to update employee with existing national id: {NationalId}",
+                command.NationalId
             );
-            return EmployeeErrors.CountryNotFound;
+            return EmployeeErrors.NationalIdAlreadyExists;
         }
 
         var departmentExists = await _context.Departments.AnyAsync(
@@ -95,31 +95,33 @@ public sealed class UpdateEmployeeCommandHandler
             return EmployeeErrors.DepartmentNotFound;
         }
 
-        var designationExists = await _context.Designations.AnyAsync(
-            x => x.Id == command.DesignationId,
-            cancellationToken
-        );
-
-        if (!designationExists)
+        if (command.BranchId.HasValue)
         {
-            _logger.LogWarning(
-                "Attempt to update employee with unknown designation: {DesignationId}",
-                command.DesignationId
+            var branchExists = await _context.Branches.AnyAsync(
+                x => x.Id == command.BranchId.Value,
+                cancellationToken
             );
-            return EmployeeErrors.DesignationNotFound;
+
+            if (!branchExists)
+            {
+                _logger.LogWarning(
+                    "Attempt to update employee with unknown branch: {BranchId}",
+                    command.BranchId.Value
+                );
+                return EmployeeErrors.BranchNotFound;
+            }
         }
 
         var updateResult = entity.Update(
             command.FirstName,
-            command.MiddleName,
             command.LastName,
+            command.NationalId,
             command.PhoneNumber,
             command.EmailAddress,
-            command.DateOfBirth,
+            command.HireDate,
             command.Address,
-            command.CountryId,
             command.DepartmentId,
-            command.DesignationId
+            command.BranchId
         );
 
         if (updateResult.IsError)

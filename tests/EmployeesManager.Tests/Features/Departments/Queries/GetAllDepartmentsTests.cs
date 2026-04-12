@@ -17,7 +17,7 @@ public sealed class GetAllDepartmentsTests
         context.Departments.Add(Department.Create("Human Resources", "HR").Value);
         await context.SaveChangesAsync();
 
-        var handler = new GetAllDepartmentsQueryHandler(context);
+        var handler = new GetDepartmentsQueryHandler(context);
         var result = await handler.Handle(new GetAllDepartmentsQuery(), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();
@@ -28,7 +28,7 @@ public sealed class GetAllDepartmentsTests
     public async Task Handle_WhenNoData_ReturnsEmptyList()
     {
         await using var context = CreateContext();
-        var handler = new GetAllDepartmentsQueryHandler(context);
+        var handler = new GetDepartmentsQueryHandler(context);
         var result = await handler.Handle(new GetAllDepartmentsQuery(), CancellationToken.None);
 
         result.IsSuccess.Should().BeTrue();

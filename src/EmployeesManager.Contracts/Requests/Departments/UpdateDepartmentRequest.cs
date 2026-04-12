@@ -5,10 +5,8 @@ namespace EmployeesManager.Contracts.Requests.Departments;
 public sealed class UpdateDepartmentRequest
 {
     [Required(ErrorMessage = "Name is required")]
-    [StringLength(200)]
+    [StringLength(255)]
     public string Name { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Code is required")]
-    [StringLength(50)]
-    public string Code { get; set; } = string.Empty;
+    public Guid? ManagerId { get; set; }
 }

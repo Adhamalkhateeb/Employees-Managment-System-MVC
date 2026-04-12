@@ -12,10 +12,5 @@ public abstract class DepartmentCommandValidatorBase<TCommand> : AbstractValidat
             .NotEmpty()
             .WithMessage("Name is required")
             .MaximumLength(DepartmentConstants.NameMaxLength);
-
-        RuleFor(x => x.Code)
-            .NotEmpty()
-            .WithMessage("Code is required")
-            .MaximumLength(DepartmentConstants.CodeMaxLength);
     }
 }

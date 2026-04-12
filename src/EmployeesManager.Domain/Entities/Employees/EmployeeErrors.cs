@@ -19,10 +19,22 @@ public static class EmployeeErrors
         "FirstName"
     );
 
-    public static readonly Error MiddleNameTooLong = Error.Validation(
-        "Employee.MiddleName.TooLong",
-        "Middle name is too long.",
-        "MiddleName"
+    public static readonly Error NationalIdRequired = Error.Validation(
+        "Employee.NationalId.Required",
+        "National ID is required.",
+        "NationalId"
+    );
+
+    public static readonly Error NationalIdTooLong = Error.Validation(
+        "Employee.NationalId.TooLong",
+        "National ID is too long.",
+        "NationalId"
+    );
+
+    public static readonly Error NationalIdAlreadyExists = Error.Conflict(
+        "Employee.NationalId.AlreadyExists",
+        "National ID already exists.",
+        "NationalId"
     );
 
     public static readonly Error LastNameRequired = Error.Validation(
@@ -79,21 +91,10 @@ public static class EmployeeErrors
         "EmailAddress"
     );
 
-    public static readonly Error CountryIdRequired = Error.Validation(
-        "Employee.CountryId.Required",
-        "Country is required.",
-        "CountryId"
-    );
-
-    public static readonly Error CountryNotFound = Error.NotFound(
-        "Employee.Country.NotFound",
-        "Selected country was not found."
-    );
-
-    public static readonly Error DateOfBirthInvalid = Error.Validation(
-        "Employee.DateOfBirth.Invalid",
-        "Date of birth is invalid.",
-        "DateOfBirth"
+    public static readonly Error HireDateInvalid = Error.Validation(
+        "Employee.HireDate.Invalid",
+        "Hire date is invalid.",
+        "HireDate"
     );
 
     public static readonly Error AddressRequired = Error.Validation(
@@ -119,14 +120,8 @@ public static class EmployeeErrors
         "Selected department was not found."
     );
 
-    public static readonly Error DesignationIdRequired = Error.Validation(
-        "Employee.DesignationId.Required",
-        "Designation is required.",
-        "DesignationId"
-    );
-
-    public static readonly Error DesignationNotFound = Error.NotFound(
-        "Employee.Designation.NotFound",
-        "Selected designation was not found."
+    public static readonly Error BranchNotFound = Error.NotFound(
+        "Employee.Branch.NotFound",
+        "Selected branch was not found."
     );
 }

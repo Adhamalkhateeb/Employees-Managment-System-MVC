@@ -1,6 +1,5 @@
 using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.LeaveApplications.Common;
-using EmployeesManager.Application.Features.SystemCodeDetails.Common;
 using EmployeesManager.Domain.Common.Results;
 using EmployeesManager.Domain.Entities.LeaveApplications;
 using MediatR;

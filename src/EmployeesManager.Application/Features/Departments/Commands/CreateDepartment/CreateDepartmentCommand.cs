@@ -5,6 +5,6 @@ using MediatR;
 
 namespace EmployeesManager.Application.Features.Departments.Commands.CreateDepartment;
 
-public sealed record CreateDepartmentCommand(string Name, string Code)
+public sealed record CreateDepartmentCommand(string Name, Guid? ManagerId)
     : IRequest<Result<Created>>,
         IDepartmentCommand;

@@ -19,12 +19,17 @@ public sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
             .IsRequired()
             .HasMaxLength(EmployeeConstants.FirstNameMaxLength);
 
-        builder.Property(x => x.MiddleName).HasMaxLength(EmployeeConstants.MiddleNameMaxLength);
-
         builder
             .Property(x => x.LastName)
             .IsRequired()
             .HasMaxLength(EmployeeConstants.LastNameMaxLength);
+
+        builder
+            .Property(x => x.NationalId)
+            .IsRequired()
+            .HasMaxLength(EmployeeConstants.NationalIdMaxLength);
+
+        builder.HasIndex(x => x.NationalId).IsUnique();
 
         builder
             .Property(x => x.PhoneNumber)
@@ -40,37 +45,23 @@ public sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 
         builder.HasIndex(x => x.EmailAddress).IsUnique();
 
-        builder.Property(x => x.DateOfBirth).HasColumnType("date").IsRequired();
-
-        builder.ToTable(t =>
-            t.HasCheckConstraint(
-                "CK_Employees_DateOfBirth",
-                $"DateOfBirth <= DATEADD(year, -{EmployeeConstants.MinAge}, GETDATE())"
-            )
-        );
+        builder.Property(x => x.HireDate).HasColumnType("date").IsRequired();
 
         builder.Property(x => x.Address).HasMaxLength(EmployeeConstants.AddressMaxLength);
 
-        builder.HasIndex(x => x.CountryId);
         builder.HasIndex(x => x.DepartmentId);
-        builder.HasIndex(x => x.DesignationId);
-
-        builder
-            .HasOne(x => x.Country)
-            .WithMany()
-            .HasForeignKey(x => x.CountryId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasIndex(x => x.BranchId);
 
         builder
             .HasOne(x => x.Department)
-            .WithMany()
+            .WithMany(x => x.Employees)
             .HasForeignKey(x => x.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-            .HasOne(x => x.Designation)
-            .WithMany()
-            .HasForeignKey(x => x.DesignationId)
+            .HasOne(x => x.Branch)
+            .WithMany(x => x.Employees)
+            .HasForeignKey(x => x.BranchId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

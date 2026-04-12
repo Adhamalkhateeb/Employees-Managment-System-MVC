@@ -1,81 +1,74 @@
 using System.Text.RegularExpressions;
 using EmployeesManager.Domain.Common;
 using EmployeesManager.Domain.Common.Results;
-using EmployeesManager.Domain.Entities.Countries;
+using EmployeesManager.Domain.Entities.Branches;
 using EmployeesManager.Domain.Entities.Departments;
-using EmployeesManager.Domain.Entities.Designations;
 
 namespace EmployeesManager.Domain.Entities.Employees;
 
 public sealed class Employee : AuditableEntity
 {
     public string FirstName { get; private set; } = string.Empty;
-    public string? MiddleName { get; private set; }
     public string LastName { get; private set; } = string.Empty;
+    public string NationalId { get; private set; } = string.Empty;
     public string PhoneNumber { get; private set; } = string.Empty;
     public string EmailAddress { get; private set; } = string.Empty;
-    public DateTime DateOfBirth { get; private set; }
+    public DateTime HireDate { get; private set; }
     public string Address { get; private set; } = string.Empty;
-    public Guid CountryId { get; private set; }
-    public Country Country { get; private set; } = null!;
     public Guid DepartmentId { get; private set; }
     public Department Department { get; private set; } = null!;
-    public Guid DesignationId { get; private set; }
-    public Designation Designation { get; private set; } = null!;
+
+    public Guid? BranchId { get; private set; }
+    public Branch? Branch { get; private set; }
 
     private Employee() { }
 
     private Employee(
         Guid id,
         string firstName,
-        string? middleName,
         string lastName,
+        string nationalId,
         string phoneNumber,
         string emailAddress,
-        DateTime dateOfBirth,
+        DateTime hireDate,
         string address,
-        Guid countryId,
         Guid departmentId,
-        Guid designationId
+        Guid? branchId
     )
         : base(id)
     {
         FirstName = firstName;
-        MiddleName = middleName;
         LastName = lastName;
+        NationalId = nationalId;
         PhoneNumber = phoneNumber;
         EmailAddress = emailAddress;
-        DateOfBirth = dateOfBirth;
+        HireDate = hireDate == default ? DateTime.UtcNow : hireDate;
         Address = address;
-        CountryId = countryId;
         DepartmentId = departmentId;
-        DesignationId = designationId;
+        BranchId = branchId;
     }
 
     public static Result<Employee> Create(
         string firstName,
-        string? middleName,
         string lastName,
+        string nationalId,
         string phoneNumber,
         string emailAddress,
-        DateTime dateOfBirth,
+        DateTime hireDate,
         string address,
-        Guid countryId,
         Guid departmentId,
-        Guid designationId
+        Guid? branchId
     )
     {
         var validationError = Validate(
             firstName,
-            middleName,
             lastName,
+            nationalId,
             phoneNumber,
             emailAddress,
-            dateOfBirth,
+            hireDate,
             address,
-            countryId,
-            departmentId,
-            designationId
+            departmentId
         );
 
         if (validationError != null)
@@ -83,73 +76,66 @@ public sealed class Employee : AuditableEntity
 
         return new Employee(
             Guid.NewGuid(),
-            firstName,
-            middleName,
-            lastName,
-            phoneNumber,
-            emailAddress,
-            dateOfBirth,
-            address,
-            countryId,
+            firstName.Trim(),
+            lastName.Trim(),
+            nationalId.Trim(),
+            phoneNumber.Trim(),
+            emailAddress.Trim(),
+            hireDate == default ? DateTime.UtcNow.Date : hireDate.Date,
+            address.Trim(),
             departmentId,
-            designationId
+            branchId
         );
     }
 
     public Result<Updated> Update(
         string firstName,
-        string? middleName,
         string lastName,
+        string nationalId,
         string phoneNumber,
         string emailAddress,
-        DateTime dateOfBirth,
+        DateTime hireDate,
         string address,
-        Guid countryId,
         Guid departmentId,
-        Guid designationId
+        Guid? branchId
     )
     {
         var validationError = Validate(
             firstName,
-            middleName,
             lastName,
+            nationalId,
             phoneNumber,
             emailAddress,
-            dateOfBirth,
+            hireDate,
             address,
-            countryId,
-            departmentId,
-            designationId
+            departmentId
         );
 
         if (validationError != null)
             return validationError;
 
         FirstName = firstName.Trim();
-        MiddleName = NormalizeOptional(middleName);
         LastName = lastName.Trim();
+        NationalId = nationalId.Trim();
         PhoneNumber = phoneNumber.Trim();
         EmailAddress = emailAddress.Trim();
-        DateOfBirth = dateOfBirth.Date;
+        HireDate = hireDate == default ? DateTime.UtcNow.Date : hireDate.Date;
         Address = address.Trim();
-        CountryId = countryId;
         DepartmentId = departmentId;
-        DesignationId = designationId;
+        BranchId = branchId;
 
         return Result.Updated;
     }
 
     private static Error? Validate(
         string firstName,
-        string? middleName,
         string lastName,
+        string nationalId,
         string phoneNumber,
         string emailAddress,
-        DateTime dateOfBirth,
+        DateTime hireDate,
         string address,
-        Guid countryId,
-        Guid departmentId,
-        Guid designationId
+        Guid departmentId
     )
     {
         if (string.IsNullOrWhiteSpace(firstName))
@@ -157,16 +143,15 @@ public sealed class Employee : AuditableEntity
         else if (firstName.Trim().Length > EmployeeConstants.FirstNameMaxLength)
             return EmployeeErrors.FirstNameTooLong;
 
-        if (
-            !string.IsNullOrWhiteSpace(middleName)
-            && middleName.Trim().Length > EmployeeConstants.MiddleNameMaxLength
-        )
-            return EmployeeErrors.MiddleNameTooLong;
-
         if (string.IsNullOrWhiteSpace(lastName))
             return EmployeeErrors.LastNameRequired;
         else if (lastName.Trim().Length > EmployeeConstants.LastNameMaxLength)
             return EmployeeErrors.LastNameTooLong;
+
+        if (string.IsNullOrWhiteSpace(nationalId))
+            return EmployeeErrors.NationalIdRequired;
+        else if (nationalId.Trim().Length > EmployeeConstants.NationalIdMaxLength)
+            return EmployeeErrors.NationalIdTooLong;
 
         if (string.IsNullOrWhiteSpace(phoneNumber))
             return EmployeeErrors.PhoneNumberRequired;
@@ -180,14 +165,8 @@ public sealed class Employee : AuditableEntity
         else if (!IsValidEmail(emailAddress.Trim()))
             return EmployeeErrors.EmailAddressInvalid;
 
-        if (countryId == Guid.Empty)
-            return EmployeeErrors.CountryIdRequired;
-
-        if (
-            dateOfBirth == default
-            || dateOfBirth.Date > DateTime.UtcNow.AddYears(-EmployeeConstants.MinAge).Date
-        )
-            return EmployeeErrors.DateOfBirthInvalid;
+        if (hireDate == default || hireDate.Date > DateTime.UtcNow.Date)
+            return EmployeeErrors.HireDateInvalid;
 
         if (string.IsNullOrWhiteSpace(address))
             return EmployeeErrors.AddressRequired;
@@ -197,14 +176,8 @@ public sealed class Employee : AuditableEntity
         if (departmentId == Guid.Empty)
             return EmployeeErrors.DepartmentIdRequired;
 
-        if (designationId == Guid.Empty)
-            return EmployeeErrors.DesignationIdRequired;
-
         return null;
     }
-
-    private static string? NormalizeOptional(string? value) =>
-        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
     private static bool IsValidEmail(string value) =>
         Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]{2,}$");

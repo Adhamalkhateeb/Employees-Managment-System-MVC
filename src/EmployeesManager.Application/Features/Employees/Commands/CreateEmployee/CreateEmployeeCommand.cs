@@ -7,13 +7,12 @@ namespace EmployeesManager.Application.Features.Employees.Commands.CreateEmploye
 
 public sealed record CreateEmployeeCommand(
     string FirstName,
-    string? MiddleName,
     string LastName,
+    string NationalId,
     string PhoneNumber,
     string EmailAddress,
-    DateTime DateOfBirth,
+    DateTime HireDate,
     string Address,
-    Guid CountryId,
     Guid DepartmentId,
-    Guid DesignationId
+    Guid? BranchId
 ) : IRequest<Result<Created>>, IEmployeeCommand;

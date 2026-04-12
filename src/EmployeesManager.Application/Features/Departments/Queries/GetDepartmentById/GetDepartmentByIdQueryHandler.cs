@@ -1,6 +1,6 @@
 using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.Departments.Dtos;
-using EmployeesManager.Application.Features.Departments.Mappings;
+using EmployeesManager.Application.Features.Employees.Dtos;
 using EmployeesManager.Domain.Common.Results;
 using EmployeesManager.Domain.Entities.Departments;
 using MediatR;
@@ -20,13 +20,42 @@ public sealed class GetDepartmentByIdQueryHandler
         CancellationToken cancellationToken
     )
     {
-        var entity = await _context
+        var department = await _context
             .Departments.AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == query.Id, cancellationToken);
+            .Where(d => d.Id == query.Id)
+            .LeftJoin(
+                _context.Employees.AsNoTracking(),
+                d => d.ManagerId,
+                e => e.Id,
+                (d, e) =>
+                    new DepartmentDto(
+                        d.Id,
+                        d.Name,
+                        d.Employees.Count,
+                        d.ManagerId,
+                        e != null ? $"{e.FirstName} {e.LastName}" : null,
+                        d.Employees.Select(emp => new EmployeeDto(
+                                emp.Id,
+                                emp.FirstName,
+                                emp.LastName,
+                                emp.NationalId,
+                                emp.PhoneNumber,
+                                emp.EmailAddress,
+                                emp.HireDate,
+                                emp.Address,
+                                emp.DepartmentId,
+                                d.Name,
+                                emp.BranchId,
+                                emp.Branch != null ? emp.Branch.Name : null
+                            ))
+                            .ToList()
+                    )
+            )
+            .FirstOrDefaultAsync(cancellationToken);
 
-        if (entity is null)
+        if (department is null)
             return DepartmentErrors.NotFound(query.Id);
 
-        return entity.ToDto();
+        return department;
     }
 }
