@@ -2,8 +2,18 @@
 html {
   font-size: 14px;
 }
-:root {
+
+:root
+,[data-bs-theme="dark"]{
   --bs-body-font-family: 'IBM Plex Sans Arabic','Space Grotesk', sans-serif;
+    --bs-tertiary-bg-rgb:  0,0,0 !important;
+    --back-plus: #fff;
+    --text-plus: #000;
+}
+[data-bs-theme="light"]{
+    --bs-tertiary-bg-rgb:  255, 255, 255 !important;
+    --back-plus: #000;
+    --text-plus: #fff;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: 'IBM Plex Sans Arabic','Space Grotesk', sans-serif !important;
@@ -157,20 +167,33 @@ body {
   height: 100%;
 }
 .card-container {
-  width: 190px;
-  height: 254px;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
   padding: 15px;
   border-radius: 30px;
-  background: black;
+  justify-content: space-between;
+  background: lightslategrey;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
 }
-.card{
-  background-color: #0d6efd;
-
+.card-c{
+  background-color: #1f2937;
+  border-radius: 0 10px 0 10px;
+  text-align: center;
+  padding: 15px;
+}
+.card-c a{
+  background-color: yellowgreen;
+  text-decoration: none;
+  color: var(--bs-secondary-color);
+  font-weight: 900;
+  padding: 5px;
+  border-radius: 0px 10px 0px 10px;
 }
 .ar{
   font-size: 15px;
 }
 .nav{
   height: 75vh;
+  overflow-y: hidden;
 }
