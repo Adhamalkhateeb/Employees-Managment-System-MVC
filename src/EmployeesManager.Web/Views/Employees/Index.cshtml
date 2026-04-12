@@ -3,7 +3,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
     <div>
-        <h2 class="fw-bold mb-0 text-dark">Employee Directory</h2>
+        <h2 class="fw-bold mb-0  ">Employee Directory</h2>
         <p class="text-muted mb-0">Manage and view all employee profiles</p>
     </div>
     <a asp-action="Create" class="btn btn-primary btn-primary-elevated d-flex align-items-center gap-2 px-4 py-2">
@@ -15,7 +15,7 @@
 {
     <div class="alert alert-light text-center p-5 shadow-sm rounded-4 border-0" role="alert">
         <i class="fa-solid fa-users text-muted mb-3 empty-state-icon"></i>
-        <h4 class="text-dark fw-bold">No Employees Found</h4>
+        <h4 class="  fw-bold">No Employees Found</h4>
         <p class="text-muted mb-4">There are currently no employees in the system. Get started by adding a new one.</p>
         <a asp-action="Create" class="btn btn-primary px-4 py-2 rounded-3"><i class="fa-solid fa-plus me-2"></i>Add Your First Employee</a>
     </div>
@@ -29,7 +29,7 @@ else
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table id="example1" class="table table-hover table-modern mb-0 align-middle js-data-table">
-                    <thead class="table-light text-muted">
+                    <thead class="border-1 rounded text-muted">
                         <tr>
                             <th class="ps-4 text-uppercase border-0 table-head-label">Emp No.</th>
                             <th class="text-uppercase border-0 table-head-label">Employee details</th>
@@ -50,7 +50,7 @@ else
                                         @(string.IsNullOrWhiteSpace(item.FullName) ? "?" : item.FullName[0].ToString().ToUpper())
                                     </div>
                                     <div>
-                                        <h6 class="mb-1 text-dark fw-bold">@item.FullName</h6>
+                                        <h6 class="mb-1   fw-bold">@item.FullName</h6>
                                         <small class="text-muted"><i class="fa-solid fa-briefcase me-1"></i> @(string.IsNullOrEmpty(item.DesignationName) ? "Employee" : item.DesignationName)</small>
                                     </div>
                                 </div>

@@ -62,6 +62,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.6/css/buttons.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/4.0.0/font/MaterialIcons-Regular.ttf" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/css/crud-common.css" asp-append-version="true" />
   @{
@@ -86,7 +88,7 @@
             </a>
           </li>
           <li class="nav-item d-none d-md-block">
-            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link"><span class="material-symbols-outlined">home</span></a>
           </li>
           <li class="nav-item d-none d-md-block">
             <a href="#" class="nav-link">Contact</a>
@@ -96,98 +98,12 @@
 
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
-          <!--begin::Navbar Search-->
-          <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-              <i class="bi bi-search"></i>
-            </a>
-          </li>
-          <!--end::Navbar Search-->
-
-          <!--begin::Messages Dropdown Menu-->
-          <li class="nav-item dropdown">
-            <a class="nav-link" data-bs-toggle="dropdown" href="#">
-              <i class="bi bi-chat-text"></i>
-              <span class="navbar-badge badge text-bg-danger">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img src="~/AdminLTE/dist/assets/img/user1-128x128.jpg" alt="User Avatar"
-                         class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                    </h3>
-                    <p class="fs-7">Call me whenever you can...</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img src="~/AdminLTE/dist/assets/img/user8-128x128.jpg" alt="User Avatar"
-                         class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-end fs-7 text-secondary">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </h3>
-                    <p class="fs-7">I got your message bro</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!--begin::Message-->
-                <div class="d-flex">
-                  <div class="flex-shrink-0">
-                    <img src="~/AdminLTE/dist/assets/img/user3-128x128.jpg" alt="User Avatar"
-                         class="img-size-50 rounded-circle me-3" />
-                  </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-end fs-7 text-warning">
-                        <i class="bi bi-star-fill"></i>
-                      </span>
-                    </h3>
-                    <p class="fs-7">The subject goes here</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
-                </div>
-                <!--end::Message-->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-          </li>
-          <!--end::Messages Dropdown Menu-->
-
+          
           <!--begin::Notifications Dropdown Menu-->
           <li class="nav-item dropdown">
             <a class="nav-link" data-bs-toggle="dropdown" href="#">
               <i class="bi bi-bell-fill"></i>
-              <span class="navbar-badge badge text-bg-warning">15</span>
+              <span class="navbar-badge badge text-bg-warning">k</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
               <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -211,7 +127,19 @@
             </div>
           </li>
           <!--end::Notifications Dropdown Menu-->
+          @* <search> *@
+            <div class="container">
+              <input type="text" name="text" class="input" required="" placeholder="Type to search...">
+              <div class="icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                      <title>Search</title>
+                      <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"></path>
+                  </svg>
+              </div>
+          </div>
 
+          @* </search> *@
           <!--begin::Fullscreen Toggle-->
           <li class="nav-item">
             <a class="nav-link" href="#" data-lte-toggle="fullscreen">
@@ -235,31 +163,27 @@
     </nav>
     <!--end::Header-->
     <!--begin::Sidebar-->
-    <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+    <aside class="app-sidebar bg-body-secondary shadow">
       <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
         <!--begin::Brand Link-->
         <a href="#" class="brand-link">
-          <!--begin::Brand Image-->
-          <img src="~/AdminLTE/dist/assets/img/AdminLTELogo.png" alt="AdminLTE Logo"
-               class="brand-image opacity-75 shadow" />
-          <!--end::Brand Image-->
           <!--begin::Brand Text-->
-          <span class="brand-text fw-light">AdminLTE 4</span>
+          <span class="brand-text fw-light">System</span>
           <!--end::Brand Text-->
         </a>
         <!--end::Brand Link-->
       </div>
       <!--end::Sidebar Brand-->
       <!--begin::Sidebar Wrapper-->
-      <div class="sidebar-wrapper">
-        <nav class="mt-2">
+      <div class="sidebar-wrapper side d-flex flex-column flex-shrink-0 bg-white bg-body-tertiary">
+        <nav class="mt-2 flex-grow-1">
           <!--begin::Sidebar Menu-->
           <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation"
               aria-label="Main navigation" data-accordion="false" id="navigation">
             <li class="nav-item menu-open">
               <a asp-action="@nameof(HomeController.Index)" asp-controller="Home" class="nav-link active">
-                <i class="nav-icon bi bi-speedometer"></i>
+                <span class="material-symbols-outlined">dashboard</span>
                 <p>
                   Dashboard
                 </p>
@@ -267,7 +191,7 @@
             </li>
             <li class="nav-item">
               <a asp-action="@nameof(EmployeesController.Index)" asp-controller="Employees" class="nav-link">
-                <i class="nav-icon bi bi-box-seam-fill"></i>
+                <span class="material-symbols-outlined">group</span>
                 <p>
                   Employees
                 </p>
@@ -275,7 +199,7 @@
             </li>
                 <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-table"></i>
+                  <span class="material-symbols-outlined">home_work</span>
                   <p>
                     Leave Applications
                       <i class="nav-arrow bi bi-chevron-right"></i>
@@ -296,7 +220,8 @@
                   </li>
             </ul>
           </li>
-           <li class="nav-item">
+          @* h *@
+           @* <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-table"></i>
                   <p>
@@ -348,8 +273,33 @@
                     </a>
                   </li>
             </ul>
-          </li>
-          </ul>
+          </li> *@
+        </ul>
+        <hr />
+        <div class="dropdown">
+        <a
+            href="#"
+            class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+        >
+            <img
+            src="assets/profile.jpg"
+            alt=""
+            width="32"
+            height="32"
+            class="rounded-circle me-2"
+            />
+            <strong>Kingmarw</strong>
+        </a>
+        <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+        </div>
           <!--end::Sidebar Menu-->
         </nav>
       </div>
@@ -378,7 +328,7 @@
       <!--begin::Copyright-->
       <strong>
         Copyright &copy; @DateTime.UtcNow.Year&nbsp;
-        <a href="" class="text-decoration-none">Designed and developed by Adham </a>.
+        <a href="" class="text-decoration-none">Designed and developed by Adham & Kingmarw </a>.
       </strong>
       All rights reserved.
       <!--end::Copyright-->
@@ -567,7 +517,6 @@
 <!--end::Body-->
 
 </html>
-
 
 
 

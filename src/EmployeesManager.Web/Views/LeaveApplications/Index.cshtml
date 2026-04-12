@@ -3,7 +3,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
     <div>
-        <h2 class="fw-bold mb-0 text-dark">Leave Applications</h2>
+        <h2 class="fw-bold mb-0 ">Leave Applications</h2>
         <p class="text-muted mb-0">Track requests, durations, and approval status</p>
     </div>
     <a asp-action="Create" class="btn btn-primary btn-primary-elevated px-4 py-2">
@@ -28,7 +28,7 @@
 @if (!Model.Any())
 {
     <div class="alert alert-light text-center p-5 shadow-sm rounded-4 border-0" role="alert">
-        <h4 class="text-dark fw-bold">No Leave Applications Found</h4>
+        <h4 class=" fw-bold">No Leave Applications Found</h4>
         <p class="text-muted mb-4">Start by creating your first leave application.</p>
         <a asp-action="Create" class="btn btn-primary px-4 py-2 rounded-3">Add Application</a>
     </div>
@@ -42,7 +42,7 @@ else
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover table-modern mb-0 align-middle js-data-table">
-                    <thead class="table-light text-muted">
+                    <thead class="border-1 text-muted">
                         <tr>
                             <th class="ps-4 text-uppercase border-0 table-head-label">Employee</th>
                             <th class="text-uppercase border-0 table-head-label">Type</th>
@@ -126,7 +126,7 @@ else
             var s when s.Contains("approve") => "bg-success",
             var s when s.Contains("cancel") => "bg-secondary",
             var s when s.Contains("reject") => "bg-danger",
-            var s when s.Contains("pending") => "bg-warning text-dark",
+            var s when s.Contains("pending") => "bg-warning ",
             _ => "bg-secondary"
         };
 
