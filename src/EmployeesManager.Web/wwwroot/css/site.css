@@ -197,3 +197,20 @@ body {
   height: 75vh;
   overflow-y: hidden;
 }
+.side-L-btn{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+  background-color: yellowgreen;
+  margin-bottom: 5px;
+}
+.side-R-btn{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+  background-color: yellowgreen;
+}
