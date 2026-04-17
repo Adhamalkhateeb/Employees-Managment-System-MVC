@@ -9,6 +9,7 @@ public static class DepartmentMappers
     {
         ArgumentNullException.ThrowIfNull(dto, nameof(dto));
 
+<<<<<<< HEAD
         return new(dto.Id, Name: dto.Name, dto.EmployeesCount, dto.ManagerId, dto.ManagerFullName);
     }
 
@@ -17,6 +18,9 @@ public static class DepartmentMappers
         ArgumentNullException.ThrowIfNull(dto, nameof(dto));
 
         return new(dto.Id, Name: dto.Name, dto.EmployeesCount, dto.ManagerId, dto.ManagerFullName);
+=======
+        return new(Id: dto.Id, Name: dto.Name, Code: dto.Code);
+>>>>>>> main
     }
 
     public static List<DepartmentResponse> ToResponses(this IEnumerable<DepartmentDto> dtos)
@@ -24,6 +28,7 @@ public static class DepartmentMappers
         ArgumentNullException.ThrowIfNull(dtos, nameof(dtos));
         return [.. dtos.Select(x => x.ToResponse())];
     }
+<<<<<<< HEAD
 
     public static List<DepartmentResponse> ToResponses(
         this IEnumerable<DepartmentWithoutEmployeesDto> dtos
@@ -32,4 +37,6 @@ public static class DepartmentMappers
         ArgumentNullException.ThrowIfNull(dtos, nameof(dtos));
         return [.. dtos.Select(x => x.ToResponse())];
     }
+=======
+>>>>>>> main
 }

@@ -3,14 +3,16 @@ namespace EmployeesManager.Application.Features.Employees.Dtos;
 public sealed record EmployeeDto(
     Guid Id,
     string FirstName,
+    string? MiddleName,
     string LastName,
-    string NationalId,
     string PhoneNumber,
     string EmailAddress,
-    DateTime HireDate,
+    DateTime DateOfBirth,
     string Address,
+    Guid CountryId,
+    string CountryName,
     Guid DepartmentId,
     string DepartmentName,
-    Guid? BranchId,
-    string? BranchName
+    Guid DesignationId,
+    string DesignationName
 );

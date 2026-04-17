@@ -1,6 +1,7 @@
 using System.Reflection;
 using EmployeesManager.Application.Common.Interfaces;
 using EmployeesManager.Application.Features.LeaveApplications.Dtos;
+using EmployeesManager.Application.Features.SystemCodeDetails.Common;
 using EmployeesManager.Domain.Common.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -18,12 +18,9 @@ public sealed class DepartmentConfiguration : IEntityTypeConfiguration<Departmen
 
         builder.Property(x => x.Name).IsRequired().HasMaxLength(DepartmentConstants.NameMaxLength);
 
-        builder.HasIndex(x => x.Name).IsUnique();
+        builder.Property(x => x.Code).IsRequired().HasMaxLength(DepartmentConstants.CodeMaxLength);
 
-        builder
-            .HasOne(x => x.Manager)
-            .WithOne()
-            .HasForeignKey<Department>(x => x.ManagerId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.Code).IsUnique();
     }
 }

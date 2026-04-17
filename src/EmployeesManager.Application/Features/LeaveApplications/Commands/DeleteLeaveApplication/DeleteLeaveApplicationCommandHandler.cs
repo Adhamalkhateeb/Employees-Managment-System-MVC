@@ -29,6 +29,7 @@ public sealed class DeleteLeaveApplicationCommandHandler
         if (!leaveApplication.IsPending())
             return LeaveApplicationErrors.NotEditable;
 
+
         _context.LeaveApplications.Remove(leaveApplication);
         await _context.SaveChangesAsync(cancellationToken);
         return Result.Deleted;

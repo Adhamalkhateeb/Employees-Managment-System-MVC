@@ -13,15 +13,14 @@ public abstract class EmployeeCommandValidatorBase<TCommand> : AbstractValidator
             .WithMessage("First name is required")
             .MaximumLength(EmployeeConstants.FirstNameMaxLength);
 
+        RuleFor(x => x.MiddleName)
+            .MaximumLength(EmployeeConstants.MiddleNameMaxLength)
+            .When(x => !string.IsNullOrWhiteSpace(x.MiddleName));
+
         RuleFor(x => x.LastName)
             .NotEmpty()
             .WithMessage("Last name is required")
             .MaximumLength(EmployeeConstants.LastNameMaxLength);
-
-        RuleFor(x => x.NationalId)
-            .NotEmpty()
-            .WithMessage("National ID is required")
-            .MaximumLength(EmployeeConstants.NationalIdMaxLength);
 
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()
@@ -35,11 +34,17 @@ public abstract class EmployeeCommandValidatorBase<TCommand> : AbstractValidator
             .WithMessage("Email address format is invalid")
             .MaximumLength(EmployeeConstants.EmailAddressMaxLength);
 
-        RuleFor(x => x.HireDate)
+        RuleFor(x => x.CountryId)
             .NotEmpty()
-            .WithMessage("Hire date is required")
-            .LessThanOrEqualTo(DateTime.UtcNow.Date)
-            .WithMessage("Hire date is not valid");
+            .WithMessage("Country is required")
+            .NotEqual(Guid.Empty)
+            .WithMessage("Country is required");
+
+        RuleFor(x => x.DateOfBirth)
+            .NotEmpty()
+            .WithMessage("Date of birth is required")
+            .LessThanOrEqualTo(DateTime.UtcNow.Date.AddYears(-EmployeeConstants.MinAge))
+            .WithMessage("Date of birth is not valid");
 
         RuleFor(x => x.Address)
             .NotEmpty()
@@ -52,8 +57,10 @@ public abstract class EmployeeCommandValidatorBase<TCommand> : AbstractValidator
             .NotEqual(Guid.Empty)
             .WithMessage("Department is required");
 
-        RuleFor(x => x.BranchId)
-            .Must(x => x is null || x != Guid.Empty)
-            .WithMessage("Branch is invalid");
+        RuleFor(x => x.DesignationId)
+            .NotEmpty()
+            .WithMessage("Designation is required")
+            .NotEqual(Guid.Empty)
+            .WithMessage("Designation is required");
     }
 }

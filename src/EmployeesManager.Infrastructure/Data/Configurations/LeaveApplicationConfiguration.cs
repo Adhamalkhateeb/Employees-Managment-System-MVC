@@ -25,7 +25,7 @@ public sealed class LeaveApplicationConfiguration : IEntityTypeConfiguration<Lea
         builder.ToTable(t =>
             t.HasCheckConstraint(
                 "CK_LeaveApplications_EndDate_GreaterThanOrEqualStartDate",
-                "CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)"
+                "[CAST([EndDate] AS DATE) >= CAST([StartDate] AS DATE)]"
             )
         );
 

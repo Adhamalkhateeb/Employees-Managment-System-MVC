@@ -1,71 +1,54 @@
 using EmployeesManager.Domain.Common;
 using EmployeesManager.Domain.Common.Results;
-using EmployeesManager.Domain.Entities.Employees;
 
 namespace EmployeesManager.Domain.Entities.Departments;
 
 public sealed class Department : AuditableEntity
 {
     public string Name { get; private set; } = default!;
-    public Guid? ManagerId { get; private set; }
-    public Employee? Manager { get; private set; }
-    private readonly List<Employee> _employees = [];
-    public IReadOnlyCollection<Employee> Employees => _employees.AsReadOnly();
+    public string Code { get; private set; } = default!;
 
     private Department() { }
 
-    private Department(Guid id, string name, Guid? managerId)
+    private Department(Guid id, string name, string code)
         : base(id)
     {
         Name = name;
-        ManagerId = managerId;
+        Code = code;
     }
 
-    public static Result<Department> Create(string name, Guid? managerId)
+    public static Result<Department> Create(string name, string code)
     {
-        name = name?.Trim() ?? string.Empty;
-        var validationError = Validate(name);
-        if (validationError is not null)
+        var validationError = Validate(name, code);
+        if (validationError != null)
             return validationError;
 
-        return new Department(Guid.NewGuid(), name.Trim(), managerId);
+        return new Department(Guid.NewGuid(), name.Trim(), code.Trim());
     }
 
-    public Result<Updated> Update(string name, Guid? managerId)
+    public Result<Updated> Update(string name, string code)
     {
-        var validationError = Validate(name);
-        if (validationError is not null)
+        var validationError = Validate(name, code);
+        if (validationError != null)
             return validationError;
 
         Name = name.Trim();
-        ManagerId = managerId;
+        Code = code.Trim();
 
         return Result.Updated;
     }
 
-    public Result<Success> AssignManager(Guid managerId)
+    private static Error? Validate(string name, string code)
     {
-        if (ManagerId == managerId)
-            return Result.Success;
-
-        ManagerId = managerId;
-        return Result.Success;
-    }
-
-    public Result<Success> RemoveManager()
-    {
-        ManagerId = null;
-        return Result.Success;
-    }
-
-    private static Error? Validate(string name)
-    {
-        name = name?.Trim() ?? string.Empty;
-
         if (string.IsNullOrWhiteSpace(name))
             return DepartmentErrors.NameRequired;
-        if (name.Length > DepartmentConstants.NameMaxLength)
+        if (name.Trim().Length > DepartmentConstants.NameMaxLength)
             return DepartmentErrors.NameTooLong;
+
+        if (string.IsNullOrWhiteSpace(code))
+            return DepartmentErrors.CodeRequired;
+        if (code.Trim().Length > DepartmentConstants.CodeMaxLength)
+            return DepartmentErrors.CodeTooLong;
 
         return null;
     }

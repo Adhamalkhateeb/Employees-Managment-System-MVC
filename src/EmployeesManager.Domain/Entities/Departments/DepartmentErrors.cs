@@ -25,15 +25,21 @@ public static class DepartmentErrors
         "Name"
     );
 
-    public static readonly Error ManagerAlreadyAssigned = Error.Conflict(
-        "Department.Manager.AlreadyAssigned",
-        "The specified manager is already assigned to another department.",
-        "ManagerId"
+    public static readonly Error CodeRequired = Error.Validation(
+        "Department.Code.Required",
+        "Code is required.",
+        "Code"
     );
 
-    public static readonly Error ManagerNotFound = Error.NotFound(
-        "Department.Manager.NotFound",
-        "The specified manager was not found.",
-        "ManagerId"
+    public static readonly Error CodeTooLong = Error.Validation(
+        "Department.Code.TooLong",
+        "Code is too long.",
+        "Code"
+    );
+
+    public static readonly Error CodeAlreadyExists = Error.Conflict(
+        "Department.Code.AlreadyExists",
+        "Department code already exists.",
+        "Code"
     );
 }

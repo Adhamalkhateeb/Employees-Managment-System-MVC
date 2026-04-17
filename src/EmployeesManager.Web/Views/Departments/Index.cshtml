@@ -4,7 +4,11 @@
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
     <div>
         <h2 class="fw-bold mb-0 text-dark">Departments</h2>
+<<<<<<< HEAD
         <p class="text-muted mb-0">Manage organizational departments and managers</p>
+=======
+        <p class="text-muted mb-0">Manage organizational departments and their codes</p>
+>>>>>>> main
     </div>
     <a asp-action="Create" class="btn btn-primary btn-primary-elevated d-flex align-items-center gap-2 px-4 py-2">
         <i class="fa-solid fa-plus"></i> Add Department
@@ -32,8 +36,12 @@ else
                     <thead class="table-light text-muted">
                         <tr>
                             <th class="ps-4 text-uppercase border-0 table-head-label">Department</th>
+<<<<<<< HEAD
                             <th class="text-uppercase border-0 table-head-label">Employees</th>
                             <th class="text-uppercase border-0 table-head-label">Manager</th>
+=======
+                            <th class="text-uppercase border-0 table-head-label">Code</th>
+>>>>>>> main
                             <th class="text-center text-uppercase border-0 table-head-label">Actions</th>
                         </tr>
                     </thead>
@@ -52,10 +60,14 @@ else
                                 </div>
                             </td>
                             <td>
+<<<<<<< HEAD
                                 <span class="badge bg-secondary">@item.EmployeesCount</span>
                             </td>
                             <td>
                                 @(string.IsNullOrWhiteSpace(item.ManagerFullName) ? "-" : item.ManagerFullName)
+=======
+                                <span class="badge bg-secondary">@item.Code</span>
+>>>>>>> main
                             </td>
                             <td>
                                 <div class="d-flex gap-2 justify-content-center">

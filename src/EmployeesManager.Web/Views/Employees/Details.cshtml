@@ -23,7 +23,11 @@
                 </div>
                 <div class="header-content">
                     <h2 class="mb-1 fw-bold">@Model.FullName</h2>
+<<<<<<< HEAD
                     <p class="mb-0 opacity-75"><i class="fa-solid fa-briefcase me-2"></i>@(string.IsNullOrEmpty(Model.BranchName) ? "Employee" : Model.BranchName)</p>
+=======
+                    <p class="mb-0 opacity-75"><i class="fa-solid fa-briefcase me-2"></i>@(string.IsNullOrEmpty(Model.DesignationName) ? "Employee" : Model.DesignationName)</p>
+>>>>>>> main
                 </div>
             </div>
             <div class="card-body pt-5 px-4 pb-4 px-md-5">
@@ -35,9 +39,12 @@
                             
                             <span class="info-label">Employee Number</span>
                             <div class="info-value"><span class="badge bg-secondary">@Model.EmployeeNumber</span></div>
+<<<<<<< HEAD
 
                             <span class="info-label">National ID</span>
                             <div class="info-value">@Model.NationalId</div>
+=======
+>>>>>>> main
                             
                             <span class="info-label">Full Name</span>
                             <div class="info-value">@Model.FullName</div>
@@ -45,19 +52,31 @@
                     </div>
                     
                     <div class="col-md-6">
+<<<<<<< HEAD
                         <div class="info-section">
+=======
+                        <div class="info-section ">
+>>>>>>> main
                             <h5 class="mb-4 text-primary fw-bold border-bottom pb-2"><i class="fa-solid fa-address-book me-2"></i>Contact Details</h5>
                             
                             <span class="info-label">Email Address</span>
                             <div class="info-value">
+<<<<<<< HEAD
                                 <a href="mailto:@Model.EmailAddress" class="text-decoration-none text-body">
+=======
+                                <a href="mailto:@Model.EmailAddress" class="text-decoration-none text-dark">
+>>>>>>> main
                                     <i class="fa-solid fa-envelope text-primary me-2"></i>@Model.EmailAddress
                                 </a>
                             </div>
                             
                             <span class="info-label">Phone Number</span>
                             <div class="info-value">
+<<<<<<< HEAD
                                 <a href="tel:@Model.PhoneNumber" class="text-decoration-none text-body">
+=======
+                                <a href="tel:@Model.PhoneNumber" class="text-decoration-none text-dark">
+>>>>>>> main
                                     <i class="fa-solid fa-phone text-success me-2"></i>@Model.PhoneNumber
                                 </a>
                             </div>
@@ -73,8 +92,13 @@
                                     <div class="info-value">@(string.IsNullOrEmpty(Model.DepartmentName) ? "N/A" : Model.DepartmentName)</div>
                                 </div>
                                 <div class="col-md-6">
+<<<<<<< HEAD
                                     <span class="info-label">Branch</span>
                                     <div class="info-value">@(string.IsNullOrEmpty(Model.BranchName) ? "N/A" : Model.BranchName)</div>
+=======
+                                    <span class="info-label">Designation</span>
+                                    <div class="info-value">@(string.IsNullOrEmpty(Model.DesignationName) ? "N/A" : Model.DesignationName)</div>
+>>>>>>> main
                                 </div>
                             </div>
                         </div>

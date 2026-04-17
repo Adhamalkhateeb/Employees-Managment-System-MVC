@@ -1,4 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
   <ItemGroup>
     <ProjectReference Include="..\EmployeesManager.Application\EmployeesManager.Application.csproj" />
     <ProjectReference Include="..\EmployeesManager.Infrastructure\EmployeesManager.Infrastructure.csproj" />
@@ -14,20 +18,27 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="14.1.0" />
+<<<<<<< HEAD
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.5" />
     <PackageReference
       Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
       Version="10.0.5"
     />
+=======
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.5" />
+>>>>>>> main
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+<<<<<<< HEAD
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+=======
+>>>>>>> main
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
   </ItemGroup>
 
@@ -36,4 +47,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 </Project>

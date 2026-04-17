@@ -24,16 +24,18 @@ public sealed class GetAllEmployeesQueryHandler
             .Select(e => new EmployeeDto(
                 e.Id,
                 e.FirstName,
+                e.MiddleName,
                 e.LastName,
-                e.NationalId,
                 e.PhoneNumber,
                 e.EmailAddress,
-                e.HireDate,
+                e.DateOfBirth,
                 e.Address,
+                e.CountryId,
+                e.Country.Name,
                 e.DepartmentId,
                 e.Department.Name,
-                e.BranchId,
-                e.Branch != null ? e.Branch.Name : null
+                e.DesignationId,
+                e.Designation.Name
             ))
             .ToListAsync(cancellationToken);
 

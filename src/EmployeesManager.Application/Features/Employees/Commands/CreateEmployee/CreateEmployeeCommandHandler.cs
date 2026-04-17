@@ -1,4 +1,6 @@
 using EmployeesManager.Application.Common.Interfaces;
+using EmployeesManager.Application.Features.Employees.Dtos;
+using EmployeesManager.Application.Features.Employees.Mappings;
 using EmployeesManager.Domain.Common.Results;
 using EmployeesManager.Domain.Entities.Employees;
 using MediatR;
@@ -27,10 +29,10 @@ public sealed class CreateEmployeeCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var normalizedEmail = command.EmailAddress.Trim().ToUpperInvariant();
+        var normalizedEmail = command.EmailAddress.Trim().ToUpper();
 
         var emailExists = await _context.Employees.AnyAsync(
-            x => x.EmailAddress.ToUpper() == normalizedEmail,
+            x => x.EmailAddress == normalizedEmail,
             cancellationToken
         );
 
@@ -57,18 +59,18 @@ public sealed class CreateEmployeeCommandHandler
             return EmployeeErrors.PhoneNumberAlreadyExists;
         }
 
-        var nationalIdExists = await _context.Employees.AnyAsync(
-            x => x.NationalId == command.NationalId,
+        var countryExists = await _context.Countries.AnyAsync(
+            x => x.Id == command.CountryId,
             cancellationToken
         );
 
-        if (nationalIdExists)
+        if (!countryExists)
         {
             _logger.LogWarning(
-                "Attempt to create employee with existing national id: {NationalId}",
-                command.NationalId
+                "Attempt to create employee with unknown country: {CountryId}",
+                command.CountryId
             );
-            return EmployeeErrors.NationalIdAlreadyExists;
+            return EmployeeErrors.CountryNotFound;
         }
 
         var departmentExists = await _context.Departments.AnyAsync(
@@ -85,33 +87,31 @@ public sealed class CreateEmployeeCommandHandler
             return EmployeeErrors.DepartmentNotFound;
         }
 
-        if (command.BranchId.HasValue)
-        {
-            var branchExists = await _context.Branches.AnyAsync(
-                x => x.Id == command.BranchId.Value,
-                cancellationToken
-            );
+        var designationExists = await _context.Designations.AnyAsync(
+            x => x.Id == command.DesignationId,
+            cancellationToken
+        );
 
-            if (!branchExists)
-            {
-                _logger.LogWarning(
-                    "Attempt to create employee with unknown branch: {BranchId}",
-                    command.BranchId.Value
-                );
-                return EmployeeErrors.BranchNotFound;
-            }
+        if (!designationExists)
+        {
+            _logger.LogWarning(
+                "Attempt to create employee with unknown designation: {DesignationId}",
+                command.DesignationId
+            );
+            return EmployeeErrors.DesignationNotFound;
         }
 
         var createResult = Employee.Create(
             command.FirstName,
+            command.MiddleName,
             command.LastName,
-            command.NationalId,
             command.PhoneNumber,
             command.EmailAddress,
-            command.HireDate,
+            command.DateOfBirth,
             command.Address,
+            command.CountryId,
             command.DepartmentId,
-            command.BranchId
+            command.DesignationId
         );
 
         if (createResult.IsError)

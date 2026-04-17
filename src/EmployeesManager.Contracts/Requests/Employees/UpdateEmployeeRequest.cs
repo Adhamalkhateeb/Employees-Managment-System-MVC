@@ -8,13 +8,12 @@ public sealed class UpdateEmployeeRequest
     [StringLength(100)]
     public string FirstName { get; set; } = string.Empty;
 
+    [StringLength(100)]
+    public string? MiddleName { get; set; }
+
     [Required(ErrorMessage = "Last name is required")]
     [StringLength(100)]
     public string LastName { get; set; } = string.Empty;
-
-    [Required(ErrorMessage = "National ID is required")]
-    [StringLength(50)]
-    public string NationalId { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Phone number is required")]
     [StringLength(25)]
@@ -25,9 +24,12 @@ public sealed class UpdateEmployeeRequest
     [StringLength(256)]
     public string EmailAddress { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Hire date is required")]
+    [Required(ErrorMessage = "Country is required")]
+    public Guid CountryId { get; set; }
+
+    [Required(ErrorMessage = "Date of birth is required")]
     [DataType(DataType.Date)]
-    public DateTime HireDate { get; set; }
+    public DateTime DateOfBirth { get; set; }
 
     [Required(ErrorMessage = "Address is required")]
     [StringLength(250)]
@@ -36,5 +38,6 @@ public sealed class UpdateEmployeeRequest
     [Required(ErrorMessage = "Department is required")]
     public Guid DepartmentId { get; set; }
 
-    public Guid? BranchId { get; set; }
+    [Required(ErrorMessage = "Designation is required")]
+    public Guid DesignationId { get; set; }
 }

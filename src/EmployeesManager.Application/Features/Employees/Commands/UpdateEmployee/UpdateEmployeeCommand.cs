@@ -7,12 +7,13 @@ namespace EmployeesManager.Application.Features.Employees.Commands.UpdateEmploye
 public sealed record UpdateEmployeeCommand(
     Guid Id,
     string FirstName,
+    string? MiddleName,
     string LastName,
-    string NationalId,
     string PhoneNumber,
     string EmailAddress,
-    DateTime HireDate,
+    DateTime DateOfBirth,
     string Address,
+    Guid CountryId,
     Guid DepartmentId,
-    Guid? BranchId
+    Guid DesignationId
 ) : IRequest<Result<Updated>>, IEmployeeCommand;

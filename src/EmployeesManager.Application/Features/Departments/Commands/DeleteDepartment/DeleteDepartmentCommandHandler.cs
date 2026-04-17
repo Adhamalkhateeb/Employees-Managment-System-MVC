@@ -18,15 +18,15 @@ public sealed class DeleteDepartmentCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var department = await _context.Departments.FirstOrDefaultAsync(
+        var entity = await _context.Departments.FirstOrDefaultAsync(
             x => x.Id == command.Id,
             cancellationToken
         );
 
-        if (department is null)
+        if (entity is null)
             return DepartmentErrors.NotFound(command.Id);
 
-        _context.Departments.Remove(department);
+        _context.Departments.Remove(entity);
         await _context.SaveChangesAsync(cancellationToken);
         return Result.Deleted;
     }
