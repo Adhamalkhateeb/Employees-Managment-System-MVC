@@ -194,8 +194,10 @@ body {
   font-size: 15px;
 }
 .nav{
-  height: 75vh;
   overflow-y: hidden;
+}
+.sidebar-menu{
+  height: 75vh;
 }
 .side-L-btn{
   display: flex;
@@ -204,13 +206,17 @@ body {
   width: 100%;
   text-decoration: none;
   background-color: yellowgreen;
-  margin-bottom: 5px;
+  border-radius: 30px;
+  padding: 5px;
 }
 .side-R-btn{
   display: flex;
   justify-content: center;
   text-align: center;
   width: 100%;
+  border-radius: 30px;
+  margin-bottom: 5px;
   text-decoration: none;
   background-color: yellowgreen;
+  padding: 5px;
 }
